@@ -1,4 +1,4 @@
 .metadata/*
 */.classpath
-alarme/.classpath
-alarme/.settings/*
+*/.project
+*/.settings/*
