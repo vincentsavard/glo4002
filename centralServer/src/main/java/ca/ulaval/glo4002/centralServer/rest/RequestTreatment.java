@@ -18,15 +18,12 @@ public class RequestTreatment {
 	private String RESPONSE_TO_POST_REQUEST = "POST request received at central server";
 	private String EMERGENCY_URL = "http://localhost:8081/emergencyServer/";
 	private String A_POST_REQUEST = "simple request";
-
 	private HttpURLConnection emergencyUrlConnector;
 
 	@POST
 	@Path("{path}")
 	public String treatRequest(@PathParam("path") String path) {
-
 		String emergencyAnswer = null;
-
 		try {
 			emergencyAnswer = sendingPostResquest(EMERGENCY_URL, A_POST_REQUEST);
 		} catch (Exception e) {

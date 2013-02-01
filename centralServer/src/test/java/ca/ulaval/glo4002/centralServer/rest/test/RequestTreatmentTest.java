@@ -27,7 +27,6 @@ public class RequestTreatmentTest {
 
 	@Test
 	public void hasReceivedAPostRequestFromClient() throws Exception {
-
 		HttpURLConnection conn = (HttpURLConnection) new URL(CENTRAL_SERVER_URL)
 				.openConnection();
 		conn.setRequestMethod("POST");
@@ -45,7 +44,6 @@ public class RequestTreatmentTest {
 		writer.close();
 		reader.close();
 		assertTrue(answer.toString().startsWith(RESPONSE_TO_POST_REQUEST));
-
 	}
 
 	@Test

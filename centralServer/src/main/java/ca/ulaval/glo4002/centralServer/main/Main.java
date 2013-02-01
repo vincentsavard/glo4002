@@ -11,7 +11,6 @@ public class Main {
 	private static int PORT = 8080;
 
 	public static void main(String[] args) throws Exception {
-
 		Server server = new Server(PORT);
 		ServletContextHandler servletContextHandler = new ServletContextHandler(
 				server, "/");
@@ -25,6 +24,5 @@ public class Main {
 				"ca.ulaval.glo4002.centralServer.rest");
 		servletContextHandler.addServlet(jerseyServletHolder, "/*");
 		server.start();
-
 	}
 }
