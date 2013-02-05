@@ -26,9 +26,4 @@ public class HomeConnectionHandler {
 					+ response.getStatus());
 		}
 	}
-
-	public static void main(String args[]) {
-		HomeConnectionHandler homeConnectionHandler = new HomeConnectionHandler();
-		homeConnectionHandler.sendPostRequest("YAY");
-	}
 }

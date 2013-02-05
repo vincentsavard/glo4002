@@ -60,6 +60,5 @@ public class RequestTreatmentTest {
 		// FIXME need to start emergency server but i can't get it from here
 		// i'll need to find another way to test this...
 		// fail();
-
 	}
 }

@@ -1,7 +1,7 @@
 package ca.ulaval.glo4002.endToEndTesting;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import ca.ulaval.glo4002.centralServer.main.CentralServer;
@@ -10,14 +10,14 @@ import ca.ulaval.glo4002.emergencyServer.main.EmergencyServerMain;
 
 public class EndToEndTest {
 
-	@Before
-	public void setUp() throws Exception {
+	@BeforeClass
+	public static void setUp() throws Exception {
 		CentralServer.startServer();
 		EmergencyServerMain.startServer();
 	}
 
-	@After
-	public void tearDown() throws Exception {
+	@AfterClass
+	public static void tearDown() throws Exception {
 		CentralServer.stopServer();
 		EmergencyServerMain.stopServer();
 	}
