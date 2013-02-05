@@ -6,12 +6,14 @@ import org.eclipse.jetty.servlet.ServletHolder;
 
 import com.sun.jersey.spi.container.servlet.ServletContainer;
 
-public class Main {
+public class CentralServer {
 
 	private static int PORT = 8080;
+	private static Server server;
 
-	public static void main(String[] args) throws Exception {
-		Server server = new Server(PORT);
+	public static void startServer() throws Exception {
+
+		server = new Server(PORT);
 		ServletContextHandler servletContextHandler = new ServletContextHandler(
 				server, "/");
 		ServletHolder jerseyServletHolder = new ServletHolder(
@@ -24,5 +26,9 @@ public class Main {
 				"ca.ulaval.glo4002.centralServer.rest");
 		servletContextHandler.addServlet(jerseyServletHolder, "/*");
 		server.start();
+	}
+
+	public static void stopServer() throws Exception {
+		server.stop();
 	}
 }
