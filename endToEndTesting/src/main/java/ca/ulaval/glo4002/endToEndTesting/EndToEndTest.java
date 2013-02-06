@@ -6,20 +6,20 @@ import org.junit.Test;
 
 import ca.ulaval.glo4002.centralServer.main.CentralServer;
 import ca.ulaval.glo4002.client.Home;
-import ca.ulaval.glo4002.emergencyServer.main.EmergencyServerMain;
+import ca.ulaval.glo4002.emergencyServer.main.EmergencyServer;
 
 public class EndToEndTest {
 
 	@BeforeClass
 	public static void setUp() throws Exception {
 		CentralServer.startServer();
-		EmergencyServerMain.startServer();
+		EmergencyServer.startServer();
 	}
 
 	@AfterClass
 	public static void tearDown() throws Exception {
 		CentralServer.stopServer();
-		EmergencyServerMain.stopServer();
+		EmergencyServer.stopServer();
 	}
 
 	@Test

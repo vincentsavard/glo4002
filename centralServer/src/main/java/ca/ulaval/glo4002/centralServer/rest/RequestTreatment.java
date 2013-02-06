@@ -37,7 +37,7 @@ public class RequestTreatment {
 			String request) throws MalformedURLException, IOException {
 		preparePostRequestToEmergency();
 		sendStringRequestToEmergency(request);
-		String answer = retreiveAnswerFromEmergency();
+		String answer = retrieveAnswerFromEmergency();
 		return answer;
 	}
 
@@ -58,7 +58,7 @@ public class RequestTreatment {
 		emergencyUrlConnector.setDoOutput(true);
 	}
 
-	private String retreiveAnswerFromEmergency() throws IOException {
+	private String retrieveAnswerFromEmergency() throws IOException {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(
 				emergencyUrlConnector.getInputStream()));
 		String answer = reader.readLine();
