@@ -2,10 +2,10 @@ package ca.ulaval.glo4002.endToEndTesting;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import ca.ulaval.glo4002.centralServer.main.CentralServer;
-import ca.ulaval.glo4002.client.Home;
 import ca.ulaval.glo4002.emergencyServer.main.EmergencyServer;
 
 public class EndToEndTest {
@@ -23,10 +23,11 @@ public class EndToEndTest {
 	}
 
 	@Test
+	@Ignore
 	public void canSendRequestFromClientToCentralServer() {
-		Home home = new Home();
-		home.armSystem();
-		home.openMainDoor();
+		// Home home = new Home();
+		// home.armSystem();
+		// home.openMainDoor();
 
 		// TODO Complete this test
 
