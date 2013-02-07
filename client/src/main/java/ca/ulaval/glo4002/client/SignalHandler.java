@@ -1,21 +1,27 @@
 package ca.ulaval.glo4002.client;
 
-public class DetectorSignalHandler {
+public class SignalHandler {
 
 	protected CommunicationUnit communicationUnit;
 	protected SystemState systemState;
-	private static DetectorSignalHandler detectorSignalHandler;
+	private static SignalHandler detectorSignalHandler;
 
-	public DetectorSignalHandler() {
+	public SignalHandler() {
 		initHomeConnectionHandler();
 		initSystemState();
 	}
 
-	public static DetectorSignalHandler getInstance() {
+	public static SignalHandler getInstance() {
 		if (detectorSignalHandler == null) {
-			detectorSignalHandler = new DetectorSignalHandler();
+			detectorSignalHandler = new SignalHandler();
 		}
 		return detectorSignalHandler;
+	}
+
+	public void treatSignal(Signal signalSource) {
+		if (signalSource.getDelayToContactEmergency() != 0) {
+			// TODO
+		}
 	}
 
 	public void sendRequestToCentralServer(String info) {
@@ -38,7 +44,4 @@ public class DetectorSignalHandler {
 		return communicationUnit;
 	}
 
-	public void treatSignal(Detector signalSource) {
-
-	}
 }
