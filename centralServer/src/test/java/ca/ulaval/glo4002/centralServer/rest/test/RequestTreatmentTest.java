@@ -18,7 +18,7 @@ import ca.ulaval.glo4002.centralServer.main.CentralServer;
 public class RequestTreatmentTest {
 
 	private String RESPONSE_TO_POST_REQUEST = "POST request received at central server";
-	private String CENTRAL_SERVER_URL = "http://localhost:8080/";
+	private String CENTRAL_SERVER_URL = "http://localhost:8080/central";
 	private String A_STRING = "just some text";
 
 	@BeforeClass

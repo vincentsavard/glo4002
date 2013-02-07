@@ -25,7 +25,8 @@ public class RequestTreatment {
 	public String treatRequest(@PathParam("path") String path) {
 		String emergencyAnswer = null;
 		try {
-			emergencyAnswer = sendingPostResquest(EMERGENCY_URL, A_POST_REQUEST);
+			// emergencyAnswer = sendingPostResquest(EMERGENCY_URL,
+			// A_POST_REQUEST);
 		} catch (Exception e) {
 			// TODO the emergency server is probably no started
 			e.printStackTrace();

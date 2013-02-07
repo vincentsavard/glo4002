@@ -1,14 +1,30 @@
 package ca.ulaval.glo4002.client;
 
-public class SignalHandler {
+import java.util.HashMap;
 
-	protected CommunicationUnit communicationUnit;
-	protected SystemState systemState;
+public class SignalHandler implements DelayResponder {
+
+	private CommunicationUnit communicationUnit;
+	private SystemState systemState; // FIXME Use this or remove it
+	private DelayManager delayManager;
+	private MessageEncoder messageEncoder;
+
 	private static SignalHandler detectorSignalHandler;
 
 	public SignalHandler() {
-		initHomeConnectionHandler();
-		initSystemState();
+		systemState = new SystemState();
+		communicationUnit = new CommunicationUnit();
+		delayManager = new DelayManager(this);
+		messageEncoder = new MessageEncoder();
+	}
+
+	protected SignalHandler(DelayManager delayManager,
+			CommunicationUnit communicationUnit, SystemState systemState,
+			MessageEncoder messageEncoder) {
+		this.systemState = systemState;
+		this.communicationUnit = communicationUnit;
+		this.delayManager = delayManager;
+		this.messageEncoder = messageEncoder;
 	}
 
 	public static SignalHandler getInstance() {
@@ -20,28 +36,27 @@ public class SignalHandler {
 
 	public void treatSignal(Signal signalSource) {
 		if (signalSource.getDelayToContactEmergency() != 0) {
-			// TODO
+			delayManager.startDelay(signalSource.getDelayToContactEmergency(),
+					signalSource);
+		} else {
+			delayManager.cancelDelay();
+			sendRequestToCentralServer(signalSource);
 		}
 	}
 
-	public void sendRequestToCentralServer(String info) {
-		communicationUnit.sendPostRequest(info);
+	public void sendRequestToCentralServer(Signal signal) {
+		HashMap<String, String> data = new HashMap<String, String>();
+		data.put("Detector", signal.getDetectorType().name());
+		String encodedData = messageEncoder.generateEncodedMessage(data);
+		communicationUnit.sendPostRequest(encodedData);
 	}
 
-	protected void initHomeConnectionHandler() {
-		communicationUnit = new CommunicationUnit();
-	}
-
-	protected void initSystemState() {
-		systemState = new SystemState();
-	}
-
-	public SystemState getSystemState() {
-		return systemState;
-	}
-
-	public CommunicationUnit getCommunicationUnit() {
-		return communicationUnit;
+	@Override
+	public void delayExpired(Object identifier) {
+		if (!(identifier instanceof Signal)) {
+			throw new RuntimeException("Passed object must be a Signal");
+		}
+		sendRequestToCentralServer((Signal) identifier);
 	}
 
 }
