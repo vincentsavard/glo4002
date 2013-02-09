@@ -8,38 +8,36 @@ import com.sun.jersey.spi.container.servlet.ServletContainer;
 
 public class EmergencyServer {
 
-	private static int PORT = 8081;
-	private static String packageName = "ca.ulaval.glo4002.emergencyServer.rest";
-	private static String contextPath = "/";
-	private static String pathSpec = "/*";
-	
-	
-	private static Server server;
+	private int PORT = 8081;
+	private String packageName = "ca.ulaval.glo4002.emergencyServer.rest";
+	private String contextPath = "/";
+	private String pathSpec = "/*";
 
-	public static void startServer() throws Exception {
+	private Server server;
+
+	public void startServer() throws Exception {
 		server = new Server(PORT);
 		ServletContextHandler servletContextHandler;
 		ServletHolder jerseyServletHolder;
-		
+
 		servletContextHandler = new ServletContextHandler(server, contextPath);
 		jerseyServletHolder = createJerseyServletHolder(packageName);
 		servletContextHandler.addServlet(jerseyServletHolder, pathSpec);
 		server.start();
 	}
-	
-	public static ServletHolder createJerseyServletHolder(String packageName) {
+
+	public ServletHolder createJerseyServletHolder(String packageName) {
 		ServletHolder jerseyServletHolder = new ServletHolder(
 				ServletContainer.class);
 		jerseyServletHolder.setInitParameter(
 				"com.sun.jersey.config.property.resourceConfigClass",
 				"com.sun.jersey.api.core.PackagesResourceConfig");
 		jerseyServletHolder.setInitParameter(
-				"com.sun.jersey.config.property.packages",
-				packageName);
+				"com.sun.jersey.config.property.packages", packageName);
 		return jerseyServletHolder;
 	}
 
-	public static void stopServer() throws Exception {
+	public void stopServer() throws Exception {
 		server.stop();
 	}
 }

@@ -10,7 +10,6 @@ import java.net.URL;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import ca.ulaval.glo4002.centralServer.main.CentralServer;
@@ -20,16 +19,16 @@ public class RequestTreatmentTest {
 	private String RESPONSE_TO_POST_REQUEST = "POST request received at central server";
 	private String CENTRAL_SERVER_URL = "http://localhost:8080/central";
 	private String A_STRING = "just some text";
+	private static CentralServer centralServer = new CentralServer();
 
 	@BeforeClass
 	public static void initialize() throws Exception {
-		// the main is starting the server
-		CentralServer.startServer();
+		centralServer.startServer();
 	}
 
 	@AfterClass
 	public static void tearDown() throws Exception {
-		CentralServer.stopServer();
+		centralServer.stopServer();
 	}
 
 	@Test
@@ -53,12 +52,4 @@ public class RequestTreatmentTest {
 		assertTrue(answer.toString().startsWith(RESPONSE_TO_POST_REQUEST));
 	}
 
-	@Test
-	@Ignore
-	public void hasSentPosTRequestToEmergencyServer() throws Exception {
-
-		// FIXME need to start emergency server but i can't get it from here
-		// i'll need to find another way to test this...
-		// fail();
-	}
 }
