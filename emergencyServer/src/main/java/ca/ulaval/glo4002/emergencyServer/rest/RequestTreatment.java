@@ -7,12 +7,12 @@ import javax.ws.rs.PathParam;
 @Path("/")
 public class RequestTreatment {
 
-	private String RESPONSE_TO_POST_REQUEST = "POST request received at ermergency server";
+    private String RESPONSE_TO_POST_REQUEST = "POST request received at emergency server";
 
-	@POST
-	@Path("{path}")
-	public String treatRequest(@PathParam("path") String path) {
-		return RESPONSE_TO_POST_REQUEST;
-	}
+    @POST
+    @Path("{path}")
+    public String treatRequest(@PathParam("path") String path) {
+        return RESPONSE_TO_POST_REQUEST;
+    }
 
 }

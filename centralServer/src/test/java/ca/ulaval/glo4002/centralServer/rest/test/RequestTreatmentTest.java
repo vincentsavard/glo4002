@@ -16,40 +16,40 @@ import ca.ulaval.glo4002.centralServer.main.CentralServer;
 
 public class RequestTreatmentTest {
 
-	private String RESPONSE_TO_POST_REQUEST = "POST request received at central server";
-	private String CENTRAL_SERVER_URL = "http://localhost:8080/central";
-	private String A_STRING = "just some text";
-	private static CentralServer centralServer = new CentralServer();
+    private String RESPONSE_TO_POST_REQUEST = "POST request received at central server";
+    private String CENTRAL_SERVER_URL = "http://localhost:8080/central";
+    private String A_STRING = "just some text";
+    private static CentralServer centralServer = new CentralServer();
 
-	@BeforeClass
-	public static void initialize() throws Exception {
-		centralServer.startServer();
-	}
+    @BeforeClass
+    public static void initialize() throws Exception {
+        centralServer.startServer();
+    }
 
-	@AfterClass
-	public static void tearDown() throws Exception {
-		centralServer.stopServer();
-	}
+    @AfterClass
+    public static void tearDown() throws Exception {
+        centralServer.stopServer();
+    }
 
-	@Test
-	public void hasReceivedAPostRequestFromClient() throws Exception {
-		HttpURLConnection conn = (HttpURLConnection) new URL(CENTRAL_SERVER_URL)
-				.openConnection();
-		conn.setRequestMethod("POST");
-		conn.setDoOutput(true);
-		OutputStreamWriter writer = new OutputStreamWriter(
-				conn.getOutputStream());
-		writer.write(A_STRING);
-		writer.flush();
-		writer.close();
+    @Test
+    public void hasReceivedAPostRequestFromClient() throws Exception {
+        HttpURLConnection conn = (HttpURLConnection) new URL(CENTRAL_SERVER_URL)
+                .openConnection();
+        conn.setRequestMethod("POST");
+        conn.setDoOutput(true);
+        OutputStreamWriter writer = new OutputStreamWriter(
+                conn.getOutputStream());
+        writer.write(A_STRING);
+        writer.flush();
+        writer.close();
 
-		// Get the answer
-		BufferedReader reader = new BufferedReader(new InputStreamReader(
-				conn.getInputStream()));
-		String answer = reader.readLine();
-		writer.close();
-		reader.close();
-		assertTrue(answer.toString().startsWith(RESPONSE_TO_POST_REQUEST));
-	}
+        // Get the answer
+        BufferedReader reader = new BufferedReader(new InputStreamReader(
+                conn.getInputStream()));
+        String answer = reader.readLine();
+        writer.close();
+        reader.close();
+        assertTrue(answer.toString().startsWith(RESPONSE_TO_POST_REQUEST));
+    }
 
 }
