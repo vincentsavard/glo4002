@@ -10,11 +10,11 @@ public class DelayManagerTest {
 
     private final int AN_IDENTIFIER = 2;
     private final int A_DELAY = 2;
-    private DelayManager delayManager;
+    private DelayTimer delayManager;
 
     @Before
     public void setUp() {
-        delayManager = new DelayManager(mock(DelayResponder.class));
+        delayManager = new DelayTimer(mock(DelayTimerDelegate.class));
     }
 
     @Test

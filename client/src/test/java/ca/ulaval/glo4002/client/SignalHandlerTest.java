@@ -22,7 +22,7 @@ public class SignalHandlerTest {
     @Mock
     private SystemState systemState;
     @Mock
-    private DelayManager delayManager;
+    private DelayTimer delayManager;
     @Mock
     private MessageEncoder messageEncoder;
     @Mock

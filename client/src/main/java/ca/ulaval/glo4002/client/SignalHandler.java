@@ -2,11 +2,11 @@ package ca.ulaval.glo4002.client;
 
 import java.util.HashMap;
 
-public class SignalHandler implements DelayResponder {
+public class SignalHandler implements DelayTimerDelegate {
 
     private CommunicationUnit communicationUnit;
     private SystemState systemState; // FIXME Use this or remove it
-    private DelayManager delayManager;
+    private DelayTimer delayManager;
     private MessageEncoder messageEncoder;
 
     private static SignalHandler detectorSignalHandler;
@@ -14,11 +14,11 @@ public class SignalHandler implements DelayResponder {
     private SignalHandler() {
         systemState = new SystemState();
         communicationUnit = new CommunicationUnit();
-        delayManager = new DelayManager(this);
+        delayManager = new DelayTimer(this);
         messageEncoder = new MessageEncoder();
     }
 
-    protected SignalHandler(DelayManager delayManager,
+    protected SignalHandler(DelayTimer delayManager,
             CommunicationUnit communicationUnit, SystemState systemState,
             MessageEncoder messageEncoder) {
         this.systemState = systemState;
