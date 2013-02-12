@@ -6,7 +6,7 @@ import static org.mockito.Mockito.*;
 import org.junit.Before;
 import org.junit.Test;
 
-public class DelayManagerTest {
+public class DelayTimerTest {
 
     private final int AN_IDENTIFIER = 2;
     private final int A_DELAY = 2;
