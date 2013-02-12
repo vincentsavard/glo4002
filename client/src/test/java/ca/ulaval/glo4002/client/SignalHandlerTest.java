@@ -34,7 +34,7 @@ public class SignalHandlerTest {
     private final int A_DELAY = 10;
     private final int A_ZERO_DELAY = 0;
     private final String ANY_STRING = "a very common string";
-    private final DetectorType A_DETECTOR_TYPE = Signal.DetectorType.MainDoor;
+    private final DetectorType A_DETECTOR_TYPE = Signal.DetectorType.MAIN_DOOR;
 
     @Before
     public void setUp() {

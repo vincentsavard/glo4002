@@ -48,7 +48,7 @@ public class EndToEndTest {
     @Test
     public void endToEndTest() {
         softwareDetector.sendSignalToSignalHandler(
-                Signal.DetectorType.SecondaryDoor,
+                Signal.DetectorType.SECONDARY_DOOR,
                 TIME_TO_DISARM_THE_ALARM_WHEN_SECONDARY_DOOR_OPENS);
         String lastResponseFromServer = signalHandler.getLastResponseReceived();
 

@@ -3,7 +3,7 @@ package ca.ulaval.glo4002.client;
 public class Signal {
 
     public enum DetectorType {
-        MainDoor, SecondaryDoor, MovementDetector
+        MAIN_DOOR, SECONDARY_DOOR, MOVEMENT
     };
 
     private DetectorType detectorType;

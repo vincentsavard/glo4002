@@ -9,7 +9,7 @@ import ca.ulaval.glo4002.client.Signal.DetectorType;
 
 public class SoftwareDetectorAdapterTest {
 
-    private DetectorType A_DETECTOR_TYPE = DetectorType.MainDoor;
+    private DetectorType A_DETECTOR_TYPE = DetectorType.MAIN_DOOR;
     private int A_DELAY = 10;
 
     @Test
