@@ -1,4 +1,4 @@
-package ca.ulaval.glo4002.client;
+package ca.ulaval.glo4002.utilities;
 
 public interface DelayTimerDelegate {
 

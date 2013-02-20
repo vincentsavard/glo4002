@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import ca.ulaval.glo4002.centralServer.main.CentralServer;
@@ -44,7 +43,6 @@ public class EndToEndTest {
         emergencyServer.stopServer();
     }
 
-    @Ignore
     @Test
     public void endToEndTest() {
         softwareDetector.sendSignalToSignalHandler(

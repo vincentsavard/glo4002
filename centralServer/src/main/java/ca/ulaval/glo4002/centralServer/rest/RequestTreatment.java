@@ -22,13 +22,12 @@ public class RequestTreatment {
 
     @POST
     @Path("{path}")
-    public String treatRequest(@PathParam("path") String path) {
+    public String treatRequest(@PathParam("path") String path)
+            throws MalformedURLException, IOException {
         String emergencyAnswer = null;
-        try {
-            emergencyAnswer = sendingPostResquest(EMERGENCY_URL, A_POST_REQUEST);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        emergencyAnswer = sendingPostResquest(EMERGENCY_URL, A_POST_REQUEST);
+
         return RESPONSE_TO_POST_REQUEST + emergencyAnswer;
     }
 

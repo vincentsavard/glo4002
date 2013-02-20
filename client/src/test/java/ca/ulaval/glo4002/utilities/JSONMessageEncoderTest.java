@@ -1,4 +1,4 @@
-package ca.ulaval.glo4002.client;
+package ca.ulaval.glo4002.utilities;
 
 import static org.junit.Assert.*;
 
@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 import org.junit.Test;
 
-public class MessageEncoderTest {
+public class JSONMessageEncoderTest {
 
     @Test
     public void canGenerateEncodedMessageUsingJson() {
@@ -14,8 +14,8 @@ public class MessageEncoderTest {
         map.put("Type", "ProblemType");
         map.put("Address", "theAddress");
 
-        MessageEncoder encoder = new MessageEncoder();
-        String encodedMessage = encoder.generateEncodedMessage(map);
+        JSONMessageEncoder encoder = new JSONMessageEncoder();
+        String encodedMessage = encoder.generateEncodedMessageUsingJSON(map);
         String expectedMessage = "{\"Type\":\"ProblemType\",\"Address\":\"theAddress\"}";
 
         assertEquals(expectedMessage, encodedMessage);

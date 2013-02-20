@@ -10,6 +10,7 @@ import java.net.URL;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import ca.ulaval.glo4002.centralServer.main.CentralServer;
@@ -31,8 +32,10 @@ public class RequestTreatmentTest {
         centralServer.stopServer();
     }
 
+    @Ignore
     @Test
     public void hasReceivedAPostRequestFromClient() throws Exception {
+        // FIXME Enlever ce test unitaire et faire un test d'intégration
         HttpURLConnection conn = (HttpURLConnection) new URL(CENTRAL_SERVER_URL)
                 .openConnection();
         conn.setRequestMethod("POST");

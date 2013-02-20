@@ -1,18 +1,17 @@
-package ca.ulaval.glo4002.client;
+package ca.ulaval.glo4002.communication;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
-public class CommunicationUnit {
-
+public class POSTRequestSender {
     private static final String SERVER_URL = "http://localhost:8080/test";
     private static final int RESPONSE_OK = 200;
     private WebResource webResource;
 
     private String lastResponse;
 
-    public CommunicationUnit() {
+    public POSTRequestSender() {
         Client client = Client.create();
         webResource = client.resource(SERVER_URL);
     }

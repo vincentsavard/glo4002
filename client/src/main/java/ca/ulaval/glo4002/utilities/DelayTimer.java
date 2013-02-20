@@ -1,4 +1,4 @@
-package ca.ulaval.glo4002.client;
+package ca.ulaval.glo4002.utilities;
 
 import java.util.Timer;
 import java.util.TimerTask;

@@ -1,4 +1,4 @@
-package ca.ulaval.glo4002.client;
+package ca.ulaval.glo4002.utilities;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
