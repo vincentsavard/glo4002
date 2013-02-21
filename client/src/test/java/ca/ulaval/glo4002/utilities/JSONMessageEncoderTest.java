@@ -15,7 +15,7 @@ public class JSONMessageEncoderTest {
         map.put("Address", "theAddress");
 
         JSONMessageEncoder encoder = new JSONMessageEncoder();
-        String encodedMessage = encoder.generateEncodedMessageUsingJSON(map);
+        String encodedMessage = encoder.generateEncodedMessage(map);
         String expectedMessage = "{\"Type\":\"ProblemType\",\"Address\":\"theAddress\"}";
 
         assertEquals(expectedMessage, encodedMessage);

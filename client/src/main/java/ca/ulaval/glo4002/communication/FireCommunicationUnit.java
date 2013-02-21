@@ -1,14 +1,22 @@
 package ca.ulaval.glo4002.communication;
 
+import java.util.HashMap;
+
 public class FireCommunicationUnit extends CommunicationUnit {
 
+    private static final String EMERGENCY_TYPE = "fire";
+    private static final String ADDRESS = "123 rue ville";
+
     public FireCommunicationUnit() {
-        ressource = "intrusion";
+        super();
+        resource = EMERGENCY_TYPE;
+        resourceAttributes = generateResourceAttributes();
     }
-
-    @Override
-    public void send() {
-
+    
+    private HashMap<String, String> generateResourceAttributes() {
+        protocolBuilder.addEmergencyType(EMERGENCY_TYPE);
+        protocolBuilder.addClientAddress(ADDRESS);
+        return protocolBuilder.generate();
     }
 
 }

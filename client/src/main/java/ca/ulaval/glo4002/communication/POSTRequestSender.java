@@ -20,9 +20,9 @@ public class POSTRequestSender {
         return webResource;
     }
 
-    public void sendPostRequest(String info) throws RuntimeException {
+    public void sendPostRequest(String resource, String messageToSend) throws RuntimeException {
         ClientResponse response = webResource.type("Application/xml").post(
-                ClientResponse.class, info);
+                ClientResponse.class, messageToSend);
         if (response.getStatus() != RESPONSE_OK) {
             throw new RuntimeException("Failed: HTTP error code: "
                     + response.getStatus());
