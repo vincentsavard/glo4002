@@ -8,7 +8,6 @@ import org.junit.Test;
 
 public class DelayTimerTest {
 
-    private final int AN_IDENTIFIER = 2;
     private final int A_DELAY = 2;
     private DelayTimer delayManager;
 
@@ -19,13 +18,13 @@ public class DelayTimerTest {
 
     @Test
     public void canStartDelay() {
-        delayManager.startDelay(A_DELAY, AN_IDENTIFIER);
+        delayManager.startDelay(A_DELAY);
         assertTrue(delayManager.isRunning());
     }
 
     @Test
     public void canDestroyTimer() {
-        delayManager.startDelay(A_DELAY, AN_IDENTIFIER);
+        delayManager.startDelay(A_DELAY);
         delayManager.cancelDelay();
 
         assertFalse(delayManager.isRunning());

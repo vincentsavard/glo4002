@@ -10,9 +10,4 @@ public class IntrusionPolicy extends Policy {
         communicationUnit = new IntrusionCommunicationUnit();
     }
 
-    @Override
-    public void executePolicy() {
-
-    }
-
 }

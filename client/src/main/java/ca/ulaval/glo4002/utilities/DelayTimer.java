@@ -14,8 +14,7 @@ public class DelayTimer {
         this.delayTimerDelegate = delayTimerDelegate;
     }
 
-    public void startDelay(int delayInSeconds, Object identifier) {
-        this.identifier = identifier;
+    public void startDelay(int delayInSeconds) {
         if (timer != null) {
             timer.cancel();
             timer = null;
@@ -28,7 +27,7 @@ public class DelayTimer {
     private class TimerAction extends TimerTask {
         @Override
         public void run() {
-            delayTimerDelegate.delayExpired(identifier);
+            delayTimerDelegate.delayExpired();
             timer.cancel();
             timer = null;
         }

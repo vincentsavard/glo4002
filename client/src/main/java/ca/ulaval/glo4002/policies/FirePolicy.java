@@ -11,7 +11,7 @@ public class FirePolicy extends Policy {
     }
 
     @Override
-    public void executePolicy() {
+    public void execute(int zone) {
     }
 
 }
