@@ -8,7 +8,6 @@ public class DelayTimer {
     private final int MILLISECONDS_PER_SECOND = 1000;
     private Timer timer;
     private DelayTimerDelegate delayTimerDelegate;
-    private Object identifier;
 
     public DelayTimer(DelayTimerDelegate delayTimerDelegate) {
         this.delayTimerDelegate = delayTimerDelegate;
@@ -37,12 +36,10 @@ public class DelayTimer {
         if (timer != null) {
             timer.cancel();
             timer = null;
-            identifier = null;
         }
     }
 
     public boolean isRunning() {
-
         return timer != null;
     }
 }

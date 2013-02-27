@@ -12,7 +12,6 @@ import ca.ulaval.glo4002.devices.AlarmSystem;
 
 public class PolicyTest {
 
-    private final int ZONE_OF_THE_DETECTOR = 5;
     private Policy policy;
 
     @Mock
@@ -29,14 +28,14 @@ public class PolicyTest {
     @Test
     public void whenSystemIsNotArmedThereIsNoMessageSent() {
         doReturn(false).when(alarmSystem).isArmed();
-        policy.execute(ZONE_OF_THE_DETECTOR);
+        policy.execute();
         verify(communicationUnit, never()).send();
     }
 
     @Test
     public void whenSystemIsArmedThereIsAMessageSent() {
         doReturn(true).when(alarmSystem).isArmed();
-        policy.execute(ZONE_OF_THE_DETECTOR);
+        policy.execute();
         verify(communicationUnit).send();
     }
 

@@ -9,28 +9,23 @@ public class POSTRequestSender {
     private static final int RESPONSE_OK = 200;
     private WebResource webResource;
 
-    private String lastResponse;
-
     public POSTRequestSender() {
         Client client = Client.create();
         webResource = client.resource(SERVER_URL);
     }
 
-    public WebResource getWebResource() {
-        return webResource;
+    protected POSTRequestSender(WebResource ressource) {
+        webResource = ressource;
     }
 
-    public void sendPostRequest(String resource, String messageToSend) throws RuntimeException {
-        ClientResponse response = webResource.type("Application/xml").post(
+    public String sendPostRequest(String resource, String messageToSend)
+            throws RuntimeException {
+        ClientResponse response = webResource.type("application/json").post(
                 ClientResponse.class, messageToSend);
         if (response.getStatus() != RESPONSE_OK) {
-            throw new RuntimeException("Failed: HTTP error code: "
+            throw new HTTPException("Failed: HTTP error code: "
                     + response.getStatus());
         }
-        lastResponse = response.getEntity(String.class);
-    }
-
-    public String getLastResponse() {
-        return lastResponse;
+        return response.toString();
     }
 }

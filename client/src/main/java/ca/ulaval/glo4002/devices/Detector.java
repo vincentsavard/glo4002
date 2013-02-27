@@ -7,10 +7,10 @@ public class Detector {
     private Policy policy;
 
     public Detector(Policy policy) {
-	    this.policy = policy;
+        this.policy = policy;
     }
 
-	public void trigger() {
-    	policy.executePolicy();
+    public void trigger() {
+        policy.execute();
     }
 }

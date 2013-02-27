@@ -4,23 +4,35 @@ import java.util.HashMap;
 
 import ca.ulaval.glo4002.utilities.JSONMessageEncoder;
 
-public abstract class CommunicationUnit {
+public class CommunicationUnit {
+    public static enum CommunicationType {
+        FIRE, INTRUSION, REGISTRATION
+    };
 
-    private JSONMessageEncoder messageEncoder;
-    private POSTRequestSender requestSender;
+    protected JSONMessageEncoder messageEncoder = new JSONMessageEncoder();
+    protected POSTRequestSender postRequestSender = new POSTRequestSender();;
     protected String resource;
-    protected HashMap<String, String> resourceAttributes;
-    protected ProtocolBuilder protocolBuilder;
 
-    public CommunicationUnit() {
-        messageEncoder = new JSONMessageEncoder();
-        requestSender = new POSTRequestSender();
-        protocolBuilder = new ProtocolBuilder();
+    public CommunicationUnit(int userID, CommunicationType communicationType) {
+        resource = generateResourceURL(userID, communicationType);
+    }
+
+    protected CommunicationUnit() {
+        resource = CommunicationType.REGISTRATION.toString();
+    }
+
+    private String generateResourceURL(int userID,
+            CommunicationType communicationType) {
+        return String.format("%s/%d", communicationType.toString(), userID);
     }
 
     public void send() {
-        String messageToSend = messageEncoder.generateEncodedMessage(resourceAttributes);
-        requestSender.sendPostRequest(resource, messageToSend);
+        send(new HashMap<String, String>());
     }
 
+    public void send(HashMap<String, String> attributes) {
+        String messageToSend = messageEncoder
+                .generateEncodedMessage(attributes);
+        postRequestSender.sendPostRequest(resource, messageToSend);
+    }
 }

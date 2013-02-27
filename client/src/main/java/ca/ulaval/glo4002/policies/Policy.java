@@ -10,9 +10,10 @@ public abstract class Policy {
 
     public Policy(AlarmSystem alarmSystem) {
         this.alarmSystem = alarmSystem;
+
     }
 
-    public void execute(int zone) {
+    public void execute() {
         if (alarmSystem.isArmed()) {
             sendMessage();
         }
