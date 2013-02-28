@@ -7,19 +7,19 @@ import javax.ws.rs.PathParam;
 import ca.ulaval.glo4002.centralServer.treatment.PoliceTreatment;
 import ca.ulaval.glo4002.centralServer.user.UserNotFoundException;
 
-@Path("/Police/")
-public class PoliceResource {
+@Path("/client/")
+public class EmergencyResource {
 
     private PoliceTreatment policeTreatment;
     private final int OK = 0;
     private final int ERROR = 1;
 
-    public PoliceResource() {
+    public EmergencyResource() {
         policeTreatment = new PoliceTreatment();
     }
 
     @GET
-    @Path("{userId}")
+    @Path("{userId}/Police")
     public int askForPoliceAssistance(
             @PathParam("userId") String userIdPassedByGetRequest) {
         try {

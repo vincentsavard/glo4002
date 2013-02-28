@@ -20,7 +20,4 @@ public abstract class EmergencyTreatment {
         this.communicationUnit = communicationUnit;
     }
 
-    public void send() {
-        // FIXME
-    }
 }
