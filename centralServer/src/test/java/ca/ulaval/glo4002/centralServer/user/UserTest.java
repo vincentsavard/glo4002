@@ -11,6 +11,7 @@ public class UserTest {
     private static final int EXPECTED_ID = 1;
     private static final String EXPECTED_ADRESS = "An Adress";
     private static final String AN_ADRESS = "An Adress";
+
     private User user;
 
     @Before

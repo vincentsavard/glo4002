@@ -5,8 +5,10 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
 public class POSTRequestSender {
+
     private static final String SERVER_URL = "http://localhost:8080/test";
     private static final int RESPONSE_OK = 200;
+
     private WebResource webResource;
 
     public POSTRequestSender() {
@@ -14,17 +16,14 @@ public class POSTRequestSender {
         webResource = client.resource(SERVER_URL);
     }
 
-    protected POSTRequestSender(WebResource ressource) {
+    protected POSTRequestSender(final WebResource ressource) {
         webResource = ressource;
     }
 
-    public String sendPostRequest(String resource, String messageToSend)
-            throws RuntimeException {
-        ClientResponse response = webResource.type("application/json").post(
-                ClientResponse.class, messageToSend);
+    public String sendPostRequest(final String resource, final String messageToSend) throws RuntimeException {
+        ClientResponse response = webResource.type("application/json").post(ClientResponse.class, messageToSend);
         if (response.getStatus() != RESPONSE_OK) {
-            throw new HTTPException("Failed: HTTP error code: "
-                    + response.getStatus());
+            throw new HTTPException("Failed: HTTP error code: " + response.getStatus());
         }
         return response.toString();
     }

@@ -6,7 +6,7 @@ public class Detector {
 
     private Policy policy;
 
-    public Detector(Policy policy) {
+    public Detector(final Policy policy) {
         this.policy = policy;
     }
 

@@ -20,6 +20,7 @@ public class AlarmSystemTest {
 
     @Mock
     private DelayTimer delayTimer;
+
     @InjectMocks
     private AlarmSystem alarmSystem;
 
@@ -27,10 +28,10 @@ public class AlarmSystemTest {
     public void setUp() {
         alarmSystem = new AlarmSystem();
         MockitoAnnotations.initMocks(this);
-
         doAnswer(new Answer<Object>() {
+
             @Override
-            public Object answer(InvocationOnMock invocation) throws Throwable {
+            public Object answer(final InvocationOnMock invocation) throws Throwable {
                 alarmSystem.delayExpired();
                 return null;
             }
@@ -43,30 +44,26 @@ public class AlarmSystemTest {
     }
 
     @Test
-    public void unArmedSystemIsArmedWhenMethodArmIsCalled()
-            throws BadStateException {
+    public void unArmedSystemIsArmedWhenMethodArmIsCalled() throws BadStateException {
         alarmSystem.arm();
         assertTrue(alarmSystem.isArmed());
     }
 
     @Test
-    public void armedSystemIsDisarmedWhenMethodDisarmedIsCalled()
-            throws BadStateException {
+    public void armedSystemIsDisarmedWhenMethodDisarmedIsCalled() throws BadStateException {
         alarmSystem.arm();
         alarmSystem.disarm();
         assertFalse(alarmSystem.isArmed());
     }
 
     @Test(expected = BadStateException.class)
-    public void systemNotReadyThrowsExceptionWhenMethodArmIsCalled()
-            throws BadStateException {
+    public void systemNotReadyThrowsExceptionWhenMethodArmIsCalled() throws BadStateException {
         alarmSystem.setNotReady();
         alarmSystem.arm();
     }
 
     @Test
-    public void systemSetNotReadyAndSetReadyCanBeArmed()
-            throws BadStateException {
+    public void systemSetNotReadyAndSetReadyCanBeArmed() throws BadStateException {
         alarmSystem.setNotReady();
         alarmSystem.setReady();
         alarmSystem.arm();
@@ -74,8 +71,7 @@ public class AlarmSystemTest {
     }
 
     @Test
-    public void whenMethodStartDelayIsCalledTheDelayIsStarted()
-            throws BadStateException {
+    public void whenMethodStartDelayIsCalledTheDelayIsStarted() throws BadStateException {
         alarmSystem.arm();
         verify(delayTimer).startDelay(DELAY_IN_SECOND_BEFORE_ARMING);
     }
@@ -87,13 +83,11 @@ public class AlarmSystemTest {
     }
 
     @Test
-    public void whenArmingSystemIfSystemIsDisarmedBeforeDelayExpiredItIsStillDisarmedAfterDelay()
-            throws BadStateException {
+    public void whenArmingSystemIfSystemIsDisarmedBeforeDelayExpiredItIsStillDisarmedAfterDelay() throws BadStateException {
         AlarmSystem alarmSystemWithDelay = new AlarmSystem();
         alarmSystemWithDelay.arm();
         alarmSystemWithDelay.disarm();
         alarmSystemWithDelay.delayExpired();
         assertFalse(alarmSystemWithDelay.isArmed());
     }
-
 }

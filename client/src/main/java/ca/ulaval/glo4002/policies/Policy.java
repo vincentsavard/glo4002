@@ -8,7 +8,7 @@ public abstract class Policy {
     protected CommunicationUnit communicationUnit;
     protected AlarmSystem alarmSystem;
 
-    public Policy(AlarmSystem alarmSystem) {
+    public Policy(final AlarmSystem alarmSystem) {
         this.alarmSystem = alarmSystem;
 
     }
@@ -24,8 +24,7 @@ public abstract class Policy {
     }
 
     // for test purpose only
-    protected Policy(AlarmSystem alarmSystem,
-            CommunicationUnit communicationUnit) {
+    protected Policy(final AlarmSystem alarmSystem, final CommunicationUnit communicationUnit) {
         this.alarmSystem = alarmSystem;
         this.communicationUnit = communicationUnit;
     }

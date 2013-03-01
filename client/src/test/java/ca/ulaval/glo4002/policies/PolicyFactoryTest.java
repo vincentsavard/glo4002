@@ -12,10 +12,10 @@ import ca.ulaval.glo4002.policies.PolicyFactory.PolicyType;
 
 public class PolicyFactoryTest {
 
-    PolicyFactory policyFactory;
+    private PolicyFactory policyFactory;
 
     @Mock
-    AlarmSystem alarmSystem;
+    private AlarmSystem alarmSystem;
 
     @Before
     public void setUp() {
@@ -31,15 +31,13 @@ public class PolicyFactoryTest {
 
     @Test
     public void whenCreatingIntrusionPolicyAIntrusionPolicyIsReturned() {
-        Policy intrusionPolicy = policyFactory
-                .createPolicy(PolicyType.INTRUSION_POLICY);
+        Policy intrusionPolicy = policyFactory.createPolicy(PolicyType.INTRUSION_POLICY);
         assertTrue(intrusionPolicy instanceof IntrusionPolicy);
     }
 
     @Test
     public void whenCreatingMainDoorPolicyAMainDoorPolicyIsReturned() {
-        Policy mainDoorPolicy = policyFactory
-                .createPolicy(PolicyType.MAIN_DOOR_INTRUSION_POLICY);
+        Policy mainDoorPolicy = policyFactory.createPolicy(PolicyType.MAIN_DOOR_INTRUSION_POLICY);
         assertTrue(mainDoorPolicy instanceof MainDoorIntrusionPolicy);
     }
 }

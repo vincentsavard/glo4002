@@ -2,22 +2,21 @@ package ca.ulaval.glo4002.devices;
 
 public class Siren {
 
-	private boolean isActivated;
-	
-	public Siren() {
-		isActivated = false;
-	}
+    private boolean isActivated;
 
-	protected boolean isRigging() {
-	    return isActivated;
+    public Siren() {
+        isActivated = false;
     }
 
-	public void activate() {
-		isActivated = true;
+    protected boolean isRigging() {
+        return isActivated;
     }
 
-	public void deactivate() {
-		isActivated = false;
+    public void activate() {
+        isActivated = true;
     }
 
+    public void deactivate() {
+        isActivated = false;
+    }
 }

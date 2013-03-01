@@ -10,19 +10,17 @@ public class PoliceTreatment extends EmergencyTreatment {
         super();
     }
 
-    // for test purpose only
-    protected PoliceTreatment(UsersDirectory usersDirectory,
-            CommunicationUnit communicationUnit) {
-        super(usersDirectory, communicationUnit);
-    }
-
-    public void processRequest(String userIdPassedByGetRequest)
-            throws UserNotFoundException {
+    public void processRequest(final String userIdPassedByGetRequest) throws UserNotFoundException {
         int userId = Integer.parseInt(userIdPassedByGetRequest);
         if (usersDirectory.userExists(userId)) {
             communicationUnit.send(usersDirectory.obtainUser(userId));
         } else {
             throw new UserNotFoundException();
         }
+    }
+
+    // for test purpose only
+    protected PoliceTreatment(final UsersDirectory usersDirectory, final CommunicationUnit communicationUnit) {
+        super(usersDirectory, communicationUnit);
     }
 }

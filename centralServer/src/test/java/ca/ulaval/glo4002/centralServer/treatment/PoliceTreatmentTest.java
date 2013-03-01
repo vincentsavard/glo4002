@@ -16,6 +16,7 @@ import ca.ulaval.glo4002.centralServer.user.UsersDirectory;
 public class PoliceTreatmentTest {
 
     private static final String A_GOOD_ID = "20";
+
     private PoliceTreatment policeTreatment;
 
     @Mock
@@ -32,18 +33,15 @@ public class PoliceTreatmentTest {
     }
 
     @Test
-    public void whenProcessingTheRequestWithAGoodUserIdThenCommunicationUnitSendSomething()
-            throws UserNotFoundException {
+    public void whenProcessingTheRequestWithAGoodUserIdThenCommunicationUnitSendSomething() throws UserNotFoundException {
         when(usersDirectory.userExists(anyInt())).thenReturn(true);
         policeTreatment.processRequest(A_GOOD_ID);
         verify(communicationUnit).send(any(User.class));
     }
 
     @Test(expected = UserNotFoundException.class)
-    public void whenProcessingTheRequestWithAWrongUserIdThenANotFoundUserExceptionIsThrown()
-            throws UserNotFoundException {
-        when(usersDirectory.userExists(Integer.parseInt(A_GOOD_ID)))
-                .thenReturn(false);
+    public void whenProcessingTheRequestWithAWrongUserIdThenANotFoundUserExceptionIsThrown() throws UserNotFoundException {
+        when(usersDirectory.userExists(Integer.parseInt(A_GOOD_ID))).thenReturn(false);
         policeTreatment.processRequest(A_GOOD_ID);
     }
 }

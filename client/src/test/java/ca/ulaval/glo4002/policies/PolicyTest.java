@@ -16,6 +16,7 @@ public class PolicyTest {
 
     @Mock
     private AlarmSystem alarmSystem;
+
     @Mock
     private CommunicationUnit communicationUnit;
 
@@ -45,5 +46,4 @@ public class PolicyTest {
         };
         return abstractPolicy;
     }
-
 }

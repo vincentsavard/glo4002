@@ -5,25 +5,17 @@ import ca.ulaval.glo4002.devices.AlarmSystem;
 import ca.ulaval.glo4002.utilities.DelayTimer;
 import ca.ulaval.glo4002.utilities.DelayTimerDelegate;
 
-public class MainDoorIntrusionPolicy extends Policy implements
-        DelayTimerDelegate {
+public class MainDoorIntrusionPolicy extends Policy implements DelayTimerDelegate {
+
+    private static final int INTRUSION_DELAY_IN_SECONDS = 30;
 
     private DelayTimer delayTimer;
-    private final int INTRUSION_DELAY_IN_SECONDS = 30;
 
-    public MainDoorIntrusionPolicy(AlarmSystem alarmSystem) {
+    public MainDoorIntrusionPolicy(final AlarmSystem alarmSystem) {
         super(alarmSystem);
         communicationUnit = new CommunicationUnit(alarmSystem.getUserID(),
-                CommunicationUnit.CommunicationType.INTRUSION);
+                                                  CommunicationUnit.CommunicationType.INTRUSION);
         delayTimer = new DelayTimer(this);
-    }
-
-    // for test purpose only
-    protected MainDoorIntrusionPolicy(AlarmSystem alarmSystem,
-            CommunicationUnit communicationUnit, DelayTimer delayTimer) {
-        super(alarmSystem);
-        this.communicationUnit = communicationUnit;
-        this.delayTimer = delayTimer;
     }
 
     @Override
@@ -40,4 +32,11 @@ public class MainDoorIntrusionPolicy extends Policy implements
         }
     }
 
+    // for test purpose only
+    protected MainDoorIntrusionPolicy(final AlarmSystem alarmSystem, final CommunicationUnit communicationUnit,
+                                      final DelayTimer delayTimer) {
+        super(alarmSystem);
+        this.communicationUnit = communicationUnit;
+        this.delayTimer = delayTimer;
+    }
 }

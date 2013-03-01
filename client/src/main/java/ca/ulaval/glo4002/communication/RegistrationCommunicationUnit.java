@@ -10,10 +10,9 @@ public class RegistrationCommunicationUnit extends CommunicationUnit {
         super();
     }
 
-    public void sendRegistrationRequest(HashMap<String, String> attributes) {
+    public void sendRegistrationRequest(final HashMap<String, String> attributes) {
         String message = messageEncoder.generateEncodedMessage(attributes);
         response = postRequestSender.sendPostRequest(resource, message);
-
     }
 
     public int retrieveUserID() {

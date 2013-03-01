@@ -8,8 +8,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class ProtocolBuilderTest {
+
     private static final String AN_ADDRESS = "123 rue ville";
     private static final String ADDRESS_KEY = "address";
+
     private ProtocolBuilder protocolBuilder;
     private HashMap<String, String> attributes;
 

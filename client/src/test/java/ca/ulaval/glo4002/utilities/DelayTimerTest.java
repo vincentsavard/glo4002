@@ -8,7 +8,8 @@ import org.junit.Test;
 
 public class DelayTimerTest {
 
-    private final int A_DELAY = 2;
+    private static final int A_DELAY = 2;
+
     private DelayTimer delayManager;
 
     @Before

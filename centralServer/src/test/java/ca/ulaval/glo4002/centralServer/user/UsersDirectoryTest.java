@@ -11,6 +11,7 @@ import org.mockito.MockitoAnnotations;
 public class UsersDirectoryTest {
 
     private static final int AN_ID = 1;
+
     private UsersDirectory userDirectory;
 
     @Mock
@@ -42,8 +43,7 @@ public class UsersDirectoryTest {
     }
 
     @Test(expected = UserNotFoundException.class)
-    public void tryingToObtainANotExistingUserThrowsAnException()
-            throws UserNotFoundException {
+    public void tryingToObtainANotExistingUserThrowsAnException() throws UserNotFoundException {
         userDirectory.obtainUser(AN_ID);
     }
 }

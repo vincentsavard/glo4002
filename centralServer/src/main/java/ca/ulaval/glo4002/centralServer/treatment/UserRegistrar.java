@@ -12,22 +12,22 @@ public class UserRegistrar {
         usersDirectory = UsersDirectory.getInstance();
     }
 
-    // for test purpose only
-    protected UserRegistrar(UsersDirectory usersDirectory) {
-        this.usersDirectory = usersDirectory;
-    }
-
     public int generateUniqueID() {
         userIdCounter++;
         return userIdCounter;
     }
 
-    public void registerUser(int newUserId, String userInformation) {
+    public void registerUser(final int newUserId, final String userInformation) {
         User newUser = createNewUser(newUserId, userInformation);
         usersDirectory.addUser(newUser);
     }
 
-    private User createNewUser(int newUserId, String userInformation) {
+    private User createNewUser(final int newUserId, final String userInformation) {
         return new User(newUserId, userInformation);
+    }
+
+    // for test purpose only
+    protected UserRegistrar(final UsersDirectory usersDirectory) {
+        this.usersDirectory = usersDirectory;
     }
 }

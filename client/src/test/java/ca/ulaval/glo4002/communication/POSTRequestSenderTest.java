@@ -18,7 +18,7 @@ public class POSTRequestSenderTest {
     private static final int AN_HTTP_ERROR_CODE = 500;
 
     @Mock
-    WebResource resource;
+    private WebResource resource;
 
     @InjectMocks
     private POSTRequestSender postRequestSender;
@@ -33,8 +33,7 @@ public class POSTRequestSenderTest {
         ClientResponse clientResponse = mock(ClientResponse.class);
         Builder builder = mock(Builder.class);
         doReturn(builder).when(resource).type(anyString());
-        doReturn(clientResponse).when(builder).post(ClientResponse.class,
-                "message");
+        doReturn(clientResponse).when(builder).post(ClientResponse.class, "message");
         doReturn(AN_HTTP_ERROR_CODE).when(clientResponse).getStatus();
 
         postRequestSender.sendPostRequest(anyString(), "message");

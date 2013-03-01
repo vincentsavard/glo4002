@@ -15,9 +15,10 @@ import ca.ulaval.glo4002.centralServer.user.UsersDirectory;
 
 public class UserRegistrarTest {
 
-    private UserRegistrar userRegistrar;
     private static final int A_USER_ID = 10;
     private static final String USER_INFORMATION = "some information";
+
+    private UserRegistrar userRegistrar;
 
     @Mock
     private CommunicationUnit communicationUnit;

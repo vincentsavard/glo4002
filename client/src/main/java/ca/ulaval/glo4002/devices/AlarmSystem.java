@@ -22,12 +22,11 @@ public class AlarmSystem implements DelayTimerDelegate {
         delayTimer = new DelayTimer(this);
     }
 
-    public void initialize(String address) {
+    public void initialize(final String address) {
         RegistrationCommunicationUnit registrationCommunicationUnit = new RegistrationCommunicationUnit();
         ProtocolBuilder protocolBuilder = new ProtocolBuilder();
         protocolBuilder.addClientAddress(address);
-        registrationCommunicationUnit.sendRegistrationRequest(protocolBuilder
-                .generate());
+        registrationCommunicationUnit.sendRegistrationRequest(protocolBuilder.generate());
 
         userID = registrationCommunicationUnit.retrieveUserID();
     }
@@ -58,10 +57,6 @@ public class AlarmSystem implements DelayTimerDelegate {
         isReady = true;
     }
 
-    private void startDelay() {
-        delayTimer.startDelay(DELAY_IN_SECOND);
-    }
-
     public int getUserID() {
         return userID;
     }
@@ -74,4 +69,7 @@ public class AlarmSystem implements DelayTimerDelegate {
         }
     }
 
+    private void startDelay() {
+        delayTimer.startDelay(DELAY_IN_SECOND);
+    }
 }

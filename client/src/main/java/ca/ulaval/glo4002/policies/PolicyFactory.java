@@ -4,17 +4,17 @@ import ca.ulaval.glo4002.devices.AlarmSystem;
 
 public class PolicyFactory {
 
-    protected AlarmSystem alarmSystem;
-
     public static enum PolicyType {
         FIRE_POLICY, INTRUSION_POLICY, MAIN_DOOR_INTRUSION_POLICY
     };
 
-    public PolicyFactory(AlarmSystem alarmSystem) {
+    protected AlarmSystem alarmSystem;
+
+    public PolicyFactory(final AlarmSystem alarmSystem) {
         this.alarmSystem = alarmSystem;
     }
 
-    public Policy createPolicy(PolicyType policyType) {
+    public Policy createPolicy(final PolicyType policyType) {
         if (policyType == PolicyType.FIRE_POLICY) {
             return new FirePolicy(alarmSystem);
         } else if (policyType == PolicyType.INTRUSION_POLICY) {
@@ -24,6 +24,5 @@ public class PolicyFactory {
         } else {
             throw new RuntimeException("Wrong policy type");
         }
-
     }
 }

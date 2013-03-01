@@ -2,35 +2,45 @@ package ca.ulaval.glo4002.devices;
 
 public class Keypad {
 
-    private int validPIN = 12345;
+    private static final String DEFAULT_PIN = "12345";
+
+    private String validPIN;
     private AlarmSystem alarmSystem;
 
-	public Keypad(AlarmSystem alarmSystem) {
-	    this.alarmSystem = alarmSystem;
+    public Keypad(final AlarmSystem alarmSystem) {
+        this.alarmSystem = alarmSystem;
+        this.validPIN = DEFAULT_PIN;
     }
 
-	public void armSystem(int submittedPIN) throws BadStateException, InvalidPINException {
-		validatePIN(submittedPIN);
-		alarmSystem.arm();
-    }
-	
-	private void validatePIN(int submittedPIN) throws InvalidPINException {
-		if (submittedPIN != validPIN) {
-			throw new InvalidPINException();
-		}
+    public void armSystem(final String pin) throws BadStateException, InvalidPINException {
+        validatePIN(pin);
+        alarmSystem.arm();
     }
 
-	public void disarmSystem(int submittedPIN) throws InvalidPINException {
-		validatePIN(submittedPIN);
-	    alarmSystem.disarm();
+    public void disarmSystem(final String pin) throws InvalidPINException {
+        validatePIN(pin);
+        alarmSystem.disarm();
     }
 
-	public void changePIN(int submittedPIN, int newPIN) throws InvalidPINException {
-		validatePIN(submittedPIN);
-		validPIN = newPIN;
+    public void changePIN(final String pin, final String newPIN) throws InvalidPINException {
+        validatePIN(pin);
+        checkPINFormat(newPIN);
+        validPIN = newPIN;
     }
 
-	protected boolean isPINValid(int submittedPIN) {
-	    return validPIN == submittedPIN;
+    protected boolean isPINValid(final String newPin) {
+        return validPIN == newPin;
+    }
+
+    private void validatePIN(final String pin) throws InvalidPINException {
+        if (pin != validPIN) {
+            throw new InvalidPINException();
+        }
+    }
+
+    private void checkPINFormat(final String pin) {
+        if (!pin.matches("^[0-9]{5}$")) {
+            throw new PINFormatForbiddenException();
+        }
     }
 }

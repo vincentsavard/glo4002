@@ -5,6 +5,7 @@ import java.util.HashMap;
 public class ProtocolBuilder {
 
     private static final String ADDRESS_KEY = "address";
+
     private HashMap<String, String> attributes;
 
     public ProtocolBuilder() {
@@ -15,8 +16,7 @@ public class ProtocolBuilder {
         return attributes;
     }
 
-    public void addClientAddress(String address) {
+    public void addClientAddress(final String address) {
         attributes.put(ADDRESS_KEY, address);
     }
-
 }

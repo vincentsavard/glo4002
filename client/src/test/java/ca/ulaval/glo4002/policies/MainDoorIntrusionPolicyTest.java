@@ -15,18 +15,20 @@ import ca.ulaval.glo4002.utilities.DelayTimer;
 public class MainDoorIntrusionPolicyTest {
 
     private MainDoorIntrusionPolicy policy;
+
     @Mock
     private AlarmSystem alarmSystem;
+
     @Mock
     private DelayTimer delayTimer;
+
     @Mock
     private CommunicationUnit communicationUnit;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        policy = new MainDoorIntrusionPolicy(alarmSystem, communicationUnit,
-                delayTimer);
+        policy = new MainDoorIntrusionPolicy(alarmSystem, communicationUnit, delayTimer);
     }
 
     @Test

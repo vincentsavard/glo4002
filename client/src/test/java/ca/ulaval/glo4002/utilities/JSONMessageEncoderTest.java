@@ -20,5 +20,4 @@ public class JSONMessageEncoderTest {
 
         assertEquals(expectedMessage, encodedMessage);
     }
-
 }
