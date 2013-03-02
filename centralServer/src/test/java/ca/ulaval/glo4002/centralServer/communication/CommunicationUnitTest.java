@@ -1,4 +1,4 @@
-package ca.ulaval.glo4002.communication;
+package ca.ulaval.glo4002.centralServer.communication;
 
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
@@ -9,19 +9,20 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import ca.ulaval.glo4002.centralServer.communication.CommunicationUnit.CommunicationType;
+import ca.ulaval.glo4002.centralServer.user.User;
 import ca.ulaval.glo4002.common.POSTRequestSender;
-import ca.ulaval.glo4002.communication.CommunicationUnit.CommunicationType;
 
 public class CommunicationUnitTest {
 
-    private static final int USER_ID = 1;
     private static final CommunicationType COMMUNICATION_TYPE = CommunicationType.INTRUSION;
+    private static final String AN_ADDRESS = "Address 1";
 
     @Mock
     private POSTRequestSender postRequestSender;
 
     @InjectMocks
-    private CommunicationUnit communicationUnit = new CommunicationUnit(USER_ID, COMMUNICATION_TYPE);
+    private CommunicationUnit communicationUnit = new CommunicationUnit(COMMUNICATION_TYPE);
 
     @Before
     public void setUp() {
@@ -30,7 +31,11 @@ public class CommunicationUnitTest {
 
     @Test
     public void callsSendPostRequestWhenSending() {
-        communicationUnit.send();
+        User user = mock(User.class);
+        doReturn(AN_ADDRESS).when(user).getAdress();
+
+        communicationUnit.send(user);
+
         verify(postRequestSender).sendPostRequest(anyString(), anyString());
     }
 }

@@ -1,4 +1,4 @@
-package ca.ulaval.glo4002.communication;
+package ca.ulaval.glo4002.common;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
@@ -6,7 +6,7 @@ import com.sun.jersey.api.client.WebResource;
 
 public class POSTRequestSender {
 
-    private static final String SERVER_URL = "http://localhost:8080/test";
+    private static final String SERVER_URL = "http://localhost:8080/";
     private static final int RESPONSE_OK = 200;
 
     private WebResource webResource;

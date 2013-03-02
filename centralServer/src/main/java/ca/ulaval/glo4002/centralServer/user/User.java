@@ -14,7 +14,7 @@ public class User {
         return userID;
     }
 
-    public Object getAdress() {
+    public String getAdress() {
         return userAdress;
     }
 

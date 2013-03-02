@@ -2,6 +2,7 @@ package ca.ulaval.glo4002.communication;
 
 import java.util.HashMap;
 
+import ca.ulaval.glo4002.common.POSTRequestSender;
 import ca.ulaval.glo4002.utilities.JSONMessageEncoder;
 
 public class CommunicationUnit {

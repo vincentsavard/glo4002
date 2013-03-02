@@ -10,7 +10,6 @@ public abstract class EmergencyTreatment {
 
     public EmergencyTreatment() {
         usersDirectory = UsersDirectory.getInstance();
-        communicationUnit = new CommunicationUnit();
     }
 
     public void send() {

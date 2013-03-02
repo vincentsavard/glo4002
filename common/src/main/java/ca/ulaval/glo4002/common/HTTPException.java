@@ -1,4 +1,4 @@
-package ca.ulaval.glo4002.communication;
+package ca.ulaval.glo4002.common;
 
 public class HTTPException extends RuntimeException {
 

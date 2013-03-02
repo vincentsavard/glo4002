@@ -1,4 +1,4 @@
-package ca.ulaval.glo4002.communication;
+package ca.ulaval.glo4002.common;
 
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;

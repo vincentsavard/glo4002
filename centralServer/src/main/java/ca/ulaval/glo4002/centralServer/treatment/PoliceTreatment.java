@@ -1,6 +1,7 @@
 package ca.ulaval.glo4002.centralServer.treatment;
 
 import ca.ulaval.glo4002.centralServer.communication.CommunicationUnit;
+import ca.ulaval.glo4002.centralServer.communication.CommunicationUnit.CommunicationType;
 import ca.ulaval.glo4002.centralServer.user.UserNotFoundException;
 import ca.ulaval.glo4002.centralServer.user.UsersDirectory;
 
@@ -8,6 +9,7 @@ public class PoliceTreatment extends EmergencyTreatment {
 
     public PoliceTreatment() {
         super();
+        communicationUnit = new CommunicationUnit(CommunicationType.INTRUSION);
     }
 
     public void processRequest(final String userIdPassedByGetRequest) throws UserNotFoundException {
