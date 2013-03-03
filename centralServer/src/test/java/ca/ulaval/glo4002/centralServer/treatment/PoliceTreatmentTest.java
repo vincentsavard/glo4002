@@ -36,7 +36,7 @@ public class PoliceTreatmentTest {
     public void whenProcessingTheRequestWithAGoodUserIdThenCommunicationUnitSendSomething() throws UserNotFoundException {
         when(usersDirectory.userExists(anyInt())).thenReturn(true);
         policeTreatment.processRequest(A_GOOD_ID);
-        verify(communicationUnit).send(any(User.class));
+        verify(communicationUnit).sendMessageToEmergencyServer(any(User.class));
     }
 
     @Test(expected = UserNotFoundException.class)

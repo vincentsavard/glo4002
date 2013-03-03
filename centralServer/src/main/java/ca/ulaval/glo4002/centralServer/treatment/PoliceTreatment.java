@@ -12,17 +12,22 @@ public class PoliceTreatment extends EmergencyTreatment {
         communicationUnit = new CommunicationUnit(CommunicationType.INTRUSION);
     }
 
-    public void processRequest(final String userIdPassedByGetRequest) throws UserNotFoundException {
+    public void processRequest(final String userIdPassedByGetRequest)
+            throws UserNotFoundException {
         int userId = Integer.parseInt(userIdPassedByGetRequest);
         if (usersDirectory.userExists(userId)) {
-            communicationUnit.send(usersDirectory.obtainUser(userId));
+            communicationUnit.sendMessageToEmergencyServer(usersDirectory.obtainUser(userId));
         } else {
-            throw new UserNotFoundException();
+            throw new UserNotFoundException(
+                    "The ID "
+                            + userIdPassedByGetRequest
+                            + " was not found in the UsersDirectory while processing request.");
         }
     }
 
     // for test purpose only
-    protected PoliceTreatment(final UsersDirectory usersDirectory, final CommunicationUnit communicationUnit) {
+    protected PoliceTreatment(final UsersDirectory usersDirectory,
+            final CommunicationUnit communicationUnit) {
         super(usersDirectory, communicationUnit);
     }
 }

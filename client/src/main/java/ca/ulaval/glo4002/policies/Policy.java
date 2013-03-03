@@ -20,7 +20,7 @@ public abstract class Policy {
     }
 
     protected void sendMessage() {
-        communicationUnit.send();
+        communicationUnit.sendMessageToCentralServer();
     }
 
     // for test purpose only

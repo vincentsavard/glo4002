@@ -34,7 +34,7 @@ public class CommunicationUnitTest {
         User user = mock(User.class);
         doReturn(AN_ADDRESS).when(user).getAddress();
 
-        communicationUnit.send(user);
+        communicationUnit.sendMessageToEmergencyServer(user);
 
         verify(postRequestSender).sendRequest(anyString(), anyString());
     }

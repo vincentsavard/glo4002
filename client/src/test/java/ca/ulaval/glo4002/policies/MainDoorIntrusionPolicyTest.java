@@ -49,13 +49,13 @@ public class MainDoorIntrusionPolicyTest {
     public void whenDelayIsExpiredAndSystemIsNotArmedCommunicationUnitDoesNotMessage() {
         doReturn(false).when(alarmSystem).isArmed();
         policy.delayExpired();
-        verify(communicationUnit, never()).send();
+        verify(communicationUnit, never()).sendMessageToCentralServer();
     }
 
     @Test
     public void whenDelayIsExpiredAndSystemIsArmedCommunicationUnitSendsMessage() {
         doReturn(true).when(alarmSystem).isArmed();
         policy.delayExpired();
-        verify(communicationUnit).send();
+        verify(communicationUnit).sendMessageToCentralServer();
     }
 }

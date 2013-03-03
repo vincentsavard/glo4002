@@ -37,12 +37,13 @@ public class UsersDirectory {
         }
 
         if (userToBeFound == null) {
-            throw new UserNotFoundException();
+            throw new UserNotFoundException(
+                    "This ID was not found in the UsersDirectory when trying to obtain the corresponding user");
         }
 
         return userToBeFound;
     }
-    
+
     public int getNumberOfUsers() {
         return userList.size();
     }

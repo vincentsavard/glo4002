@@ -28,7 +28,7 @@ public class MainDoorIntrusionPolicy extends Policy implements DelayTimerDelegat
     @Override
     public void delayExpired() {
         if (alarmSystem.isArmed()) {
-            communicationUnit.send();
+            communicationUnit.sendMessageToCentralServer();
         }
     }
 

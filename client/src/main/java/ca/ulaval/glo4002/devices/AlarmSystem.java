@@ -27,7 +27,7 @@ public class AlarmSystem implements DelayTimerDelegate {
     public void registerToCentralServer(final String address) {
         RegistrationCommunicationUnit registrationCommunicationUnit = new RegistrationCommunicationUnit();
         HashMap<String, String> attributes = buildProtocol(address);
-        
+
         registrationCommunicationUnit.sendRegistrationRequest(attributes);
 
         userID = registrationCommunicationUnit.retrieveUserID();
@@ -39,7 +39,8 @@ public class AlarmSystem implements DelayTimerDelegate {
 
     public void arm() throws BadStateException {
         if (!ready) {
-            throw new BadStateException();
+            throw new BadStateException(
+                    "System is not ready yet. Alarm system can't be armed.");
         } else {
             suspended = true;
             startDelay();
@@ -74,11 +75,11 @@ public class AlarmSystem implements DelayTimerDelegate {
     private void startDelay() {
         delayTimer.startDelay(DELAY_IN_SECOND);
     }
-    
+
     private HashMap<String, String> buildProtocol(String address) {
         ProtocolBuilder protocolBuilder = new ProtocolBuilder();
         protocolBuilder.addClientAddress(address);
-        
+
         return protocolBuilder.generate();
     }
 }
