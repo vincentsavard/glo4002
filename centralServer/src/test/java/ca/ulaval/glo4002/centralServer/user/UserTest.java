@@ -26,6 +26,6 @@ public class UserTest {
 
     @Test
     public void intializedUserHasAnAdress() {
-        assertEquals(user.getAdress(), EXPECTED_ADRESS);
+        assertEquals(user.getAddress(), EXPECTED_ADRESS);
     }
 }

@@ -34,14 +34,14 @@ public class MainDoorIntrusionPolicyTest {
     @Test
     public void whenSystemIsNotArmedDelayTimerDoesNotStart() {
         doReturn(false).when(alarmSystem).isArmed();
-        policy.execute();
+        policy.executeProcedure();
         verify(delayTimer, never()).startDelay(anyInt());
     }
 
     @Test
     public void whenSystemIsArmedDelayTimerStarts() {
         doReturn(true).when(alarmSystem).isArmed();
-        policy.execute();
+        policy.executeProcedure();
         verify(delayTimer).startDelay(anyInt());
     }
 

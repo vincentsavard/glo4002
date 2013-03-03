@@ -34,14 +34,7 @@ public class UserRegistrarTest {
     }
 
     @Test
-    public void eachIDGeneratedIsAnIncrementOfTheLastGeneratedID() {
-        int firstGeneratedId = userRegistrar.generateUniqueID();
-        int secondGeneratedID = userRegistrar.generateUniqueID();
-        assertTrue((secondGeneratedID - 1) == firstGeneratedId);
-    }
-
-    @Test
-    public void whenAUserIsRegistredThenAUserIsAddedToTheUsersDirectory() {
+    public void whenAUserIsRegisteredThenAUserIsAddedToTheUsersDirectory() {
         userRegistrar.registerUser(A_USER_ID, USER_INFORMATION);
         verify(usersDirectory).addUser(any(User.class));
     }

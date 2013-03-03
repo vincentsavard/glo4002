@@ -32,10 +32,10 @@ public class CommunicationUnitTest {
     @Test
     public void callsSendPostRequestWhenSending() {
         User user = mock(User.class);
-        doReturn(AN_ADDRESS).when(user).getAdress();
+        doReturn(AN_ADDRESS).when(user).getAddress();
 
         communicationUnit.send(user);
 
-        verify(postRequestSender).sendPostRequest(anyString(), anyString());
+        verify(postRequestSender).sendRequest(anyString(), anyString());
     }
 }

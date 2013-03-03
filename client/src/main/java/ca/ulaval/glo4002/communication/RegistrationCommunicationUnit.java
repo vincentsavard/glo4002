@@ -8,7 +8,7 @@ public class RegistrationCommunicationUnit extends CommunicationUnit {
 
     public void sendRegistrationRequest(final HashMap<String, String> attributes) {
         String message = messageEncoder.generateEncodedMessage(attributes);
-        response = postRequestSender.sendPostRequest(resource, message);
+        response = postRequestSender.sendRequest(resource, message);
     }
 
     public int retrieveUserID() {

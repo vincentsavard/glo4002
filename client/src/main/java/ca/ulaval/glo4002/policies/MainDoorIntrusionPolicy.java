@@ -19,7 +19,7 @@ public class MainDoorIntrusionPolicy extends Policy implements DelayTimerDelegat
     }
 
     @Override
-    public void execute() {
+    public void executeProcedure() {
         if (alarmSystem.isArmed()) {
             delayTimer.startDelay(INTRUSION_DELAY_IN_SECONDS);
         }

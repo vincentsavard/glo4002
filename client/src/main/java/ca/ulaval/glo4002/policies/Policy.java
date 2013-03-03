@@ -13,7 +13,7 @@ public abstract class Policy {
 
     }
 
-    public void execute() {
+    public void executeProcedure() {
         if (alarmSystem.isArmed()) {
             sendMessage();
         }

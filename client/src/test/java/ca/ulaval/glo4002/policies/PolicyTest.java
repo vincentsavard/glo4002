@@ -29,14 +29,14 @@ public class PolicyTest {
     @Test
     public void whenSystemIsNotArmedThereIsNoMessageSent() {
         doReturn(false).when(alarmSystem).isArmed();
-        policy.execute();
+        policy.executeProcedure();
         verify(communicationUnit, never()).send();
     }
 
     @Test
     public void whenSystemIsArmedThereIsAMessageSent() {
         doReturn(true).when(alarmSystem).isArmed();
-        policy.execute();
+        policy.executeProcedure();
         verify(communicationUnit).send();
     }
 

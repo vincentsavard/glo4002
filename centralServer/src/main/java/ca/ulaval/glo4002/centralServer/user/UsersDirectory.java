@@ -42,6 +42,10 @@ public class UsersDirectory {
 
         return userToBeFound;
     }
+    
+    public int getNumberOfUsers() {
+        return userList.size();
+    }
 
     public static UsersDirectory getInstance() {
         if (instance == null) {

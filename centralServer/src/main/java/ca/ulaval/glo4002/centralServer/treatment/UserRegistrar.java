@@ -5,16 +5,15 @@ import ca.ulaval.glo4002.centralServer.user.UsersDirectory;
 
 public class UserRegistrar {
 
-    private int userIdCounter = 0;
     private UsersDirectory usersDirectory;
 
     public UserRegistrar() {
         usersDirectory = UsersDirectory.getInstance();
     }
 
-    public int generateUniqueID() {
-        userIdCounter++;
-        return userIdCounter;
+    public int generateUserID() {
+        int newUserId = usersDirectory.getNumberOfUsers() + 1;
+        return newUserId;
     }
 
     public void registerUser(final int newUserId, final String userInformation) {

@@ -22,7 +22,7 @@ public class RegistrationCommunicationUnitTest {
     private POSTRequestSender postRequestSender;
 
     @InjectMocks
-    RegistrationCommunicationUnit registrationCommUnit;
+    RegistrationCommunicationUnit registrationCommunicationUnit;
 
     @Before
     public void setUp() {
@@ -31,10 +31,10 @@ public class RegistrationCommunicationUnitTest {
 
     @Test
     public void canRetrieveUserIDafterMessageIsSent() {
-        doReturn(A_POST_RESPONSE).when(postRequestSender).sendPostRequest(anyString(), anyString());
-        registrationCommUnit.sendRegistrationRequest(new HashMap<String, String>());
+        doReturn(A_POST_RESPONSE).when(postRequestSender).sendRequest(anyString(), anyString());
+        registrationCommunicationUnit.sendRegistrationRequest(new HashMap<String, String>());
 
-        int userID = registrationCommUnit.retrieveUserID();
+        int userID = registrationCommunicationUnit.retrieveUserID();
 
         assertEquals(Integer.parseInt(A_POST_RESPONSE), userID);
     }

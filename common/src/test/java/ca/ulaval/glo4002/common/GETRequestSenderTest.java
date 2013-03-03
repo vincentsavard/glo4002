@@ -13,19 +13,18 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.WebResource.Builder;
 
-public class POSTRequestSenderTest {
+public class GETRequestSenderTest {
 
-    private static final String A_MESSAGE = "message";
     private static final int AN_HTTP_ERROR_CODE = 500;
 
     @Mock
     private WebResource resource;
 
     @InjectMocks
-    private POSTRequestSender postRequestSender;
+    private GETRequestSender getRequestSender;
 
     @Before
-    public void initPOSTRequestSender() {
+    public void initGETRequestSender() {
         MockitoAnnotations.initMocks(this);
     }
 
@@ -34,9 +33,9 @@ public class POSTRequestSenderTest {
         ClientResponse clientResponse = mock(ClientResponse.class);
         Builder builder = mock(Builder.class);
         doReturn(builder).when(resource).type(anyString());
-        doReturn(clientResponse).when(builder).post(ClientResponse.class, A_MESSAGE);
+        doReturn(clientResponse).when(builder).get(ClientResponse.class);
         doReturn(AN_HTTP_ERROR_CODE).when(clientResponse).getStatus();
 
-        postRequestSender.sendRequest(anyString(), A_MESSAGE);
+        getRequestSender.sendRequest(anyString());
     }
 }

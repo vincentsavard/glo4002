@@ -1,5 +1,7 @@
 package ca.ulaval.glo4002.devices;
 
+import java.util.HashMap;
+
 import ca.ulaval.glo4002.communication.ProtocolBuilder;
 import ca.ulaval.glo4002.communication.RegistrationCommunicationUnit;
 import ca.ulaval.glo4002.utilities.DelayTimer;
@@ -12,21 +14,21 @@ public class AlarmSystem implements DelayTimerDelegate {
     private int userID;
     private boolean armed;
     private boolean suspended;
-    private boolean isReady;
+    private boolean ready;
     private DelayTimer delayTimer;
 
     public AlarmSystem() {
-        isReady = true;
+        ready = true;
         armed = false;
         suspended = false;
         delayTimer = new DelayTimer(this);
     }
 
-    public void initialize(final String address) {
+    public void registerToCentralServer(final String address) {
         RegistrationCommunicationUnit registrationCommunicationUnit = new RegistrationCommunicationUnit();
-        ProtocolBuilder protocolBuilder = new ProtocolBuilder();
-        protocolBuilder.addClientAddress(address);
-        registrationCommunicationUnit.sendRegistrationRequest(protocolBuilder.generate());
+        HashMap<String, String> attributes = buildProtocol(address);
+        
+        registrationCommunicationUnit.sendRegistrationRequest(attributes);
 
         userID = registrationCommunicationUnit.retrieveUserID();
     }
@@ -36,7 +38,7 @@ public class AlarmSystem implements DelayTimerDelegate {
     }
 
     public void arm() throws BadStateException {
-        if (!isReady) {
+        if (!ready) {
             throw new BadStateException();
         } else {
             suspended = true;
@@ -50,11 +52,11 @@ public class AlarmSystem implements DelayTimerDelegate {
     }
 
     public void setNotReady() {
-        isReady = false;
+        ready = false;
     }
 
     public void setReady() {
-        isReady = true;
+        ready = true;
     }
 
     public int getUserID() {
@@ -71,5 +73,12 @@ public class AlarmSystem implements DelayTimerDelegate {
 
     private void startDelay() {
         delayTimer.startDelay(DELAY_IN_SECOND);
+    }
+    
+    private HashMap<String, String> buildProtocol(String address) {
+        ProtocolBuilder protocolBuilder = new ProtocolBuilder();
+        protocolBuilder.addClientAddress(address);
+        
+        return protocolBuilder.generate();
     }
 }

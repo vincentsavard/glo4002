@@ -17,13 +17,13 @@ public class CommunicationUnit {
     }
 
     public void send(final User obtainedUser) {
-        String messageToSend = obtainedUser.getAdress();
-        postRequestSender.sendPostRequest(resource, messageToSend);
+        String messageToSend = obtainedUser.getAddress();
+        postRequestSender.sendRequest(resource, messageToSend);
 
     }
 
     private String generateResourceURL(CommunicationType communicationType) {
-        return String.format("%s", communicationType.toString());
+        return String.format("%s", communicationType.toString().toLowerCase());
     }
 
 }
