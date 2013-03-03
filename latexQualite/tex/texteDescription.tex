@@ -1,0 +1,39 @@
+%!TEX encoding = UTF-8 Unicode
+
+\chapter*{Information concernant la remise 1}
+
+\section*{Liste des scénarios avec leur statut}
+\begin{enumerate}
+	\item (U01) Envoyer les services d'urgence en cas d'intrusion: Terminé
+	\item (C01) Armer via le clavier: Terminé
+	\item (C02) Désarmer avec un NIP au clavier: Terminé
+	\item (U02) Envoyer les services d'urgence en cas de fumée: En cours
+	\item (U07) Obtenir la liste des alertes: Non commmencé
+	\item (U03) Pouvoir signaler manuellement une urgence (bouton panique): Non commmencé
+	\item (U04) Envoyer les services médicaux en cas de demande d'assistance médicale: Non commmencé
+	\item (C03) Changer son NIP via le clavier: Non commmencé
+	\item (D01) Envoyer un courriel en cas d'alarme: Non commmencé
+	\item (U05) Détecter les températures élevées: Non commmencé
+	\item (D02) Armer/désarmer à partir de l'app. mobile: Non commmencé
+	\item (D03) Voir les caméras sur son téléphone: Non commmencé
+	\item (D04) Signaler un oubli de barrer la porte au départ du dernier occupant: Non commmencé
+	\item (D05) Débarrer et ouvrir les portes en cas de feu: Non commmencé
+	\item (U06) Gérer une intrusion pendant Noël: Non commmencé
+	\item (D06) Fermer les lumières en cas d'intrusion: Non commmencé
+\end{enumerate}
+
+\section*{Comment démarrer/utiliser votre système}
+%TODO Côté client
+
+%TODO Du côté du serveur, il suffit d'instancier la classe CentralServer et d'appeler la méthode startServer().
+
+\section*{Description de tous vos protocoles entre les composantes}
+Entre le client et de serveur de la compagnie de système d'alarme, nous avons un protocole utilisé un protocole REST. L'adresse utilisé présentement pour ce serveur est le localhost:8080/. Les usagers qui veulent s'enregistrer aux services qu'offre la compagnie doivent transmettre l'adresse de leur domicile à l'aide d'une requête POST sur le path /inscription/. Cette étape se fait à l'initialisation du système d'alarme. Suite à cette requête, un identifiant leur ait retourné. En cas d'intrusion, les clients peuvent donc ensuite faire une requête GET à l'adresse /client/\{userid\}/Police (où \{userid\} est l'identifiant qui leur a été préalablement retourné lors de l'inscription). \\
+
+Toujours en cas d'intrusion, le serveur de la compagnie de systèmes d'alarme pourra ensuite contacter l'urgence en effectuer une requête POST au path /Police/ en envoyant les informations du client. Il est à noter que pour l'instant, l'adresse pour l'urgence est localhost:8081/
+
+\section*{Toutes notes que vous désirez transmettre aux correcteurs}
+%TODO
+
+\section*{Commentaires constructif sur le projet}
+%TODO

@@ -2,16 +2,15 @@ package ca.ulaval.glo4002.emergencyServer.rest;
 
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 
 @Path("/")
-public class RequestTreatment {
+public class EmergencyResource {
 
     private static final String RESPONSE_TO_POST_REQUEST = "POST request received at emergency server";
 
     @POST
-    @Path("{path}")
-    public String treatRequest(@PathParam("path") final String path) {
+    @Path("/Police/")
+    public String treatRequest(final String helpRequesterInformations) {
         return RESPONSE_TO_POST_REQUEST;
     }
 }

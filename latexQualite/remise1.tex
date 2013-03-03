@@ -1,0 +1,79 @@
+%!TEX encoding = UTF-8 Unicode
+
+%
+% Modele d'organisation d'un projet LaTeX 
+% rapport/      dossier racine et fichier principal
+% rapport/fig   fichiers des figures
+% rapport/tex   autres fichiers .tex
+%
+
+% ** Preambule **
+%
+% Ajouter les options au besoin :
+%    - "ULlof" pour inclure la liste des figures, requis si "\begin{figure}" utilise
+%    - "ULlot" pour inclure la liste des tableaux, requis si "\begin{table}" utilise
+%
+\documentclass[12pt, ULlot, ULlof]{ULrapport}
+
+% Chargement des packages supplementaires (si absent de la classe)
+\usepackage[utf8]{inputenc}
+\usepackage[autolanguage]{numprint}
+\usepackage{icomma}
+\usepackage{multirow}
+\usepackage{placeins}
+\usepackage{enumitem}
+\usepackage{pdfpages}
+%\usepackage[options]{nom_du_package}
+
+% Definition d'une commande pour presenter des cellules multilignes dans un tableau
+\newcommand{\cellulemultiligne}[1]{\begin{tabular}{@{}c@{}}#1\end{tabular}}
+
+% Definition de colonnes en mode paragraphe avec alignement ajustable
+% Cette definition requiert le chargement du package "array"
+%    - alignement horizontal, parametre #1 : - \raggedright (aligne a gauche)
+%                                            - \centering (centre)
+%                                            - \raggedleft (aligne a droite)
+%    - alignement vertical, parametre #2 : - p (aligne en haut)
+%                                          - m (centre)
+%                                          - b (aligne en bas)
+%    - largeur, parametre #3 : longueur
+\newcolumntype{Z}[3]{>{#1\hspace{0pt}\arraybackslash}#2{#3}}
+
+% Definitions des parametres de la page titre
+\TitreProjet{Projet GLO-4002 - Système d'alarme}     % Titre du projet
+\TitreRapport{Rapport de projet - remise 1}                                                                % Titre du rapport
+\Destinataire{Félix-Antoine Bourbonnais}                                                                          % Nom de l'equipe
+\TableauMembres{%                                     % Tableau des membres de l'equipe
+   111\,007\,320  & Maxime Carbonneau-Leclerc  \\ \hline        % matricule & nom & \\\hline
+   111\,010\,475  & Alex Gervais               \\ \hline        % matricule & nom & \\\hline
+   111\,006\,909  & Vincent Savard             \\ \hline        % matricule & nom & \\\hline
+   111\,014\,384  & Guillaume Croteau          \\ \hline        % matricule & nom & \\\hline
+   908\,178\,683  & Simon Gourdeau				\\ \hline 
+   909\,221\,557  & Philippe Bouillon			\\ \hline
+   111\,010\,039  & Alexandre Girard			\\ \hline
+   906\,192\,066  & Kevin Dion					\\ \hline
+   }
+\DateRemise{6 mars 2013}                           % Date de remis
+
+
+% Contenu de l'historique des versions
+%\HistoriqueVersions{%                        % version & date & description \\\hline
+%         & 17 septembre 2012 & création du document    \\\hline
+%       V1 & 26 septembre 2012    & rapport version 1 \\\hline
+%        V2 & 7 novembre 2012  & rapport version 2 \\\hline
+%        V3 & 28 novembre 2012  & rapport version 3 \\\hline
+%        V4 & 12 décembre 2012     & rapport version 4 \\\hline
+%}
+
+
+% Corps du document
+
+\begin{document}
+
+% Joindre le texte 
+\input{tex/texteDescription}
+
+
+
+% Fin du document
+\end{document}
