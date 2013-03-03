@@ -9,7 +9,7 @@ public class EmergencyResource {
     private static final String RESPONSE_TO_POST_REQUEST = "POST request received at emergency server";
 
     @POST
-    @Path("/Police/")
+    @Path("/police/")
     public String treatRequest(final String helpRequesterInformations) {
         return RESPONSE_TO_POST_REQUEST;
     }

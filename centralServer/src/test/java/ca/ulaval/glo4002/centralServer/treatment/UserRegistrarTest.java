@@ -1,6 +1,5 @@
 package ca.ulaval.glo4002.centralServer.treatment;
 
-import static org.junit.Assert.*;
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 
