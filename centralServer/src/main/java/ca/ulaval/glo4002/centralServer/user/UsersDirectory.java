@@ -7,6 +7,7 @@ public class UsersDirectory {
 
     private List<User> userList;
     private static UsersDirectory instance;
+    private int lastIdGenerated = 0;
 
     public UsersDirectory() {
         this.userList = new ArrayList<User>();
@@ -38,14 +39,15 @@ public class UsersDirectory {
 
         if (userToBeFound == null) {
             throw new UserNotFoundException(
-                                            "This ID was not found in the UsersDirectory when trying to obtain the corresponding user");
+                    "This ID was not found in the UsersDirectory when trying to obtain the corresponding user");
         }
 
         return userToBeFound;
     }
 
-    public int getNumberOfUsers() {
-        return userList.size();
+    public int generateNewId() {
+        lastIdGenerated++;
+        return lastIdGenerated;
     }
 
     public static UsersDirectory getInstance() {

@@ -45,7 +45,7 @@ public class UsersDirectoryTest {
     @Test
     public void addingAUserIncreasesNumberOfUsers() {
         userDirectory.addUser(user);
-        assertEquals(userDirectory.getNumberOfUsers(), 1);
+        assertEquals(userDirectory.generateNewId(), 1);
     }
 
     @Test(expected = UserNotFoundException.class)

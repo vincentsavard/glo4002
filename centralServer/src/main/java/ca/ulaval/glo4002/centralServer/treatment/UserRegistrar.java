@@ -12,7 +12,7 @@ public class UserRegistrar {
     }
 
     public int generateUserID() {
-        int newUserId = usersDirectory.getNumberOfUsers() + 1;
+        int newUserId = usersDirectory.generateNewId();
         return newUserId;
     }
 
