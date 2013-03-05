@@ -12,12 +12,8 @@ public abstract class EmergencyTreatment {
         usersDirectory = UsersDirectory.getInstance();
     }
 
-    public void send() {
-        // FIXME
-    }
-
     // for test purpose only
-    protected EmergencyTreatment(final UsersDirectory usersDirectory, final CommunicationUnit communicationUnit) {
+    protected EmergencyTreatment(UsersDirectory usersDirectory, CommunicationUnit communicationUnit) {
         this.usersDirectory = usersDirectory;
         this.communicationUnit = communicationUnit;
     }

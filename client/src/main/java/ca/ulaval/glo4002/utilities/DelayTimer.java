@@ -10,11 +10,11 @@ public class DelayTimer {
     private Timer timer;
     private DelayTimerDelegate delayTimerDelegate;
 
-    public DelayTimer(final DelayTimerDelegate delayTimerDelegate) {
+    public DelayTimer(DelayTimerDelegate delayTimerDelegate) {
         this.delayTimerDelegate = delayTimerDelegate;
     }
 
-    public void startDelay(final int delayInSeconds) {
+    public void startDelay(int delayInSeconds) {
         if (timer != null) {
             timer.cancel();
             timer = null;

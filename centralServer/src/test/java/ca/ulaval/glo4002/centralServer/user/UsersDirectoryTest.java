@@ -41,7 +41,7 @@ public class UsersDirectoryTest {
         User receivedUser = userDirectory.obtainUser(AN_ID);
         assertEquals(user.getID(), receivedUser.getID());
     }
-    
+
     @Test
     public void addingAUserIncreasesNumberOfUsers() {
         userDirectory.addUser(user);

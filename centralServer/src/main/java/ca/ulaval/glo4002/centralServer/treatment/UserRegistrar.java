@@ -16,17 +16,17 @@ public class UserRegistrar {
         return newUserId;
     }
 
-    public void registerUser(final int newUserId, final String userInformation) {
+    public void registerUser(int newUserId, String userInformation) {
         User newUser = createNewUser(newUserId, userInformation);
         usersDirectory.addUser(newUser);
     }
 
-    private User createNewUser(final int newUserId, final String userInformation) {
+    private User createNewUser(int newUserId, String userInformation) {
         return new User(newUserId, userInformation);
     }
 
     // for test purpose only
-    protected UserRegistrar(final UsersDirectory usersDirectory) {
+    protected UserRegistrar(UsersDirectory usersDirectory) {
         this.usersDirectory = usersDirectory;
     }
 }

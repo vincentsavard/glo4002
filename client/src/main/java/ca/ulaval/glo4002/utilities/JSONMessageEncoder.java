@@ -7,7 +7,7 @@ import org.json.simple.JSONObject;
 public class JSONMessageEncoder {
 
     @SuppressWarnings("unchecked")
-    public String generateEncodedMessage(final HashMap<String, String> map) {
+    public String generateEncodedMessage(HashMap<String, String> map) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.putAll(map);
         return jsonObject.toJSONString();

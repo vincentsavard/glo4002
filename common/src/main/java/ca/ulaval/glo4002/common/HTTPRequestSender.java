@@ -1,36 +1,31 @@
 package ca.ulaval.glo4002.common;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 
 public abstract class HTTPRequestSender {
-    
+
     protected static final String APPLICATION_TYPE = "application/json";
-    protected static final String SERVER_URL = "http://localhost:8080/";
+    protected String serverURL = "http://localhost";
     protected static final int RESPONSE_OK = 200;
+
+    protected int port;
 
     protected WebResource webResource;
 
-    public HTTPRequestSender() {
+    public HTTPRequestSender(int port) {
+        serverURL = String.format("%s:%s", serverURL, port);
         Client client = Client.create();
-        webResource = client.resource(SERVER_URL);
+        webResource = client.resource(serverURL);
     }
 
-    protected HTTPRequestSender(final WebResource ressource) {
+    protected HTTPRequestSender(WebResource ressource) {
         webResource = ressource;
     }
 
     protected void changeWebResource(String resource) {
-        try {
-            URI resourceURL = new URI(String.format("%s/%s", SERVER_URL, resource));
-            webResource.uri(resourceURL);
-        } catch (URISyntaxException e) {
-            // It is currently unrecoverable because the URLs are hard-coded. If
-            // we can't create it here, then nobody can.
-            throw new RuntimeException("There was an unrecoverable error trying to create a new resource URL");
-        }
+        Client client = Client.create();
+        webResource = client.resource(String.format("%s/%s", serverURL, resource));
+        System.out.println(webResource.toString());
     }
 }

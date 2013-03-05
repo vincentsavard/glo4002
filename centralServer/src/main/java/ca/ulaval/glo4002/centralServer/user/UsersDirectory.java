@@ -12,7 +12,7 @@ public class UsersDirectory {
         this.userList = new ArrayList<User>();
     }
 
-    public boolean userExists(final int anID) {
+    public boolean userExists(int anID) {
         boolean answer = false;
 
         for (User user : userList) {
@@ -23,11 +23,11 @@ public class UsersDirectory {
         return answer;
     }
 
-    public void addUser(final User user) {
+    public void addUser(User user) {
         userList.add(user);
     }
 
-    public User obtainUser(final int anID) throws UserNotFoundException {
+    public User obtainUser(int anID) throws UserNotFoundException {
         User userToBeFound = null;
 
         for (User user : userList) {
@@ -38,7 +38,7 @@ public class UsersDirectory {
 
         if (userToBeFound == null) {
             throw new UserNotFoundException(
-                    "This ID was not found in the UsersDirectory when trying to obtain the corresponding user");
+                                            "This ID was not found in the UsersDirectory when trying to obtain the corresponding user");
         }
 
         return userToBeFound;

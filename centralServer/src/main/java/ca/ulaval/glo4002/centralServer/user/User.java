@@ -5,7 +5,7 @@ public class User {
     private int userID;
     private String userAddress;
 
-    public User(final int anID, final String anAddress) {
+    public User(int anID, String anAddress) {
         this.userID = anID;
         this.userAddress = anAddress;
     }

@@ -16,7 +16,7 @@ public class ProtocolBuilder {
         return attributes;
     }
 
-    public void addClientAddress(final String address) {
+    public void addClientAddress(String address) {
         attributes.put(ADDRESS_KEY, address);
     }
 }

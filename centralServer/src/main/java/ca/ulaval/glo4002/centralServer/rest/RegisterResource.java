@@ -2,18 +2,19 @@ package ca.ulaval.glo4002.centralServer.rest;
 
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.core.Response;
 
 import ca.ulaval.glo4002.centralServer.treatment.UserRegistrar;
 
-@Path("/inscription/")
-public class InscriptionResource {
+@Path("/register/")
+public class RegisterResource {
 
     private UserRegistrar userRegistrar = new UserRegistrar();
 
     @POST
-    public int registerUser(final String userInformation) {
-        int newUserId = userRegistrar.generateUserID();
+    public Response registerUser(String userInformation) {
+        Integer newUserId = userRegistrar.generateUserID();
         userRegistrar.registerUser(newUserId, userInformation);
-        return newUserId;
+        return Response.status(200).entity(newUserId.toString()).build();
     }
 }

@@ -5,9 +5,8 @@ import ca.ulaval.glo4002.devices.AlarmSystem;
 
 public class FirePolicy extends Policy {
 
-    public FirePolicy(final AlarmSystem alarmSystem) {
+    public FirePolicy(AlarmSystem alarmSystem) {
         super(alarmSystem);
-        communicationUnit = new CommunicationUnit(alarmSystem.getUserID(),
-                CommunicationUnit.CommunicationType.FIRE);
+        communicationUnit = new CommunicationUnit(alarmSystem.getUserID(), CommunicationUnit.CommunicationType.FIRE);
     }
 }

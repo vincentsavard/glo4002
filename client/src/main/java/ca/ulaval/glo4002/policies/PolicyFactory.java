@@ -10,11 +10,11 @@ public class PolicyFactory {
 
     protected AlarmSystem alarmSystem;
 
-    public PolicyFactory(final AlarmSystem alarmSystem) {
+    public PolicyFactory(AlarmSystem alarmSystem) {
         this.alarmSystem = alarmSystem;
     }
 
-    public Policy createPolicy(final PolicyType policyType) {
+    public Policy createPolicy(PolicyType policyType) {
         if (policyType == PolicyType.FIRE_POLICY) {
             return new FirePolicy(alarmSystem);
         } else if (policyType == PolicyType.INTRUSION_POLICY) {

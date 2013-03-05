@@ -45,13 +45,13 @@ public class AlarmSystemTest {
 
     @Test
     public void unArmedSystemIsArmedWhenMethodArmIsCalled() throws BadStateException {
-        alarmSystem.arm();
+        alarmSystem.armWithThirtySecondsDelay();
         assertTrue(alarmSystem.isArmed());
     }
 
     @Test
     public void armedSystemIsDisarmedWhenMethodDisarmedIsCalled() throws BadStateException {
-        alarmSystem.arm();
+        alarmSystem.armWithThirtySecondsDelay();
         alarmSystem.disarm();
         assertFalse(alarmSystem.isArmed());
     }
@@ -59,33 +59,33 @@ public class AlarmSystemTest {
     @Test(expected = BadStateException.class)
     public void systemNotReadyThrowsExceptionWhenMethodArmIsCalled() throws BadStateException {
         alarmSystem.setNotReady();
-        alarmSystem.arm();
+        alarmSystem.armWithThirtySecondsDelay();
     }
 
     @Test
     public void systemSetNotReadyAndSetReadyCanBeArmed() throws BadStateException {
         alarmSystem.setNotReady();
         alarmSystem.setReady();
-        alarmSystem.arm();
+        alarmSystem.armWithThirtySecondsDelay();
         assertTrue(alarmSystem.isArmed());
     }
 
     @Test
     public void whenMethodStartDelayIsCalledTheDelayIsStarted() throws BadStateException {
-        alarmSystem.arm();
+        alarmSystem.armWithThirtySecondsDelay();
         verify(delayTimer).startDelay(DELAY_IN_SECOND_BEFORE_ARMING);
     }
 
     @Test
     public void theSystemIsArmedWhenDelayRunsOut() throws BadStateException {
-        alarmSystem.arm();
+        alarmSystem.armWithThirtySecondsDelay();
         assertTrue(alarmSystem.isArmed());
     }
 
     @Test
     public void whenArmingSystemIfSystemIsDisarmedBeforeDelayExpiredItIsStillDisarmedAfterDelay() throws BadStateException {
         AlarmSystem alarmSystemWithDelay = new AlarmSystem();
-        alarmSystemWithDelay.arm();
+        alarmSystemWithDelay.armWithThirtySecondsDelay();
         alarmSystemWithDelay.disarm();
         alarmSystemWithDelay.delayExpired();
         assertFalse(alarmSystemWithDelay.isArmed());

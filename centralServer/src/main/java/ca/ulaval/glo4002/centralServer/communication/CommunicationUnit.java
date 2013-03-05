@@ -5,18 +5,19 @@ import ca.ulaval.glo4002.common.POSTRequestSender;
 
 public class CommunicationUnit {
 
-    private POSTRequestSender postRequestSender = new POSTRequestSender();
+    private static final int EMERGENCY_SERVER_PORT = 8081;
+    private POSTRequestSender postRequestSender = new POSTRequestSender(EMERGENCY_SERVER_PORT);
     private String resource;
 
     public static enum CommunicationType {
-        FIRE, INTRUSION
+        FIRE, POLICE
     };
 
     public CommunicationUnit(CommunicationType communicationType) {
         resource = generateResourceURL(communicationType);
     }
 
-    public void sendMessageToEmergencyServer(final User obtainedUser) {
+    public void sendMessageToEmergencyServer(User obtainedUser) {
         String messageToSend = obtainedUser.getAddress();
         postRequestSender.sendRequest(resource, messageToSend);
 

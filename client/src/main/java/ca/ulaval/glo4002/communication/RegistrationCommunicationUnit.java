@@ -4,15 +4,22 @@ import java.util.HashMap;
 
 public class RegistrationCommunicationUnit extends CommunicationUnit {
 
+    private static final String RESOURCE = "register/";
+
     private String response;
 
-    public void sendRegistrationRequest(final HashMap<String, String> attributes) {
+    public RegistrationCommunicationUnit() {
+        super();
+        resource = RESOURCE;
+    }
+
+    public void sendRegistrationRequest(HashMap<String, String> attributes) {
         String message = messageEncoder.generateEncodedMessage(attributes);
         response = postRequestSender.sendRequest(resource, message);
     }
 
     public int retrieveUserID() {
-        int userID = new Integer(response);
+        int userID = Integer.parseInt(response);
         return userID;
     }
 }

@@ -29,7 +29,7 @@ public class CentralServer {
         server.start();
     }
 
-    public ServletHolder createJerseyServletHolder(final String packageName) {
+    public ServletHolder createJerseyServletHolder(String packageName) {
         ServletHolder jerseyServletHolder = new ServletHolder(ServletContainer.class);
         jerseyServletHolder.setInitParameter(PARAM_RESSOURCE_CONFIG_CLASS, PACKAGE_RESSOURCE_CONFIG);
         jerseyServletHolder.setInitParameter(PARAM_PACKAGE, packageName);
@@ -38,5 +38,9 @@ public class CentralServer {
 
     public void stopServer() throws Exception {
         server.stop();
+    }
+
+    public boolean isRunning() {
+        return server.isRunning() && server.isStarted();
     }
 }

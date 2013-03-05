@@ -11,10 +11,11 @@ public class MainDoorIntrusionPolicy extends Policy implements DelayTimerDelegat
 
     private DelayTimer delayTimer;
 
-    public MainDoorIntrusionPolicy(final AlarmSystem alarmSystem) {
+    public MainDoorIntrusionPolicy(AlarmSystem alarmSystem) {
         super(alarmSystem);
-        communicationUnit = new CommunicationUnit(alarmSystem.getUserID(),
-                                                  CommunicationUnit.CommunicationType.INTRUSION);
+        communicationUnit =
+                            new CommunicationUnit(alarmSystem.getUserID(),
+                                                  CommunicationUnit.CommunicationType.POLICE);
         delayTimer = new DelayTimer(this);
     }
 
@@ -33,8 +34,8 @@ public class MainDoorIntrusionPolicy extends Policy implements DelayTimerDelegat
     }
 
     // for test purpose only
-    protected MainDoorIntrusionPolicy(final AlarmSystem alarmSystem, final CommunicationUnit communicationUnit,
-                                      final DelayTimer delayTimer) {
+    protected MainDoorIntrusionPolicy(AlarmSystem alarmSystem, CommunicationUnit communicationUnit,
+                                      DelayTimer delayTimer) {
         super(alarmSystem);
         this.communicationUnit = communicationUnit;
         this.delayTimer = delayTimer;

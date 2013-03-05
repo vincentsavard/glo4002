@@ -5,15 +5,16 @@ import com.sun.jersey.api.client.WebResource;
 
 public class POSTRequestSender extends HTTPRequestSender {
 
-    public POSTRequestSender() {
-        super();
+    public POSTRequestSender(int port) {
+        super(port);
     }
 
-    protected POSTRequestSender(final WebResource ressource) {
-        super(ressource);
+    protected POSTRequestSender(WebResource resource) {
+        super(resource);
     }
 
-    public String sendRequest(final String resource, final String messageToSend) {
+    public String sendRequest(String resource, String messageToSend) {
+
         changeWebResource(resource);
         ClientResponse response = webResource.type(APPLICATION_TYPE).post(ClientResponse.class, messageToSend);
 
@@ -21,6 +22,6 @@ public class POSTRequestSender extends HTTPRequestSender {
             throw new HTTPException("Failed: HTTP error code: " + response.getStatus());
         }
 
-        return response.toString();
+        return response.getEntity(String.class);
     }
 }

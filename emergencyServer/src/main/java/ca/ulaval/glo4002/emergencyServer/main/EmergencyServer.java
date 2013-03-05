@@ -1,5 +1,7 @@
 package ca.ulaval.glo4002.emergencyServer.main;
 
+import java.util.concurrent.Callable;
+
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -15,6 +17,7 @@ public class EmergencyServer {
     private static final String PACKAGE_NAME = "ca.ulaval.glo4002.emergencyServer.rest";
     private static final String CONTEXT_PATH = "/";
     private static final String PATH_SPEC = "/*";
+    public static boolean called = false;
 
     private Server server;
 
@@ -29,7 +32,7 @@ public class EmergencyServer {
         server.start();
     }
 
-    public ServletHolder createJerseyServletHolder(final String packageName) {
+    public ServletHolder createJerseyServletHolder(String packageName) {
         ServletHolder jerseyServletHolder = new ServletHolder(ServletContainer.class);
         jerseyServletHolder.setInitParameter(PARAM_RESSOURCE_CONFIG_CLASS, PACKAGE_RESSOURCE_CONFIG);
         jerseyServletHolder.setInitParameter(PARAM_PACKAGE, packageName);
@@ -38,5 +41,15 @@ public class EmergencyServer {
 
     public void stopServer() throws Exception {
         server.stop();
+    }
+
+    public static Callable<Boolean> wasCalled() {
+        return new Callable<Boolean>() {
+
+            public Boolean call() throws Exception {
+                return EmergencyServer.called; // The condition that must be
+                                               // fulfilled
+            }
+        };
     }
 }

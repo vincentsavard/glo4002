@@ -15,7 +15,7 @@ import ca.ulaval.glo4002.common.POSTRequestSender;
 
 public class CommunicationUnitTest {
 
-    private static final CommunicationType COMMUNICATION_TYPE = CommunicationType.INTRUSION;
+    private static final CommunicationType COMMUNICATION_TYPE = CommunicationType.POLICE;
     private static final String AN_ADDRESS = "Address 1";
 
     @Mock
