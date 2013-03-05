@@ -41,6 +41,9 @@ public class ProtocolBuilderTest {
         protocolBuilder.addClientAddress(AN_ADDRESS);
         attributes = protocolBuilder.generate();
 
-        assertEquals(attributes.get(ADDRESS_KEY), AN_ADDRESS);
+        String address = attributes.get(ADDRESS_KEY);
+
+        assertEquals(address, AN_ADDRESS);
     }
+
 }

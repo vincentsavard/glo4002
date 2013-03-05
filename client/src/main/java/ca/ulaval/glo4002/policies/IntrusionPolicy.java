@@ -7,8 +7,8 @@ public class IntrusionPolicy extends Policy {
 
     public IntrusionPolicy(AlarmSystem alarmSystem) {
         super(alarmSystem);
-        communicationUnit =
-                            new CommunicationUnit(alarmSystem.getUserID(),
-                                                  CommunicationUnit.CommunicationType.POLICE);
+        int userID = alarmSystem.getUserID();
+        communicationUnit = new CommunicationUnit(userID, CommunicationUnit.CommunicationType.POLICE);
     }
+
 }

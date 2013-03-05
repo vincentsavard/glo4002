@@ -10,7 +10,6 @@ public abstract class Policy {
 
     public Policy(AlarmSystem alarmSystem) {
         this.alarmSystem = alarmSystem;
-
     }
 
     public void executeProcedure() {
@@ -23,9 +22,10 @@ public abstract class Policy {
         communicationUnit.sendMessageToCentralServer();
     }
 
-    // for test purpose only
+    // For test purpose only
     protected Policy(AlarmSystem alarmSystem, CommunicationUnit communicationUnit) {
         this.alarmSystem = alarmSystem;
         this.communicationUnit = communicationUnit;
     }
+
 }

@@ -9,12 +9,15 @@ import ca.ulaval.glo4002.centralServer.treatment.UserRegistrar;
 @Path("/register/")
 public class RegisterResource {
 
+    private static final int HTTP_OK = 200;
+
     private UserRegistrar userRegistrar = new UserRegistrar();
 
     @POST
     public Response registerUser(String userInformation) {
         Integer newUserId = userRegistrar.generateUserID();
         userRegistrar.registerUser(newUserId, userInformation);
-        return Response.status(200).entity(newUserId.toString()).build();
+        return Response.status(HTTP_OK).entity(newUserId.toString()).build();
     }
+
 }

@@ -16,19 +16,19 @@ public class SirenTest {
 
     @Test
     public void whenInitializedSirenDoesNotRing() {
-        assertFalse(siren.isRigging());
+        assertFalse(siren.isRinging());
     }
 
     @Test
     public void whenSirenActivatedItIsRigging() {
         siren.activate();
-        assertTrue(siren.isRigging());
+        assertTrue(siren.isRinging());
     }
 
     @Test
     public void givenAnActivatedSirenWhenDeactivatedThenDoesNotRing() {
         siren.activate();
         siren.deactivate();
-        assertFalse(siren.isRigging());
+        assertFalse(siren.isRinging());
     }
 }

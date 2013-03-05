@@ -38,4 +38,5 @@ public class CommunicationUnitTest {
 
         verify(postRequestSender).sendRequest(anyString(), anyString());
     }
+
 }

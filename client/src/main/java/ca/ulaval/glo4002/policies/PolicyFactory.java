@@ -22,7 +22,8 @@ public class PolicyFactory {
         } else if (policyType == PolicyType.MAIN_DOOR_INTRUSION_POLICY) {
             return new MainDoorIntrusionPolicy(alarmSystem);
         } else {
-            throw new RuntimeException("Wrong policy type");
+            throw new InvalidPolicyException("Invalid policy type at construction.");
         }
     }
+
 }

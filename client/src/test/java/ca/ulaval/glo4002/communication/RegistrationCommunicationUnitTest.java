@@ -35,7 +35,9 @@ public class RegistrationCommunicationUnitTest {
         registrationCommunicationUnit.sendRegistrationRequest(new HashMap<String, String>());
 
         int userID = registrationCommunicationUnit.retrieveUserID();
+        int responseID = Integer.parseInt(A_POST_RESPONSE);
 
-        assertEquals(Integer.parseInt(A_POST_RESPONSE), userID);
+        assertEquals(responseID, userID);
     }
+
 }

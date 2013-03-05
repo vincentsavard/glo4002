@@ -9,7 +9,6 @@ public class RegistrationCommunicationUnit extends CommunicationUnit {
     private String response;
 
     public RegistrationCommunicationUnit() {
-        super();
         resource = RESOURCE;
     }
 
@@ -22,4 +21,5 @@ public class RegistrationCommunicationUnit extends CommunicationUnit {
         int userID = Integer.parseInt(response);
         return userID;
     }
+
 }

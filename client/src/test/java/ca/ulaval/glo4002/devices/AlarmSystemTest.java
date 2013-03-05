@@ -16,7 +16,7 @@ import ca.ulaval.glo4002.utilities.DelayTimer;
 
 public class AlarmSystemTest {
 
-    private static final int DELAY_IN_SECOND_BEFORE_ARMING = 30;
+    private static final int DELAY_IN_SECONDS_BEFORE_ARMING = 30;
 
     @Mock
     private DelayTimer delayTimer;
@@ -35,6 +35,7 @@ public class AlarmSystemTest {
                 alarmSystem.delayExpired();
                 return null;
             }
+
         }).when(delayTimer).startDelay(anyInt());
     }
 
@@ -44,50 +45,55 @@ public class AlarmSystemTest {
     }
 
     @Test
-    public void unArmedSystemIsArmedWhenMethodArmIsCalled() throws BadStateException {
+    public void unarmedSystemIsArmedWhenMethodArmIsCalled() {
         alarmSystem.armWithThirtySecondsDelay();
         assertTrue(alarmSystem.isArmed());
     }
 
     @Test
-    public void armedSystemIsDisarmedWhenMethodDisarmedIsCalled() throws BadStateException {
+    public void armedSystemIsDisarmedWhenMethodDisarmedIsCalled() {
         alarmSystem.armWithThirtySecondsDelay();
         alarmSystem.disarm();
         assertFalse(alarmSystem.isArmed());
     }
 
     @Test(expected = BadStateException.class)
-    public void systemNotReadyThrowsExceptionWhenMethodArmIsCalled() throws BadStateException {
+    public void systemNotReadyThrowsExceptionWhenMethodArmIsCalled() {
         alarmSystem.setNotReady();
         alarmSystem.armWithThirtySecondsDelay();
     }
 
     @Test
-    public void systemSetNotReadyAndSetReadyCanBeArmed() throws BadStateException {
+    public void systemSetNotReadyAndSetReadyCanBeArmed() {
         alarmSystem.setNotReady();
         alarmSystem.setReady();
+
+        alarmSystem.armWithThirtySecondsDelay();
+
+        assertTrue(alarmSystem.isArmed());
+    }
+
+    @Test
+    public void whenMethodStartDelayIsCalledTheDelayIsStarted() {
+        alarmSystem.armWithThirtySecondsDelay();
+        verify(delayTimer).startDelay(DELAY_IN_SECONDS_BEFORE_ARMING);
+    }
+
+    @Test
+    public void theSystemIsArmedWhenDelayRunsOut() {
         alarmSystem.armWithThirtySecondsDelay();
         assertTrue(alarmSystem.isArmed());
     }
 
     @Test
-    public void whenMethodStartDelayIsCalledTheDelayIsStarted() throws BadStateException {
-        alarmSystem.armWithThirtySecondsDelay();
-        verify(delayTimer).startDelay(DELAY_IN_SECOND_BEFORE_ARMING);
-    }
-
-    @Test
-    public void theSystemIsArmedWhenDelayRunsOut() throws BadStateException {
-        alarmSystem.armWithThirtySecondsDelay();
-        assertTrue(alarmSystem.isArmed());
-    }
-
-    @Test
-    public void whenArmingSystemIfSystemIsDisarmedBeforeDelayExpiredItIsStillDisarmedAfterDelay() throws BadStateException {
+    public void whenArmingSystemIfSystemIsDisarmedBeforeDelayExpiredThenItIsStillDisarmedAfterDelay() {
         AlarmSystem alarmSystemWithDelay = new AlarmSystem();
+
         alarmSystemWithDelay.armWithThirtySecondsDelay();
         alarmSystemWithDelay.disarm();
         alarmSystemWithDelay.delayExpired();
+
         assertFalse(alarmSystemWithDelay.isArmed());
     }
+
 }

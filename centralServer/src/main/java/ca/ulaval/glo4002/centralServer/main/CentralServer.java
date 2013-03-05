@@ -8,7 +8,7 @@ import com.sun.jersey.spi.container.servlet.ServletContainer;
 
 public class CentralServer {
 
-    private static final int PORT = 8080;
+    private static final int PORT = 9001;
     private static final String PARAM_RESSOURCE_CONFIG_CLASS = "com.sun.jersey.config.property.resourceConfigClass";
     private static final String PARAM_PACKAGE = "com.sun.jersey.config.property.packages";
     private static final String PACKAGE_RESSOURCE_CONFIG = "com.sun.jersey.api.core.PackagesResourceConfig";
@@ -20,11 +20,9 @@ public class CentralServer {
 
     public void startServer() throws Exception {
         server = new Server(PORT);
-        ServletContextHandler servletContextHandler;
-        ServletHolder jerseyServletHolder;
+        ServletContextHandler servletContextHandler = new ServletContextHandler(server, CONTEXT_PATH);
+        ServletHolder jerseyServletHolder = createJerseyServletHolder(PACKAGE_NAME);
 
-        servletContextHandler = new ServletContextHandler(server, CONTEXT_PATH);
-        jerseyServletHolder = createJerseyServletHolder(PACKAGE_NAME);
         servletContextHandler.addServlet(jerseyServletHolder, PATH_SPEC);
         server.start();
     }
@@ -40,7 +38,4 @@ public class CentralServer {
         server.stop();
     }
 
-    public boolean isRunning() {
-        return server.isRunning() && server.isStarted();
-    }
 }

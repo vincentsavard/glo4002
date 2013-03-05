@@ -7,6 +7,8 @@ public class FirePolicy extends Policy {
 
     public FirePolicy(AlarmSystem alarmSystem) {
         super(alarmSystem);
-        communicationUnit = new CommunicationUnit(alarmSystem.getUserID(), CommunicationUnit.CommunicationType.FIRE);
+        int userID = alarmSystem.getUserID();
+        communicationUnit = new CommunicationUnit(userID, CommunicationUnit.CommunicationType.FIRE);
     }
+
 }

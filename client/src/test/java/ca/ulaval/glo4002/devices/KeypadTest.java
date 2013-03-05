@@ -1,11 +1,11 @@
 package ca.ulaval.glo4002.devices;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 public class KeypadTest {
@@ -14,7 +14,7 @@ public class KeypadTest {
     private static final String VALID_PIN = "12345";
     private static final String INVALID_PIN = "54321";
     private static final String FORBIDDEN_PIN = "A345";
-    private static final String RAPID_PIN = "00";
+    private static final String RAPID_PIN = "#0";
 
     private Keypad keypad;
 
@@ -28,46 +28,47 @@ public class KeypadTest {
     }
 
     @Test
-    public void canArmSystemWhenPINIsValid() throws BadStateException, InvalidPINException {
+    public void canArmSystemWhenPINIsValid() {
         keypad.armSystem(VALID_PIN);
-        Mockito.verify(alarmSystem).armWithThirtySecondsDelay();
+        verify(alarmSystem).armWithThirtySecondsDelay();
     }
 
     @Test
     public void canArmSystemWithRapidPIN() {
         keypad.armSystem(RAPID_PIN);
-        Mockito.verify(alarmSystem).armWithThirtySecondsDelay();
+        verify(alarmSystem).armWithThirtySecondsDelay();
     }
 
     @Test(expected = InvalidPINException.class)
-    public void whenArmingSystemIfPINIsNotValidThrowAnException() throws InvalidPINException, BadStateException {
+    public void whenArmingSystemIfPINIsNotValidThrowAnException() {
         keypad.armSystem(INVALID_PIN);
     }
 
     @Test
-    public void canDisarmSystemWhenPINIsValid() throws InvalidPINException {
+    public void canDisarmSystemWhenPINIsValid() {
         keypad.disarmSystem(VALID_PIN);
-        Mockito.verify(alarmSystem).disarm();
+        verify(alarmSystem).disarm();
     }
 
     @Test(expected = InvalidPINException.class)
-    public void whenDisarmingSystemIfPINIsNotValidThrowAnException() throws InvalidPINException {
+    public void whenDisarmingSystemIfPINIsNotValidThrowAnException() {
         keypad.disarmSystem(INVALID_PIN);
     }
 
     @Test
-    public void newPINsetAsValidPINWhenPINIsValid() throws InvalidPINException {
+    public void newPINsetAsValidPINWhenPINIsValid() {
         keypad.changePIN(VALID_PIN, NEW_PIN);
         assertTrue(keypad.isPINValid(NEW_PIN));
     }
 
     @Test(expected = InvalidPINException.class)
-    public void whenChangingPINIfPINIsNotValidThrowAnException() throws InvalidPINException {
+    public void whenChangingPINIfPINIsNotValidThrowAnException() {
         keypad.changePIN(INVALID_PIN, NEW_PIN);
     }
 
     @Test(expected = PINFormatForbiddenException.class)
-    public void whenChangingPINIfNewPINIsNotOfTheRightFormatThrowAnException() throws PINFormatForbiddenException {
+    public void whenChangingPINIfNewPINIsNotOfTheRightFormatThrowAnException() {
         keypad.changePIN(VALID_PIN, FORBIDDEN_PIN);
     }
+
 }

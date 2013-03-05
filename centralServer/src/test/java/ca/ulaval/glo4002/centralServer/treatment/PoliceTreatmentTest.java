@@ -3,45 +3,57 @@ package ca.ulaval.glo4002.centralServer.treatment;
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import ca.ulaval.glo4002.centralServer.communication.CommunicationUnit;
 import ca.ulaval.glo4002.centralServer.user.User;
+import ca.ulaval.glo4002.centralServer.user.UserDirectory;
 import ca.ulaval.glo4002.centralServer.user.UserNotFoundException;
-import ca.ulaval.glo4002.centralServer.user.UsersDirectory;
 
 public class PoliceTreatmentTest {
 
-    private static final String A_GOOD_ID = "20";
-
-    private PoliceTreatment policeTreatment;
+    private static final String A_GOOD_URL_ID = "20";
+    private static final String A_WRONG_URL_ID = "13";
 
     @Mock
     private CommunicationUnit communicationUnit;
 
-    @Mock
-    private UsersDirectory usersDirectory;
+    @InjectMocks
+    private PoliceTreatment policeTreatment;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        usersDirectory = mock(UsersDirectory.class);
-        policeTreatment = new PoliceTreatment(usersDirectory, communicationUnit);
+        UserDirectory mockedUserDirectory = mock(UserDirectory.class);
+        UserDirectory.load(mockedUserDirectory);
+    }
+
+    @After
+    public void tearDown() {
+        UserDirectory.load(null);
     }
 
     @Test
-    public void whenProcessingTheRequestWithAGoodUserIdThenCommunicationUnitSendSomething() throws UserNotFoundException {
-        when(usersDirectory.userExists(anyInt())).thenReturn(true);
-        policeTreatment.processRequest(A_GOOD_ID);
+    public void whenProcessingTheRequestWithAGoodUserIdThenCommunicationUnitSendsSomething() throws UserNotFoundException {
+        int aGoodID = Integer.parseInt(A_GOOD_URL_ID);
+        doReturn(true).when(UserDirectory.getInstance()).userExists(aGoodID);
+
+        policeTreatment.processRequest(A_GOOD_URL_ID);
+
         verify(communicationUnit).sendMessageToEmergencyServer(any(User.class));
     }
 
     @Test(expected = UserNotFoundException.class)
     public void whenProcessingTheRequestWithAWrongUserIdThenANotFoundUserExceptionIsThrown() throws UserNotFoundException {
-        when(usersDirectory.userExists(Integer.parseInt(A_GOOD_ID))).thenReturn(false);
-        policeTreatment.processRequest(A_GOOD_ID);
+        int aWrongID = Integer.parseInt(A_WRONG_URL_ID);
+        doReturn(false).when(UserDirectory.getInstance()).userExists(aWrongID);
+
+        policeTreatment.processRequest(A_WRONG_URL_ID);
     }
+
 }

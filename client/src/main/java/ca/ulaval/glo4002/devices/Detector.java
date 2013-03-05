@@ -13,4 +13,5 @@ public class Detector {
     public void trigger() {
         policy.executeProcedure();
     }
+
 }

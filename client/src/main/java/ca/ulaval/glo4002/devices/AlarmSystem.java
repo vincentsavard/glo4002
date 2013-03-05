@@ -12,24 +12,16 @@ public class AlarmSystem implements DelayTimerDelegate {
     private static final int DELAY_IN_SECOND = 30;
 
     private int userID;
-    private boolean armed;
-    private boolean suspended;
-    private boolean ready;
-    private DelayTimer delayTimer;
-
-    public AlarmSystem() {
-        ready = true;
-        armed = false;
-        suspended = false;
-        delayTimer = new DelayTimer(this);
-    }
+    private boolean armed = false;
+    private boolean suspended = false;
+    private boolean ready = true;
+    private DelayTimer delayTimer = new DelayTimer(this);
 
     public void registerToCentralServer(String address) {
         RegistrationCommunicationUnit registrationCommunicationUnit = new RegistrationCommunicationUnit();
         HashMap<String, String> attributes = buildProtocol(address);
 
         registrationCommunicationUnit.sendRegistrationRequest(attributes);
-
         userID = registrationCommunicationUnit.retrieveUserID();
     }
 
@@ -41,15 +33,7 @@ public class AlarmSystem implements DelayTimerDelegate {
         return suspended;
     }
 
-    public void armWithoutDelay() {
-        if (ready) {
-            armed = true;
-        } else {
-            throw new BadStateException("System is not ready yet. Alarm system can't be armed.");
-        }
-    }
-
-    public void armWithThirtySecondsDelay() throws BadStateException {
+    public void armWithThirtySecondsDelay() {
         if (ready) {
             suspended = true;
             startDelay();
@@ -90,7 +74,16 @@ public class AlarmSystem implements DelayTimerDelegate {
     private HashMap<String, String> buildProtocol(String address) {
         ProtocolBuilder protocolBuilder = new ProtocolBuilder();
         protocolBuilder.addClientAddress(address);
-
         return protocolBuilder.generate();
     }
+
+    // For test purpose only
+    public void armWithoutDelay() {
+        if (ready) {
+            armed = true;
+        } else {
+            throw new BadStateException("System is not ready yet. Alarm system can't be armed.");
+        }
+    }
+
 }

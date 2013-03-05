@@ -7,4 +7,5 @@ public class PINFormatForbiddenException extends RuntimeException {
     public PINFormatForbiddenException(String errorMessage) {
         super(errorMessage);
     }
+
 }

@@ -22,8 +22,9 @@ public class DetectorTest {
     }
 
     @Test
-    public void whenDetectorIsTriggeredThePolicyIsExcuted() {
+    public void whenDetectorIsTriggeredThenThePolicyIsExcuted() {
         detector.trigger();
         Mockito.verify(policy).executeProcedure();
     }
+
 }
