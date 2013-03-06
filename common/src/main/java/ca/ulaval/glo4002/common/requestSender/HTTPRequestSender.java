@@ -18,11 +18,6 @@ public abstract class HTTPRequestSender {
         client = Client.create();
     }
 
-    protected HTTPRequestSender(int port, Client client) {
-        serverURL = String.format("%s:%s", serverURL, port);
-        this.client = client;
-    }
-
     protected WebResource changeWebResource(String resource) {
         return client.resource(String.format("%s/%s", serverURL, resource));
     }
@@ -36,6 +31,12 @@ public abstract class HTTPRequestSender {
         if (response.getStatus() != RESPONSE_OK) {
             throw new HTTPException("Failed: HTTP error code: " + response.getStatus());
         }
+    }
+    
+    // For test purposes only
+    protected HTTPRequestSender(int port, Client client) {
+        serverURL = String.format("%s:%s", serverURL, port);
+        this.client = client;
     }
 
 }

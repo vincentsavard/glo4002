@@ -10,10 +10,6 @@ public class POSTRequestSender extends HTTPRequestSender {
         super(port);
     }
 
-    protected POSTRequestSender(int port, Client client) {
-        super(port, client);
-    }
-
     public String sendRequest(String resource, String messageToSend) {
         WebResource webResource = prepareRequest(resource);
 
@@ -21,6 +17,11 @@ public class POSTRequestSender extends HTTPRequestSender {
 
         treatAnswerFromRequest(response);
         return response.getEntity(String.class);
+    }
+
+    // For test purposes only
+    protected POSTRequestSender(int port, Client client) {
+        super(port, client);
     }
 
 }
