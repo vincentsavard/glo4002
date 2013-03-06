@@ -28,9 +28,9 @@
 %TODO Du côté du serveur, il suffit d'instancier la classe CentralServer et d'appeler la méthode startServer().
 
 \section*{Description de tous vos protocoles entre les composantes}
-Entre le client et de serveur de la compagnie de système d'alarme, nous avons un protocole utilisé un protocole REST. L'adresse utilisé présentement pour ce serveur est le localhost:8080/. Les usagers qui veulent s'enregistrer aux services qu'offre la compagnie doivent transmettre l'adresse de leur domicile à l'aide d'une requête POST sur le path /inscription/. Cette étape se fait à l'initialisation du système d'alarme. Suite à cette requête, un identifiant leur ait retourné. En cas d'intrusion, les clients peuvent donc ensuite faire une requête GET à l'adresse /client/\{userid\}/Police (où \{userid\} est l'identifiant qui leur a été préalablement retourné lors de l'inscription). \\
+Entre le client et de serveur de la compagnie de système d'alarme, nous avons un protocole utilisé un protocole REST. L'adresse utilisé présentement pour ce serveur est le localhost:9001/. Les usagers qui veulent s'enregistrer aux services qu'offre la compagnie doivent transmettre l'adresse de leur domicile à l'aide d'une requête POST sur le path /register/. Cette étape se fait à l'initialisation du système d'alarme. Suite à cette requête, un identifiant leur ait retourné. En cas d'intrusion, les clients peuvent donc ensuite faire une requête GET à l'adresse /client/\{userid\}/police (où \{userid\} est l'identifiant qui leur a été préalablement retourné lors de l'inscription). \\
 
-Toujours en cas d'intrusion, le serveur de la compagnie de systèmes d'alarme pourra ensuite contacter l'urgence en effectuer une requête POST au path /Police/ en envoyant les informations du client. Il est à noter que pour l'instant, l'adresse pour l'urgence est localhost:8081/
+Toujours en cas d'intrusion, le serveur de la compagnie de systèmes d'alarme pourra ensuite contacter l'urgence en effectuer une requête POST au path /police/ en envoyant les informations du client. Il est à noter que pour l'instant, l'adresse pour l'urgence est localhost:9002/
 
 \section*{Toutes notes que vous désirez transmettre aux correcteurs}
 %TODO
