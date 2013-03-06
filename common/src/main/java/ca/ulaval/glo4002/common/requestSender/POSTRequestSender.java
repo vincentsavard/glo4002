@@ -15,15 +15,11 @@ public class POSTRequestSender extends HTTPRequestSender {
     }
 
     public String sendRequest(String resource, String messageToSend) {
-        WebResource webResource;
-        webResource = changeWebResource(resource);
+        WebResource webResource = prepareRequest(resource);
 
         ClientResponse response = webResource.type(APPLICATION_TYPE).post(ClientResponse.class, messageToSend);
 
-        if (response.getStatus() != RESPONSE_OK) {
-            throw new HTTPException("Failed: HTTP error code: " + response.getStatus());
-        }
-
+        treatAnswerFromRequest(response);
         return response.getEntity(String.class);
     }
 

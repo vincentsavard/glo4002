@@ -15,16 +15,12 @@ public class GETRequestSender extends HTTPRequestSender {
     }
 
     public String sendRequest(String resource) {
-        WebResource webResource;
-        webResource = changeWebResource(resource);
+        WebResource webResource = prepareRequest(resource);
 
         ClientResponse response = webResource.type(APPLICATION_TYPE).get(ClientResponse.class);
 
-        if (response.getStatus() != RESPONSE_OK) {
-            throw new HTTPException("Failed: HTTP error code: " + response.getStatus());
-        }
-
-        return response.toString();
+        treatAnswerFromRequest(response);
+        return response.getEntity(String.class);
     }
 
 }
