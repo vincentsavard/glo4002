@@ -1,8 +1,7 @@
-package ca.ulaval.glo4002.testAcceptance;
+package ca.ulaval.glo4002.acceptanceTests;
 
 import static org.junit.Assert.*;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,31 +10,23 @@ import ca.ulaval.glo4002.testFixtures.TestFixture;
 
 public class TestArmViaKeypad {
 
-    private static final int THIRTY_SECONDS = 30000;
-    private static final int FIFTEEN_SECONDS = 15000;
-    private static final int TEN_SECOND = 10000;
-
     private TestFixture fixture;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         fixture = new TestFixture();
         fixture.createAlarmSystem();
     }
 
-    @After
-    public void teardown() throws Exception {}
-
     @Test
     public void systemIsArmedWithFastPIN() {
         fixture.armSystemWithFastPIN();
-        fixture.assertAlarmSystemIsArmed();
+        fixture.verifyAlarmSystemIsArmed();
     }
 
     public void systemIsArmedWithGoodPIN() {
         fixture.armSystemWithDefaultPIN();
-
-        fixture.assertAlarmSystemIsArmed();
+        fixture.verifyAlarmSystemIsArmed();
     }
 
     @Test
@@ -44,10 +35,11 @@ public class TestArmViaKeypad {
             fixture.armSystemWithWrongPIN();
             fail("InvalidPINException expected.");
         } catch (InvalidPINException e) {
-            fixture.assertAlarmSystemIsNotArmed();
+            fixture.verifyAlarmSystemIsNotArmed();
         }
     }
 
+    // This test takes at least 30 seconds. Don't run it if you're in a hurry
     @Test
     public void alarmSystemWaitsThirtySecondsBeforeArmingViaKeypad() throws Exception {
         fixture.initServers();
@@ -56,10 +48,11 @@ public class TestArmViaKeypad {
 
         fixture.armSystemWithDefaultPIN();
 
-        fixture.openSecondaryDoor();
-        fixture.verifyPoliceWasCalledAfterMilliSeconds(THIRTY_SECONDS);
+        // fixture.openSecondaryDoor();
+        fixture.verifyAlarmSystemWaitsThirtySecondsBeforeArming();
 
         fixture.verifyPoliceWasNotCalled();
         fixture.stopServers();
     }
+
 }

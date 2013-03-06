@@ -20,7 +20,7 @@ public class SirenTest {
     }
 
     @Test
-    public void whenSirenActivatedItIsRigging() {
+    public void whenSirenActivatedThenItIsRinging() {
         siren.activate();
         assertTrue(siren.isRinging());
     }
@@ -31,4 +31,5 @@ public class SirenTest {
         siren.deactivate();
         assertFalse(siren.isRinging());
     }
+
 }

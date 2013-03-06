@@ -14,7 +14,8 @@ public class DelayTimerTest {
 
     @Before
     public void setUp() {
-        delayManager = new DelayTimer(mock(DelayTimerDelegate.class));
+        DelayTimerDelegate mockedDelayTimerDelegate = mock(DelayTimerDelegate.class);
+        delayManager = new DelayTimer(mockedDelayTimerDelegate);
     }
 
     @Test
@@ -30,4 +31,5 @@ public class DelayTimerTest {
 
         assertFalse(delayManager.isRunning());
     }
+
 }

@@ -1,7 +1,5 @@
 package ca.ulaval.glo4002.emergencyServer.main;
 
-import java.util.concurrent.Callable;
-
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -10,7 +8,7 @@ import com.sun.jersey.spi.container.servlet.ServletContainer;
 
 public class EmergencyServer {
 
-    private static final int PORT = 8081;
+    private static final int PORT = 9002;
     private static final String PARAM_RESSOURCE_CONFIG_CLASS = "com.sun.jersey.config.property.resourceConfigClass";
     private static final String PARAM_PACKAGE = "com.sun.jersey.config.property.packages";
     private static final String PACKAGE_RESSOURCE_CONFIG = "com.sun.jersey.api.core.PackagesResourceConfig";
@@ -43,13 +41,4 @@ public class EmergencyServer {
         server.stop();
     }
 
-    public static Callable<Boolean> wasCalled() {
-        return new Callable<Boolean>() {
-
-            public Boolean call() throws Exception {
-                return EmergencyServer.called; // The condition that must be
-                                               // fulfilled
-            }
-        };
-    }
 }

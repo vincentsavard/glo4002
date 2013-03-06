@@ -58,4 +58,5 @@ public class MainDoorIntrusionPolicyTest {
         policy.delayExpired();
         verify(communicationUnit).sendMessageToCentralServer();
     }
+
 }

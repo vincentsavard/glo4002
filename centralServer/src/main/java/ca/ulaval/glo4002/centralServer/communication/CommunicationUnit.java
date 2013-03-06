@@ -1,7 +1,7 @@
 package ca.ulaval.glo4002.centralServer.communication;
 
 import ca.ulaval.glo4002.centralServer.user.User;
-import ca.ulaval.glo4002.common.POSTRequestSender;
+import ca.ulaval.glo4002.common.requestSender.POSTRequestSender;
 
 public class CommunicationUnit {
 

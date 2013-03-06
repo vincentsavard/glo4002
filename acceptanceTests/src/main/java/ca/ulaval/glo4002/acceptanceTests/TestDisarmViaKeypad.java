@@ -1,4 +1,4 @@
-package ca.ulaval.glo4002.testAcceptance;
+package ca.ulaval.glo4002.acceptanceTests;
 
 import static org.junit.Assert.*;
 
@@ -13,9 +13,8 @@ public class TestDisarmViaKeypad {
     private TestFixture fixture;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         fixture = new TestFixture();
-
         fixture.createAlarmSystem();
         fixture.armSystem();
     }
@@ -23,8 +22,7 @@ public class TestDisarmViaKeypad {
     @Test
     public void systemIsDisarmedWhenDisarmedWithGoodNIP() {
         fixture.disarmSystemWithGoodNIP();
-
-        fixture.assertAlarmSystemIsNotArmed();
+        fixture.verifyAlarmSystemIsNotArmed();
     }
 
     @Test
@@ -33,7 +31,7 @@ public class TestDisarmViaKeypad {
             fixture.disarmSystemWithWrongPIN();
             fail("InvalidPINException expected.");
         } catch (InvalidPINException e) {
-            fixture.assertAlarmSystemIsArmed();
+            fixture.verifyAlarmSystemIsArmed();
         }
     }
 

@@ -12,7 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import ca.ulaval.glo4002.common.POSTRequestSender;
+import ca.ulaval.glo4002.common.requestSender.POSTRequestSender;
 
 public class RegistrationCommunicationUnitTest {
 

@@ -1,4 +1,4 @@
-package ca.ulaval.glo4002.common;
+package ca.ulaval.glo4002.common.requestSender;
 
 public class HTTPException extends RuntimeException {
 
@@ -7,4 +7,5 @@ public class HTTPException extends RuntimeException {
     public HTTPException(String message) {
         super(message);
     }
+
 }

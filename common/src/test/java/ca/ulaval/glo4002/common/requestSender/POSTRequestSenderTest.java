@@ -1,4 +1,4 @@
-package ca.ulaval.glo4002.common;
+package ca.ulaval.glo4002.common.requestSender;
 
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
@@ -11,19 +11,20 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.WebResource.Builder;
 
-public class GETRequestSenderTest {
+public class POSTRequestSenderTest {
 
+    private static final String A_MESSAGE = "message";
     private static final int AN_HTTP_ERROR_CODE = 500;
     private static final int A_PORT = 8080;
 
     private Client client;
 
-    private GETRequestSender getRequestSender;
+    private POSTRequestSender postRequestSender;
 
     @Before
-    public void initGETRequestSender() {
+    public void initPOSTRequestSender() {
         client = mock(Client.class);
-        getRequestSender = new GETRequestSender(A_PORT, client);
+        postRequestSender = new POSTRequestSender(A_PORT, client);
     }
 
     @Test(expected = HTTPException.class)
@@ -31,12 +32,13 @@ public class GETRequestSenderTest {
         WebResource resource = mock(WebResource.class);
         Builder builder = mock(Builder.class);
         ClientResponse clientResponse = mock(ClientResponse.class);
-        
+
         doReturn(resource).when(client).resource(anyString());
         doReturn(builder).when(resource).type(anyString());
-        doReturn(clientResponse).when(builder).get(ClientResponse.class);
+        doReturn(clientResponse).when(builder).post(ClientResponse.class, A_MESSAGE);
         doReturn(AN_HTTP_ERROR_CODE).when(clientResponse).getStatus();
 
-        getRequestSender.sendRequest(anyString());
+        postRequestSender.sendRequest(anyString(), A_MESSAGE);
     }
+
 }

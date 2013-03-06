@@ -1,4 +1,4 @@
-package ca.ulaval.glo4002.common;
+package ca.ulaval.glo4002.common.requestSender;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
@@ -6,11 +6,10 @@ import com.sun.jersey.api.client.WebResource;
 public abstract class HTTPRequestSender {
 
     protected static final String APPLICATION_TYPE = "application/json";
-    protected String serverURL = "http://localhost";
     protected static final int RESPONSE_OK = 200;
 
+    protected String serverURL = "http://localhost";
     protected int port;
-
     protected Client client;
 
     public HTTPRequestSender(int port) {
@@ -26,4 +25,5 @@ public abstract class HTTPRequestSender {
     protected WebResource changeWebResource(String resource) {
         return client.resource(String.format("%s/%s", serverURL, resource));
     }
+
 }

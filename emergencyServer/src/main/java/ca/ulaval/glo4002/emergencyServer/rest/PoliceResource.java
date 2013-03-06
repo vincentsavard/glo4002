@@ -5,15 +5,15 @@ import javax.ws.rs.Path;
 
 import ca.ulaval.glo4002.emergencyServer.main.EmergencyServer;
 
-@Path("/")
-public class EmergencyResource {
+@Path("/police/")
+public class PoliceResource {
 
     private static final String RESPONSE_TO_POST_REQUEST = "POST request received at emergency server";
 
     @POST
-    @Path("police/")
     public String treatRequest(String helpRequesterInformations) {
         EmergencyServer.called = true;
         return RESPONSE_TO_POST_REQUEST;
     }
+
 }

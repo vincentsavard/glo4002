@@ -40,4 +40,5 @@ public class PolicyFactoryTest {
         Policy mainDoorPolicy = policyFactory.createPolicy(PolicyType.MAIN_DOOR_INTRUSION_POLICY);
         assertTrue(mainDoorPolicy instanceof MainDoorIntrusionPolicy);
     }
+
 }

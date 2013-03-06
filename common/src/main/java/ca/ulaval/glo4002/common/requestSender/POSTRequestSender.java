@@ -1,4 +1,4 @@
-package ca.ulaval.glo4002.common;
+package ca.ulaval.glo4002.common.requestSender;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
@@ -17,7 +17,7 @@ public class POSTRequestSender extends HTTPRequestSender {
     public String sendRequest(String resource, String messageToSend) {
         WebResource webResource;
         webResource = changeWebResource(resource);
-        
+
         ClientResponse response = webResource.type(APPLICATION_TYPE).post(ClientResponse.class, messageToSend);
 
         if (response.getStatus() != RESPONSE_OK) {
@@ -26,4 +26,5 @@ public class POSTRequestSender extends HTTPRequestSender {
 
         return response.getEntity(String.class);
     }
+
 }
