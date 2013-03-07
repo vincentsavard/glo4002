@@ -23,9 +23,9 @@
 \end{enumerate}
 
 \section*{Comment démarrer/utiliser votre système}
-Il est possible de démarrer le système avec Maven. D'abord, il faut se rendre dans le dossier du \emph{workspace} (là où se trouvent tous les dossiers des projets) et taper $mvn\ install$ en ligne de commande pour installer l'ensemble des projets. Il est à noter que cette commande exécute également les tests unitaires et les tests d'acceptation. S'il est nécessaire d'exécuter les tests à nouveau, il est possible de taper $mvn\ test$, toujours en ligne de commande, dans le dossier du \emph{workspace} ou encore dans chaque dossier des projets afin d'exécuter les tests d'un projet en particulier.\\
+Il est possible de démarrer le système avec Maven. D'abord, il faut se rendre dans le dossier du \emph{workspace} (là où se trouvent tous les dossiers des projets) et taper \emph{mvn\ install} en ligne de commande pour installer l'ensemble des projets. Il est à noter que cette commande exécute également les tests unitaires et les tests d'acceptation. S'il est nécessaire d'exécuter les tests à nouveau, il est possible de taper \emph{mvn\ test}, toujours en ligne de commande, dans le dossier du \emph{workspace} ou encore dans chaque dossier des projets afin d'exécuter les tests d'un projet en particulier.\\
 
-Pour démarrer les serveurs, il suffit de se rendre dans le dossier centralServer ou emergencyServer et de taper $mvn\ exec:java$.
+Pour démarrer les serveurs, il suffit de se rendre dans le dossier centralServer ou emergencyServer et de taper \emph{mvn\ exec:java}.
 %TODO Côté client
 
 %TODO Du côté du serveur, il suffit d'instancier la classe CentralServer et d'appeler la méthode startServer().
@@ -36,7 +36,5 @@ Entre le client et le serveur de la compagnie du système d'alarme, nous avons u
 Toujours en cas d'intrusion, le serveur de la compagnie de systèmes d'alarme pourra ensuite contacter l'urgence en effectuer une requête POST au chemin /police/ en envoyant les informations du client. Il est à noter que pour l'instant, l'adresse pour l'urgence est \emph{localhost:9002/}.
 
 \section*{Toutes notes que vous désirez transmettre aux correcteurs}
-Comme certains scénarios requièrent parfois d'attendre jusqu'à trente secondes, les tests d'acceptation mettent un certain temps à s'exécuter (environ une minute). Toutefois, les autres tests devraient s'exécuter en quelques secondes.
-
-\section*{Commentaires constructifs sur le projet}
-%TODO
+Comme certains scénarios requièrent parfois d'attendre jusqu'à trente secondes, les tests d'acceptation mettent un certain temps à s'exécuter (environ une minute). Toutefois, les autres tests devraient s'exécuter en quelques secondes. \\
+Le code est disponible sur github dans la branche \emph{remise1} à l'adresse suivante:\\ \url{https://github.com/vincentsavard/glo4002.git}. 
