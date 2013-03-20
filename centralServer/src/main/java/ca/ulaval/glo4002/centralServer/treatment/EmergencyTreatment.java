@@ -1,18 +1,18 @@
 package ca.ulaval.glo4002.centralServer.treatment;
 
-import ca.ulaval.glo4002.centralServer.communication.CommunicationUnit;
+import ca.ulaval.glo4002.centralServer.communication.Communicator;
 
 public abstract class EmergencyTreatment {
 
-    protected CommunicationUnit communicationUnit;
+    protected Communicator communicator;
 
     public EmergencyTreatment() {
 
     }
 
     // for test purpose only
-    protected EmergencyTreatment(CommunicationUnit communicationUnit) {
-        this.communicationUnit = communicationUnit;
+    protected EmergencyTreatment(Communicator communicator) {
+        this.communicator = communicator;
     }
 
 }

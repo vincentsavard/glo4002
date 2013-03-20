@@ -9,11 +9,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import ca.ulaval.glo4002.centralServer.communication.CommunicationUnit.CommunicationType;
+import ca.ulaval.glo4002.centralServer.communication.Communicator.CommunicationType;
 import ca.ulaval.glo4002.centralServer.user.User;
 import ca.ulaval.glo4002.common.requestSender.POSTRequestSender;
 
-public class CommunicationUnitTest {
+public class CommunicatorTest {
 
     private static final CommunicationType COMMUNICATION_TYPE = CommunicationType.POLICE;
     private static final String AN_ADDRESS = "Address 1";
@@ -22,7 +22,7 @@ public class CommunicationUnitTest {
     private POSTRequestSender postRequestSender;
 
     @InjectMocks
-    private CommunicationUnit communicationUnit = new CommunicationUnit(COMMUNICATION_TYPE);
+    private Communicator communicator = new Communicator(COMMUNICATION_TYPE);
 
     @Before
     public void setUp() {
@@ -34,7 +34,7 @@ public class CommunicationUnitTest {
         User user = mock(User.class);
         doReturn(AN_ADDRESS).when(user).getAddress();
 
-        communicationUnit.sendMessageToEmergencyServer(user);
+        communicator.sendMessageToEmergencyServer(user);
 
         verify(postRequestSender).sendRequest(anyString(), anyString());
     }

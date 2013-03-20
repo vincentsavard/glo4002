@@ -1,6 +1,6 @@
 package ca.ulaval.glo4002.policies;
 
-import ca.ulaval.glo4002.communication.CommunicationUnit;
+import ca.ulaval.glo4002.communication.Communicator;
 import ca.ulaval.glo4002.devices.AlarmSystem;
 import ca.ulaval.glo4002.utilities.DelayTimer;
 import ca.ulaval.glo4002.utilities.DelayTimerDelegate;
@@ -14,7 +14,7 @@ public class MainDoorIntrusionPolicy extends Policy implements DelayTimerDelegat
     public MainDoorIntrusionPolicy(AlarmSystem alarmSystem) {
         super(alarmSystem);
         int userID = alarmSystem.getUserID();
-        communicationUnit = new CommunicationUnit(userID, CommunicationUnit.CommunicationType.POLICE);
+        communicator = new Communicator(userID, Communicator.CommunicationType.POLICE);
         delayTimer = new DelayTimer(this);
     }
 
@@ -28,15 +28,15 @@ public class MainDoorIntrusionPolicy extends Policy implements DelayTimerDelegat
     @Override
     public void delayExpired() {
         if (alarmSystem.isArmed()) {
-            communicationUnit.sendMessageToCentralServer();
+            communicator.sendMessageToCentralServer();
         }
     }
 
     // For test purpose only
-    protected MainDoorIntrusionPolicy(AlarmSystem alarmSystem, CommunicationUnit communicationUnit,
+    protected MainDoorIntrusionPolicy(AlarmSystem alarmSystem, Communicator communicator,
                                       DelayTimer delayTimer) {
         super(alarmSystem);
-        this.communicationUnit = communicationUnit;
+        this.communicator = communicator;
         this.delayTimer = delayTimer;
     }
 

@@ -10,7 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import ca.ulaval.glo4002.centralServer.communication.CommunicationUnit;
+import ca.ulaval.glo4002.centralServer.communication.Communicator;
 import ca.ulaval.glo4002.centralServer.user.User;
 import ca.ulaval.glo4002.centralServer.user.UserDirectory;
 
@@ -20,7 +20,7 @@ public class UserRegistrarTest {
     private static final String USER_INFORMATION = "some information";
 
     @Mock
-    private CommunicationUnit communicationUnit;
+    private Communicator communicator;
 
     @InjectMocks
     private UserRegistrar userRegistrar;

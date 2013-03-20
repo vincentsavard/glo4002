@@ -14,7 +14,7 @@ import org.mockito.MockitoAnnotations;
 
 import ca.ulaval.glo4002.common.requestSender.POSTRequestSender;
 
-public class RegistrationCommunicationUnitTest {
+public class RegistrationCommunicatorTest {
 
     private static final String A_POST_RESPONSE = "125";
 
@@ -22,7 +22,7 @@ public class RegistrationCommunicationUnitTest {
     private POSTRequestSender postRequestSender;
 
     @InjectMocks
-    RegistrationCommunicationUnit registrationCommunicationUnit;
+    RegistrationCommunicator registrationCommunicator;
 
     @Before
     public void setUp() {
@@ -32,9 +32,9 @@ public class RegistrationCommunicationUnitTest {
     @Test
     public void canRetrieveUserIDafterMessageIsSent() {
         doReturn(A_POST_RESPONSE).when(postRequestSender).sendRequest(anyString(), anyString());
-        registrationCommunicationUnit.sendRegistrationRequest(new HashMap<String, String>());
+        registrationCommunicator.sendRegistrationRequest(new HashMap<String, String>());
 
-        int userID = registrationCommunicationUnit.retrieveUserID();
+        int userID = registrationCommunicator.retrieveUserID();
         int responseID = Integer.parseInt(A_POST_RESPONSE);
 
         assertEquals(responseID, userID);

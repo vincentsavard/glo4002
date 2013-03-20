@@ -3,7 +3,7 @@ package ca.ulaval.glo4002.centralServer.communication;
 import ca.ulaval.glo4002.centralServer.user.User;
 import ca.ulaval.glo4002.common.requestSender.POSTRequestSender;
 
-public class CommunicationUnit {
+public class Communicator {
 
     private static final int EMERGENCY_SERVER_PORT = 9002;
 
@@ -14,7 +14,7 @@ public class CommunicationUnit {
         FIRE, POLICE
     };
 
-    public CommunicationUnit(CommunicationType communicationType) {
+    public Communicator(CommunicationType communicationType) {
         resource = generateResourceURL(communicationType);
     }
 

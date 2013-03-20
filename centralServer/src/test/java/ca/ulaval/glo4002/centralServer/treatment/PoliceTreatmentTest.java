@@ -10,7 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import ca.ulaval.glo4002.centralServer.communication.CommunicationUnit;
+import ca.ulaval.glo4002.centralServer.communication.Communicator;
 import ca.ulaval.glo4002.centralServer.user.User;
 import ca.ulaval.glo4002.centralServer.user.UserDirectory;
 import ca.ulaval.glo4002.centralServer.user.UserNotFoundException;
@@ -21,7 +21,7 @@ public class PoliceTreatmentTest {
     private static final String A_WRONG_URL_ID = "13";
 
     @Mock
-    private CommunicationUnit communicationUnit;
+    private Communicator communicator;
 
     @InjectMocks
     private PoliceTreatment policeTreatment;
@@ -39,17 +39,19 @@ public class PoliceTreatmentTest {
     }
 
     @Test
-    public void whenProcessingTheRequestWithAGoodUserIdThenCommunicationUnitSendsSomething() throws UserNotFoundException {
+    public void whenProcessingTheRequestWithAGoodUserIdThenCommunicatorSendsSomething()
+            throws UserNotFoundException {
         int aGoodID = Integer.parseInt(A_GOOD_URL_ID);
         doReturn(true).when(UserDirectory.getInstance()).userExists(aGoodID);
 
         policeTreatment.processRequest(A_GOOD_URL_ID);
 
-        verify(communicationUnit).sendMessageToEmergencyServer(any(User.class));
+        verify(communicator).sendMessageToEmergencyServer(any(User.class));
     }
 
     @Test(expected = UserNotFoundException.class)
-    public void whenProcessingTheRequestWithAWrongUserIdThenANotFoundUserExceptionIsThrown() throws UserNotFoundException {
+    public void whenProcessingTheRequestWithAWrongUserIdThenANotFoundUserExceptionIsThrown()
+            throws UserNotFoundException {
         int aWrongID = Integer.parseInt(A_WRONG_URL_ID);
         doReturn(false).when(UserDirectory.getInstance()).userExists(aWrongID);
 

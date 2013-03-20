@@ -2,13 +2,13 @@ package ca.ulaval.glo4002.communication;
 
 import java.util.HashMap;
 
-public class RegistrationCommunicationUnit extends CommunicationUnit {
+public class RegistrationCommunicator extends Communicator {
 
     private static final String RESOURCE = "register/";
 
     private String response;
 
-    public RegistrationCommunicationUnit() {
+    public RegistrationCommunicator() {
         resource = RESOURCE;
     }
 

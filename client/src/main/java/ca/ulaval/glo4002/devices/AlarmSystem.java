@@ -3,7 +3,7 @@ package ca.ulaval.glo4002.devices;
 import java.util.HashMap;
 
 import ca.ulaval.glo4002.communication.ProtocolBuilder;
-import ca.ulaval.glo4002.communication.RegistrationCommunicationUnit;
+import ca.ulaval.glo4002.communication.RegistrationCommunicator;
 import ca.ulaval.glo4002.utilities.DelayTimer;
 import ca.ulaval.glo4002.utilities.DelayTimerDelegate;
 
@@ -18,11 +18,11 @@ public class AlarmSystem implements DelayTimerDelegate {
     private DelayTimer delayTimer = new DelayTimer(this);
 
     public void registerToCentralServer(String address) {
-        RegistrationCommunicationUnit registrationCommunicationUnit = new RegistrationCommunicationUnit();
+        RegistrationCommunicator registrationCommunicator = new RegistrationCommunicator();
         HashMap<String, String> attributes = buildProtocol(address);
 
-        registrationCommunicationUnit.sendRegistrationRequest(attributes);
-        userID = registrationCommunicationUnit.retrieveUserID();
+        registrationCommunicator.sendRegistrationRequest(attributes);
+        userID = registrationCommunicator.retrieveUserID();
     }
 
     public boolean isArmed() {

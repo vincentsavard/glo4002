@@ -1,11 +1,11 @@
 package ca.ulaval.glo4002.policies;
 
-import ca.ulaval.glo4002.communication.CommunicationUnit;
+import ca.ulaval.glo4002.communication.Communicator;
 import ca.ulaval.glo4002.devices.AlarmSystem;
 
 public abstract class Policy {
 
-    protected CommunicationUnit communicationUnit;
+    protected Communicator communicator;
     protected AlarmSystem alarmSystem;
 
     public Policy(AlarmSystem alarmSystem) {
@@ -19,13 +19,13 @@ public abstract class Policy {
     }
 
     protected void sendMessage() {
-        communicationUnit.sendMessageToCentralServer();
+        communicator.sendMessageToCentralServer();
     }
 
     // For test purpose only
-    protected Policy(AlarmSystem alarmSystem, CommunicationUnit communicationUnit) {
+    protected Policy(AlarmSystem alarmSystem, Communicator communicator) {
         this.alarmSystem = alarmSystem;
-        this.communicationUnit = communicationUnit;
+        this.communicator = communicator;
     }
 
 }
