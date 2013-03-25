@@ -10,7 +10,10 @@ import ca.ulaval.glo4002.utilities.DelayTimerDelegate;
 public class AlarmSystem implements DelayTimerDelegate {
 
     private static final int DELAY_IN_SECOND = 30;
+    private static final String DEFAULT_PIN = "12345";
+    private static final String RAPID_PIN = "#0";
 
+    private String validPIN = DEFAULT_PIN;
     private int userID;
     private boolean armed = false;
     private boolean suspended = false;
@@ -23,6 +26,29 @@ public class AlarmSystem implements DelayTimerDelegate {
 
         registrationCommunicator.sendRegistrationRequest(attributes);
         userID = registrationCommunicator.retrieveUserID();
+    }
+
+    public boolean validatePIN(String typedPIN) {
+        return (isValidPIN(typedPIN) || RAPID_PIN == typedPIN);
+    }
+
+    public void changePIN(String PIN, String newPIN) {
+        if (isValidPIN(PIN)) {
+            checkPINFormat(newPIN);
+            validPIN = newPIN;
+        } else {
+            throw new InvalidPINException("The PIN is invalid.");
+        }
+    }
+
+    private void checkPINFormat(String PIN) {
+        if (!PIN.matches("^[0-9]{5}$")) {
+            throw new PINFormatForbiddenException("The format of the PIN is incorrect.");
+        }
+    }
+
+    private boolean isValidPIN(String PIN) {
+        return PIN == validPIN;
     }
 
     public boolean isArmed() {

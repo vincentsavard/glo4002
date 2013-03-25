@@ -17,6 +17,12 @@ import ca.ulaval.glo4002.utilities.DelayTimer;
 public class AlarmSystemTest {
 
     private static final int DELAY_IN_SECONDS_BEFORE_ARMING = 30;
+    private static final String DEFAULT_PIN = "12345";
+    private static final String VALID_PIN = "12345";
+    private static final String RAPID_PIN = "#0";
+    private static final String INVALID_PIN = "54321";
+    private static final String FORBIDDEN_PIN = "A345";
+    private static final String NEW_PIN = "98765";
 
     @Mock
     private DelayTimer delayTimer;
@@ -37,6 +43,37 @@ public class AlarmSystemTest {
             }
 
         }).when(delayTimer).startDelay(anyInt());
+    }
+
+    @Test
+    public void systemValidatesDefaultPINWhenCreated() {
+        assertTrue(alarmSystem.validatePIN(DEFAULT_PIN));
+    }
+
+    @Test
+    public void systemValidatesRapidPIN() {
+        assertTrue(alarmSystem.validatePIN(RAPID_PIN));
+    }
+
+    @Test(expected = InvalidPINException.class)
+    public void whenChangingPINIfPINIsNotValidThrowAnException() {
+        alarmSystem.changePIN(INVALID_PIN, NEW_PIN);
+    }
+
+    @Test(expected = InvalidPINException.class)
+    public void whenChangingPINIfPINIsRapidPINThrowAnException() {
+        alarmSystem.changePIN(RAPID_PIN, NEW_PIN);
+    }
+
+    @Test(expected = PINFormatForbiddenException.class)
+    public void whenChangingPINIfNewPINIsNotValidThrowAnExecption() {
+        alarmSystem.changePIN(VALID_PIN, FORBIDDEN_PIN);
+    }
+
+    @Test
+    public void newPINisValidatedWhenAValidPINChangeIsMade() {
+        alarmSystem.changePIN(VALID_PIN, NEW_PIN);
+        assertTrue(alarmSystem.validatePIN(NEW_PIN));
     }
 
     @Test
