@@ -6,7 +6,6 @@ import java.util.List;
 public class UserDirectory {
 
     private List<User> userList = new ArrayList<User>();
-    private static UserDirectory instance;
     private int lastIdGenerated = 0;
 
     public boolean userExists(int userID) {
@@ -42,22 +41,6 @@ public class UserDirectory {
     public int generateNewId() {
         lastIdGenerated++;
         return lastIdGenerated;
-    }
-
-    public static UserDirectory getInstance() {
-        if (instance == null) {
-            instance = new UserDirectory();
-        }
-        return instance;
-    }
-
-    public static void load(UserDirectory userDirectory) {
-        instance = userDirectory;
-    }
-
-    // to prevent unwanted instantiation
-    private UserDirectory() {
-
     }
 
 }

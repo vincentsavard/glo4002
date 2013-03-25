@@ -1,9 +1,9 @@
 package ca.ulaval.glo4002.centralServer.user;
 
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -17,46 +17,43 @@ public class UserDirectoryTest {
     @Mock
     private User user;
 
+    private UserDirectory userDirectory = new UserDirectory();
+
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         doReturn(AN_ID).when(user).getID();
     }
 
-    @After
-    public void tearDown() {
-        UserDirectory.load(null);
-    }
-
     @Test
     public void whenSearchingAnIDThatIsNotInTheDirectoryThenIDCanNotBeFound() {
-        assertFalse(UserDirectory.getInstance().userExists(AN_ID));
+        assertFalse(userDirectory.userExists(AN_ID));
     }
 
     @Test
     public void addedUserExistsInDirectory() {
-        UserDirectory.getInstance().addUser(user);
-        assertTrue(UserDirectory.getInstance().userExists(AN_ID));
+        userDirectory.addUser(user);
+        assertTrue(userDirectory.userExists(AN_ID));
     }
 
     @Test
     public void existingUserCanBeReturned() throws UserNotFoundException {
-        UserDirectory.getInstance().addUser(user);
-        User receivedUser = UserDirectory.getInstance().obtainUser(AN_ID);
+        userDirectory.addUser(user);
+        User receivedUser = userDirectory.obtainUser(AN_ID);
         assertEquals(user.getID(), receivedUser.getID());
     }
 
     @Test
     public void canGenerateANewUniqueID() {
-        int firstID = UserDirectory.getInstance().generateNewId();
-        int secondID = UserDirectory.getInstance().generateNewId();
+        int firstID = userDirectory.generateNewId();
+        int secondID = userDirectory.generateNewId();
 
-        assertFalse(firstID == secondID);
+        assertThat(firstID, is(not(secondID)));
     }
 
     @Test(expected = UserNotFoundException.class)
     public void tryingToObtainANotExistingUserThrowsAnException() throws UserNotFoundException {
-        UserDirectory.getInstance().obtainUser(UNASSIGNED_ID);
+        userDirectory.obtainUser(UNASSIGNED_ID);
     }
 
 }
