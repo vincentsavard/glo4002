@@ -13,10 +13,10 @@ import org.mockito.MockitoAnnotations;
 
 import ca.ulaval.glo4002.common.requestSender.GETRequestSender;
 import ca.ulaval.glo4002.common.requestSender.POSTRequestSender;
-import ca.ulaval.glo4002.communication.CommunicationUnit.CommunicationType;
+import ca.ulaval.glo4002.communication.Communicator.CommunicationType;
 import ca.ulaval.glo4002.utilities.JSONMessageEncoder;
 
-public class CommunicationUnitTest {
+public class CommunicatorTest {
 
     private static final int USER_ID = 1;
     private static final CommunicationType COMMUNICATION_TYPE = CommunicationType.POLICE;
@@ -31,7 +31,7 @@ public class CommunicationUnitTest {
     private JSONMessageEncoder messageEncoder;
 
     @InjectMocks
-    private CommunicationUnit communicationUnit = new CommunicationUnit(USER_ID, COMMUNICATION_TYPE);
+    private Communicator communicator = new Communicator(USER_ID, COMMUNICATION_TYPE);
 
     @Before
     public void setUp() {
@@ -41,13 +41,13 @@ public class CommunicationUnitTest {
     @Test
     @SuppressWarnings("unchecked")
     public void callsSendPostRequestWhenSendingWithAttributes() {
-        communicationUnit.sendMessageToCentralServer(any(HashMap.class));
+        communicator.sendMessageToCentralServer(any(HashMap.class));
         verify(postRequestSender).sendRequest(anyString(), anyString());
     }
 
     @Test
     public void callsSendGetRequestWhenSending() {
-        communicationUnit.sendMessageToCentralServer();
+        communicator.sendMessageToCentralServer();
         verify(getRequestSender).sendRequest(anyString());
     }
 

@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import ca.ulaval.glo4002.communication.CommunicationUnit;
+import ca.ulaval.glo4002.communication.Communicator;
 import ca.ulaval.glo4002.devices.AlarmSystem;
 import ca.ulaval.glo4002.utilities.DelayTimer;
 
@@ -23,12 +23,13 @@ public class MainDoorIntrusionPolicyTest {
     private DelayTimer delayTimer;
 
     @Mock
-    private CommunicationUnit communicationUnit;
+    private Communicator communicator;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        policy = new MainDoorIntrusionPolicy(alarmSystem, communicationUnit, delayTimer);
+        policy = new MainDoorIntrusionPolicy(alarmSystem, communicator,
+                delayTimer);
     }
 
     @Test
@@ -46,17 +47,17 @@ public class MainDoorIntrusionPolicyTest {
     }
 
     @Test
-    public void whenDelayIsExpiredAndSystemIsNotArmedCommunicationUnitDoesNotMessage() {
+    public void whenDelayIsExpiredAndSystemIsNotArmedCommunicatorDoesNotMessage() {
         doReturn(false).when(alarmSystem).isArmed();
         policy.delayExpired();
-        verify(communicationUnit, never()).sendMessageToCentralServer();
+        verify(communicator, never()).sendMessageToCentralServer();
     }
 
     @Test
-    public void whenDelayIsExpiredAndSystemIsArmedCommunicationUnitSendsMessage() {
+    public void whenDelayIsExpiredAndSystemIsArmedCommunicatorSendsMessage() {
         doReturn(true).when(alarmSystem).isArmed();
         policy.delayExpired();
-        verify(communicationUnit).sendMessageToCentralServer();
+        verify(communicator).sendMessageToCentralServer();
     }
 
 }
