@@ -23,6 +23,7 @@ public class AlarmSystemTest {
     private static final String INVALID_PIN = "54321";
     private static final String FORBIDDEN_PIN = "A345";
     private static final String NEW_PIN = "98765";
+    private static final int AN_ID = 123;
 
     @Mock
     private DelayTimer delayTimer;
@@ -32,7 +33,7 @@ public class AlarmSystemTest {
 
     @Before
     public void setUp() {
-        alarmSystem = new AlarmSystem();
+        alarmSystem = new AlarmSystem(AN_ID);
         MockitoAnnotations.initMocks(this);
         doAnswer(new Answer<Object>() {
 
@@ -124,7 +125,7 @@ public class AlarmSystemTest {
 
     @Test
     public void whenArmingSystemIfSystemIsDisarmedBeforeDelayExpiredThenItIsStillDisarmedAfterDelay() {
-        AlarmSystem alarmSystemWithDelay = new AlarmSystem();
+        AlarmSystem alarmSystemWithDelay = new AlarmSystem(AN_ID);
 
         alarmSystemWithDelay.armWithThirtySecondsDelay();
         alarmSystemWithDelay.disarm();

@@ -21,7 +21,6 @@ public class TestSendAlarmSignalWhenIntrusion {
     @Before
     public void setUp() {
         fixture.createAlarmSystem();
-        fixture.initializeAlarmSystem();
         fixture.armSystem();
     }
 

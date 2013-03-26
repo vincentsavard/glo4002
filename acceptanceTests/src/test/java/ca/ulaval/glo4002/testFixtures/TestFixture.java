@@ -6,6 +6,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
 import ca.ulaval.glo4002.centralServer.main.CentralServer;
+import ca.ulaval.glo4002.communication.Registrar;
 import ca.ulaval.glo4002.devices.AlarmSystem;
 import ca.ulaval.glo4002.devices.Detector;
 import ca.ulaval.glo4002.devices.Keypad;
@@ -19,11 +20,11 @@ import com.jayway.awaitility.Awaitility;
 public class TestFixture {
 
     private static final String DEFAULT_PIN = "12345";
-    private static final String AN_ADDRESS = "123 fausse rue";
     private static final String RAPID_PIN = "#0";
     private static final String WRONG_PIN = "2222";
     private static final int THIRTY_TWO_SECONDS_IN_MILLISECONDS = 32000;
     private static final int THIRTY_SECONDS_IN_MILLISECONDS = 30000;
+    private static final String AN_ADDRESS = "123 rue ville";
 
     private CentralServer centralServer;
     private EmergencyServer emergencyServer;
@@ -49,13 +50,11 @@ public class TestFixture {
     }
 
     public void createAlarmSystem() {
-        alarmSystem = new AlarmSystem();
+        Registrar registrar = new Registrar();
+        int userID = registrar.requestRegistrationToCentralServer(AN_ADDRESS);
+        alarmSystem = new AlarmSystem(userID);
         keypad = new Keypad(alarmSystem);
         alarmSystem.setReady();
-    }
-
-    public void initializeAlarmSystem() {
-        alarmSystem.registerToCentralServer(AN_ADDRESS);
     }
 
     public void armSystem() {
