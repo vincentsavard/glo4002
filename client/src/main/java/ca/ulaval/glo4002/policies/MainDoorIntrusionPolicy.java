@@ -14,11 +14,11 @@ public class MainDoorIntrusionPolicy extends Policy implements DelayTimerDelegat
     public MainDoorIntrusionPolicy(AlarmSystem alarmSystem) {
         super(alarmSystem);
         int userID = alarmSystem.getUserID();
-        communicator = new Communicator(userID, Communicator.CommunicationType.POLICE);
+        communicator = new Communicator(userID);
         delayTimer = new DelayTimer(this);
+        targetResource = Communicator.TargetResource.POLICE;
     }
 
-    @Override
     public void executeProcedure() {
         if (alarmSystem.isArmed()) {
             delayTimer.startDelay(INTRUSION_DELAY_IN_SECONDS);
@@ -28,13 +28,12 @@ public class MainDoorIntrusionPolicy extends Policy implements DelayTimerDelegat
     @Override
     public void delayExpired() {
         if (alarmSystem.isArmed()) {
-            communicator.sendMessageToCentralServer();
+            communicator.sendMessageToCentralServer(targetResource);
         }
     }
 
     // For test purpose only
-    protected MainDoorIntrusionPolicy(AlarmSystem alarmSystem, Communicator communicator,
-                                      DelayTimer delayTimer) {
+    protected MainDoorIntrusionPolicy(AlarmSystem alarmSystem, Communicator communicator, DelayTimer delayTimer) {
         super(alarmSystem);
         this.communicator = communicator;
         this.delayTimer = delayTimer;

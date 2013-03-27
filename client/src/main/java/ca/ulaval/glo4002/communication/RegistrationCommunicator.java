@@ -9,12 +9,11 @@ public class RegistrationCommunicator extends Communicator {
     private String response;
 
     public RegistrationCommunicator() {
-        resource = RESOURCE;
     }
 
     public void sendRegistrationRequest(HashMap<String, String> attributes) {
         String message = messageEncoder.generateEncodedMessage(attributes);
-        response = postRequestSender.sendRequest(resource, message);
+        response = postRequestSender.sendRequest(RESOURCE, message);
     }
 
     public int retrieveUserID() {

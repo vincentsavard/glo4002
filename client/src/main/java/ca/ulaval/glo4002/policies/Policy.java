@@ -6,6 +6,7 @@ import ca.ulaval.glo4002.devices.AlarmSystem;
 public abstract class Policy {
 
     protected Communicator communicator;
+    protected Communicator.TargetResource targetResource;
     protected AlarmSystem alarmSystem;
 
     public Policy(AlarmSystem alarmSystem) {
@@ -14,12 +15,12 @@ public abstract class Policy {
 
     public void executeProcedure() {
         if (alarmSystem.isArmed()) {
-            sendMessage();
+            sendMessage(targetResource);
         }
     }
 
-    protected void sendMessage() {
-        communicator.sendMessageToCentralServer();
+    protected void sendMessage(Communicator.TargetResource targetResource) {
+        communicator.sendMessageToCentralServer(targetResource);
     }
 
     // For test purpose only

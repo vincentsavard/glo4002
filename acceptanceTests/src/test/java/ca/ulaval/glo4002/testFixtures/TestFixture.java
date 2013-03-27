@@ -51,7 +51,7 @@ public class TestFixture {
 
     public void createAlarmSystem() {
         Registrar registrar = new Registrar();
-        int userID = registrar.requestRegistrationToCentralServer(AN_ADDRESS);
+        int userID = registrar.requestUserIDFromCentralServer(AN_ADDRESS);
         alarmSystem = new AlarmSystem(userID);
         keypad = new Keypad(alarmSystem);
         alarmSystem.setReady();

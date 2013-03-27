@@ -8,7 +8,8 @@ public class FirePolicy extends Policy {
     public FirePolicy(AlarmSystem alarmSystem) {
         super(alarmSystem);
         int userID = alarmSystem.getUserID();
-        communicator = new Communicator(userID, Communicator.CommunicationType.FIRE);
+        communicator = new Communicator(userID);
+        targetResource = Communicator.TargetResource.FIRE;
     }
 
 }
