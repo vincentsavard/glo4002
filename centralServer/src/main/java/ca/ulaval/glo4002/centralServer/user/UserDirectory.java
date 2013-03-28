@@ -38,7 +38,7 @@ public class UserDirectory {
         return userToBeFound;
     }
 
-    public int generateNewId() {
+    public int generateNewID() {
         lastIdGenerated++;
         return lastIdGenerated;
     }

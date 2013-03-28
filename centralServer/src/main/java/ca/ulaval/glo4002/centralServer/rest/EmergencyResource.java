@@ -11,20 +11,20 @@ import ca.ulaval.glo4002.centralServer.user.UserNotFoundException;
 @Path("/client/")
 public class EmergencyResource {
 
-    private static final int HTTP_OK = 200;
+    private static final int RESPONSE_OK = 200;
     private static final int HTTP_NOT_FOUND = 404;
 
     private PoliceTreatment policeTreatment = new PoliceTreatment();
 
     @GET
-    @Path("{userId}/police")
-    public Response askForPoliceAssistance(@PathParam("userId") String userIdPassedByGetRequest) {
+    @Path("{userID}/police")
+    public Response askForPoliceAssistance(@PathParam("userID") String userIDPassedByGetRequest) {
         try {
-            policeTreatment.processRequest(userIdPassedByGetRequest);
+            policeTreatment.processRequest(userIDPassedByGetRequest);
         } catch (UserNotFoundException userNotFoundException) {
             return Response.status(HTTP_NOT_FOUND).build();
         }
-        return Response.status(HTTP_OK).build();
+        return Response.status(RESPONSE_OK).build();
     }
 
 }
