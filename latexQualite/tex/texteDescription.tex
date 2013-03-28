@@ -25,7 +25,7 @@
 \section*{Comment démarrer/utiliser votre système}
 Il est possible de démarrer le système avec Maven. D'abord, il faut se rendre dans le dossier du \emph{workspace} (là où se trouvent tous les dossiers des projets) et taper \emph{mvn install} en ligne de commande pour installer l'ensemble des projets. Il est à noter que cette commande exécute également les tests unitaires et les tests d'acceptation.\\
 S'il est nécessaire d'exécuter les tests à nouveau, il est possible de taper \emph{mvn test}, toujours en ligne de commande, dans le dossier du \emph{workspace} ou encore dans chaque dossier des projets afin d'exécuter les tests unitaires d'un projet en particulier.\\
-Pour exécuter les tests d'acceptation en plus des tests unitaires, on peut taper \emph{mvn integration-test}.
+Pour exécuter les tests d'acceptation, on peut taper \emph{mvn integration-test -pl acceptanceTests}.
 
 Pour démarrer les serveurs, il suffit de taper les commandes suivantes, selon le cas :\\
 \emph{mvn exec:java -pl centralServer}\\
