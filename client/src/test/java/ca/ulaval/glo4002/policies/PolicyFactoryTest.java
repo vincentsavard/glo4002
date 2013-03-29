@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import ca.ulaval.glo4002.communication.Communicator;
 import ca.ulaval.glo4002.devices.AlarmSystem;
 import ca.ulaval.glo4002.policies.PolicyFactory.PolicyType;
 
@@ -17,10 +18,13 @@ public class PolicyFactoryTest {
     @Mock
     private AlarmSystem alarmSystem;
 
+    @Mock
+    private Communicator communicator;
+
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        policyFactory = new PolicyFactory(alarmSystem);
+        policyFactory = new PolicyFactory(alarmSystem, communicator);
     }
 
     @Test

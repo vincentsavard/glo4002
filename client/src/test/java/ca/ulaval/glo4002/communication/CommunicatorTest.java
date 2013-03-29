@@ -7,7 +7,6 @@ import java.util.HashMap;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -18,7 +17,7 @@ import ca.ulaval.glo4002.utilities.JSONMessageEncoder;
 
 public class CommunicatorTest {
 
-    private static final int USER_ID = 1;
+    private static final String AN_ADDRESS = "123 rue ville";
     private static final TargetResource A_VALID_TARGET_RESOURCE = TargetResource.POLICE;
 
     @Mock
@@ -30,19 +29,22 @@ public class CommunicatorTest {
     @Mock
     private JSONMessageEncoder messageEncoder;
 
-    @InjectMocks
-    private Communicator communicator = new Communicator(USER_ID);
+    private Communicator communicator;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+        doReturn("1").when(postRequestSender).sendRequest(anyString(), anyString());
+        communicator = new Communicator(AN_ADDRESS, postRequestSender, getRequestSender, messageEncoder);
     }
 
     @Test
     @SuppressWarnings("unchecked")
     public void callsSendPostRequestWhenSendingWithAttributes() {
+        String urlResource = communicator.generateResourceURL(A_VALID_TARGET_RESOURCE);
+
         communicator.sendMessageToCentralServer(any(HashMap.class), A_VALID_TARGET_RESOURCE);
-        verify(postRequestSender).sendRequest(anyString(), anyString());
+        verify(postRequestSender).sendRequest(eq(urlResource), anyString());
     }
 
     @Test
