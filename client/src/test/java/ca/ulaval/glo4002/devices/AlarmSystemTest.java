@@ -72,7 +72,7 @@ public class AlarmSystemTest {
     }
 
     @Test
-    public void newPINisValidatedWhenAValidPINChangeIsMade() {
+    public void newPINIsValidatedWhenAValidPINChangeIsMade() {
         alarmSystem.changePIN(VALID_PIN, NEW_PIN);
         assertTrue(alarmSystem.validatePIN(NEW_PIN));
     }

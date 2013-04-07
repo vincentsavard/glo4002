@@ -22,6 +22,7 @@ public class TestFixture {
     private static final String DEFAULT_PIN = "12345";
     private static final String RAPID_PIN = "#0";
     private static final String WRONG_PIN = "2222";
+    private static final String NEW_PIN = "54321";
     private static final int THIRTY_TWO_SECONDS_IN_MILLISECONDS = 32000;
     private static final int THIRTY_SECONDS_IN_MILLISECONDS = 30000;
     private static final String AN_ADDRESS = "123 rue ville";
@@ -160,4 +161,20 @@ public class TestFixture {
         };
     }
 
+    public void requestPINChangeWithDefaultPIN() {
+    	keypad.requestPINChange(DEFAULT_PIN, NEW_PIN);
+    }
+    
+    public void verifyDefaultPINHasBeenChangedForNewPIN() {
+    	assertTrue(alarmSystem.validatePIN(NEW_PIN));
+    }
+    
+	public void requestPINChangeWithWrongPIN() {
+		keypad.requestPINChange(WRONG_PIN, NEW_PIN);
+    }
+
+	public void verifyDefaultPINIsStillTheValidPIN() {
+		assertTrue(alarmSystem.validatePIN(DEFAULT_PIN));
+    }
+	
 }
