@@ -10,39 +10,39 @@ import ca.ulaval.glo4002.testFixtures.TestFixture;
 
 public class TestChangePINViaKeypad {
 
-	private static TestFixture fixture;
-	
-	@BeforeClass
-	public static void setUpClass() throws Exception {
+    private static TestFixture fixture;
+
+    @BeforeClass
+    public static void setUpClass() throws Exception {
         fixture = new TestFixture();
         fixture.initServers();
-	}
-	
-	@Before
-	public void setUp() throws Exception {
-		fixture.createAlarmSystem();
-	}
-	
-	@AfterClass
-	public static void tearDownClass() throws Exception {
-	    fixture.stopServers();
-	}
-	
-	@Test
-	public void PINIsChangedWhenValidPINIsGiven() {
-		fixture.requestPINChangeWithDefaultPIN();
-		fixture.verifyDefaultPINHasBeenChangedForNewPIN();
-	}
-	
-	@Test(expected = InvalidPINException.class)
-	public void ExceptionIsThrownWhenChangeRequestIsMadeWithInvalidPIN() {
-		fixture.requestPINChangeWithWrongPIN();
-	}
-	
-	@Test(expected = InvalidPINException.class)
-	public void PINIsNotChangedWhenInvalidPINIsGiven() {
-		fixture.requestPINChangeWithWrongPIN();
-		fixture.verifyDefaultPINIsStillTheValidPIN();
-	}
-	
+    }
+
+    @Before
+    public void setUp() throws Exception {
+        fixture.createAlarmSystem();
+    }
+
+    @AfterClass
+    public static void tearDownClass() throws Exception {
+        fixture.stopServers();
+    }
+
+    @Test
+    public void PINIsChangedWhenValidPINIsGiven() {
+        fixture.requestPINChangeWithDefaultPIN();
+        fixture.verifyDefaultPINHasBeenChangedForNewPIN();
+    }
+
+    @Test(expected = InvalidPINException.class)
+    public void ExceptionIsThrownWhenChangeRequestIsMadeWithInvalidPIN() {
+        fixture.requestPINChangeWithWrongPIN();
+    }
+
+    @Test(expected = InvalidPINException.class)
+    public void PINIsNotChangedWhenInvalidPINIsGiven() {
+        fixture.requestPINChangeWithWrongPIN();
+        fixture.verifyDefaultPINIsStillTheValidPIN();
+    }
+
 }

@@ -162,19 +162,19 @@ public class TestFixture {
     }
 
     public void requestPINChangeWithDefaultPIN() {
-    	keypad.requestPINChange(DEFAULT_PIN, NEW_PIN);
+        keypad.requestPINChange(DEFAULT_PIN, NEW_PIN);
     }
-    
+
     public void verifyDefaultPINHasBeenChangedForNewPIN() {
-    	assertTrue(alarmSystem.validatePIN(NEW_PIN));
+        assertTrue(alarmSystem.validatePIN(NEW_PIN));
     }
-    
+
 	public void requestPINChangeWithWrongPIN() {
-		keypad.requestPINChange(WRONG_PIN, NEW_PIN);
+	    keypad.requestPINChange(WRONG_PIN, NEW_PIN);
     }
 
 	public void verifyDefaultPINIsStillTheValidPIN() {
-		assertTrue(alarmSystem.validatePIN(DEFAULT_PIN));
+	    assertTrue(alarmSystem.validatePIN(DEFAULT_PIN));
     }
-	
+
 }
