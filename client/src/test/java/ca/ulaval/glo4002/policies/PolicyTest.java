@@ -1,5 +1,6 @@
 package ca.ulaval.glo4002.policies;
 
+import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 
 import org.junit.Before;
@@ -30,14 +31,14 @@ public class PolicyTest {
     public void whenSystemIsNotArmedThereIsNoMessageSent() {
         doReturn(false).when(alarmSystem).isArmed();
         policy.executeProcedure();
-        verify(communicator, never()).sendMessageToCentralServer();
+        verify(communicator, never()).sendMessageToCentralServer(any(Communicator.TargetResource.class));
     }
 
     @Test
     public void whenSystemIsArmedThereIsAMessageSent() {
         doReturn(true).when(alarmSystem).isArmed();
         policy.executeProcedure();
-        verify(communicator).sendMessageToCentralServer();
+        verify(communicator).sendMessageToCentralServer(any(Communicator.TargetResource.class));
     }
 
     private Policy createPolicy() {

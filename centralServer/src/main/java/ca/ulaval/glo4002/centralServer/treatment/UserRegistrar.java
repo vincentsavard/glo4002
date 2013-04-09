@@ -9,17 +9,17 @@ public class UserRegistrar {
     protected UserDirectory userDirectory = UserDirectoryLocator.getInstance().getUserDirectory();
 
     public int generateUserID() {
-        int newUserId = userDirectory.generateNewId();
-        return newUserId;
+        int newUserID = userDirectory.generateNewID();
+        return newUserID;
     }
 
-    public void registerUser(int newUserId, String userInformation) {
-        User newUser = createNewUser(newUserId, userInformation);
+    public void registerUser(int newUserID, String userInformation) {
+        User newUser = createNewUser(newUserID, userInformation);
         userDirectory.addUser(newUser);
     }
 
-    private User createNewUser(int newUserId, String userInformation) {
-        User newUser = new User(newUserId, userInformation);
+    private User createNewUser(int newUserID, String userInformation) {
+        User newUser = new User(newUserID, userInformation);
         return newUser;
     }
 

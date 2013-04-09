@@ -45,8 +45,8 @@ public class UserDirectoryTest {
 
     @Test
     public void canGenerateANewUniqueID() {
-        int firstID = userDirectory.generateNewId();
-        int secondID = userDirectory.generateNewId();
+        int firstID = userDirectory.generateNewID();
+        int secondID = userDirectory.generateNewID();
 
         assertThat(firstID, is(not(secondID)));
     }

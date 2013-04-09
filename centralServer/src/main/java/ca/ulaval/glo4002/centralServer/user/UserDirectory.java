@@ -9,14 +9,12 @@ public class UserDirectory {
     private int lastIdGenerated = 0;
 
     public boolean userExists(int userID) {
-        boolean answer = false;
-
         for (User user : userList) {
             if (user.getID() == userID) {
-                answer = true;
+                return true;
             }
         }
-        return answer;
+        return false;
     }
 
     public void addUser(User user) {
@@ -24,21 +22,16 @@ public class UserDirectory {
     }
 
     public User obtainUser(int userID) throws UserNotFoundException {
-        User userToBeFound = null;
-
         for (User user : userList) {
             if (user.getID() == userID) {
-                userToBeFound = user;
+                return user;
             }
         }
-        if (userToBeFound == null) {
-            throw new UserNotFoundException("This ID was not found in the UserDirectory "
-                                            + "when trying to obtain the corresponding user");
-        }
-        return userToBeFound;
+        throw new UserNotFoundException("This ID was not found in the UserDirectory "
+                                        + "when trying to obtain the corresponding user");
     }
 
-    public int generateNewId() {
+    public int generateNewID() {
         lastIdGenerated++;
         return lastIdGenerated;
     }

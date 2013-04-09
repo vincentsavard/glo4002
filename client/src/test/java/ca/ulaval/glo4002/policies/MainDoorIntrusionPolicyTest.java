@@ -28,8 +28,7 @@ public class MainDoorIntrusionPolicyTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        policy = new MainDoorIntrusionPolicy(alarmSystem, communicator,
-                delayTimer);
+        policy = new MainDoorIntrusionPolicy(alarmSystem, communicator, delayTimer);
     }
 
     @Test
@@ -50,14 +49,14 @@ public class MainDoorIntrusionPolicyTest {
     public void whenDelayIsExpiredAndSystemIsNotArmedCommunicatorDoesNotMessage() {
         doReturn(false).when(alarmSystem).isArmed();
         policy.delayExpired();
-        verify(communicator, never()).sendMessageToCentralServer();
+        verify(communicator, never()).sendMessageToCentralServer(any(Communicator.TargetResource.class));
     }
 
     @Test
     public void whenDelayIsExpiredAndSystemIsArmedCommunicatorSendsMessage() {
         doReturn(true).when(alarmSystem).isArmed();
         policy.delayExpired();
-        verify(communicator).sendMessageToCentralServer();
+        verify(communicator).sendMessageToCentralServer(any(Communicator.TargetResource.class));
     }
 
 }
