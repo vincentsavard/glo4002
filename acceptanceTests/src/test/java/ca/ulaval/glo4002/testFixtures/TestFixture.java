@@ -169,12 +169,12 @@ public class TestFixture {
         assertTrue(alarmSystem.validatePIN(NEW_PIN));
     }
 
-	public void requestPINChangeWithWrongPIN() {
-	    keypad.requestPINChange(WRONG_PIN, NEW_PIN);
+    public void requestPINChangeWithWrongPIN() {
+        keypad.requestPINChange(WRONG_PIN, NEW_PIN);
     }
 
-	public void verifyDefaultPINIsStillTheValidPIN() {
-	    assertTrue(alarmSystem.validatePIN(DEFAULT_PIN));
+    public void verifyDefaultPINIsStillTheValidPIN() {
+        assertTrue(alarmSystem.validatePIN(DEFAULT_PIN));
     }
 
 }
