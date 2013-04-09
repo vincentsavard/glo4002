@@ -6,7 +6,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
 import ca.ulaval.glo4002.centralServer.main.CentralServer;
-import ca.ulaval.glo4002.communication.Registrar;
+import ca.ulaval.glo4002.communication.Communicator;
 import ca.ulaval.glo4002.devices.AlarmSystem;
 import ca.ulaval.glo4002.devices.Detector;
 import ca.ulaval.glo4002.devices.Keypad;
@@ -29,6 +29,7 @@ public class TestFixture {
     private CentralServer centralServer;
     private EmergencyServer emergencyServer;
     private AlarmSystem alarmSystem;
+    private Communicator communicator;
     private Keypad keypad;
     private Detector mainDoorDetector;
     private Detector secondaryDoorDetector;
@@ -50,9 +51,8 @@ public class TestFixture {
     }
 
     public void createAlarmSystem() {
-        Registrar registrar = new Registrar();
-        int userID = registrar.requestUserIDFromCentralServer(AN_ADDRESS);
-        alarmSystem = new AlarmSystem(userID);
+        alarmSystem = new AlarmSystem();
+        communicator = new Communicator(AN_ADDRESS);
         keypad = new Keypad(alarmSystem);
         alarmSystem.setReady();
     }
@@ -63,13 +63,13 @@ public class TestFixture {
 
     public void openMainDoor() {
         startTime = System.currentTimeMillis();
-        mainDoorIntrusionPolicy = new MainDoorIntrusionPolicy(alarmSystem);
+        mainDoorIntrusionPolicy = new MainDoorIntrusionPolicy(alarmSystem, communicator);
         mainDoorDetector = new Detector(mainDoorIntrusionPolicy);
         mainDoorDetector.trigger();
     }
 
     public void openSecondaryDoor() {
-        intrusionPolicy = new IntrusionPolicy(alarmSystem);
+        intrusionPolicy = new IntrusionPolicy(alarmSystem, communicator);
         secondaryDoorDetector = new Detector(intrusionPolicy);
         secondaryDoorDetector.trigger();
     }
@@ -105,7 +105,7 @@ public class TestFixture {
     }
 
     public void triggerMovementDetector() {
-        intrusionPolicy = new IntrusionPolicy(alarmSystem);
+        intrusionPolicy = new IntrusionPolicy(alarmSystem, communicator);
         movementDetector = new Detector(intrusionPolicy);
         movementDetector.trigger();
     }

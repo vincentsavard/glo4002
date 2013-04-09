@@ -11,10 +11,9 @@ public class MainDoorIntrusionPolicy extends Policy implements DelayTimerDelegat
 
     private DelayTimer delayTimer;
 
-    public MainDoorIntrusionPolicy(AlarmSystem alarmSystem) {
+    public MainDoorIntrusionPolicy(AlarmSystem alarmSystem, Communicator communicator) {
         super(alarmSystem);
-        int userID = alarmSystem.getUserID();
-        communicator = new Communicator(userID);
+        this.communicator = communicator;
         delayTimer = new DelayTimer(this);
         targetResource = Communicator.TargetResource.POLICE;
     }

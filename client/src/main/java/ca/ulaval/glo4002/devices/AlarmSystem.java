@@ -4,22 +4,21 @@ import ca.ulaval.glo4002.utilities.DelayTimer;
 import ca.ulaval.glo4002.utilities.DelayTimerDelegate;
 
 public class AlarmSystem implements DelayTimerDelegate {
-    
-    private enum StatusType { ARMED, SUSPENDED, DISARMED };
+
+    private enum StatusType {
+        ARMED, SUSPENDED, DISARMED
+    };
 
     private static final int DELAY_IN_SECOND = 30;
     private static final String DEFAULT_PIN = "12345";
     private static final String RAPID_PIN = "#0";
 
     private String validPIN = DEFAULT_PIN;
-    private int userID;
     private StatusType status = StatusType.DISARMED;
     private boolean ready = true;
     private DelayTimer delayTimer = new DelayTimer(this);
-    
-    public AlarmSystem(int userID) {
-        this.userID = userID;
-    }
+
+    public AlarmSystem() {}
 
     public boolean validatePIN(String typedPIN) {
         return (isValidPIN(typedPIN) || RAPID_PIN == typedPIN);
@@ -71,10 +70,6 @@ public class AlarmSystem implements DelayTimerDelegate {
 
     public void setReady() {
         ready = true;
-    }
-
-    public int getUserID() {
-        return userID;
     }
 
     @Override
