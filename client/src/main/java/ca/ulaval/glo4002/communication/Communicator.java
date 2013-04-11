@@ -2,8 +2,7 @@ package ca.ulaval.glo4002.communication;
 
 import java.util.HashMap;
 
-import ca.ulaval.glo4002.common.requestSender.GETRequestSender;
-import ca.ulaval.glo4002.common.requestSender.POSTRequestSender;
+import ca.ulaval.glo4002.common.requestSender.HTTPRequestSender;
 import ca.ulaval.glo4002.utilities.JSONMessageEncoder;
 
 public class Communicator {
@@ -18,8 +17,7 @@ public class Communicator {
 
     private int userID;
     private JSONMessageEncoder messageEncoder = new JSONMessageEncoder();
-    private POSTRequestSender postRequestSender = new POSTRequestSender(CENTRAL_SERVER_PORT);
-    private GETRequestSender getRequestSender = new GETRequestSender(CENTRAL_SERVER_PORT);
+    private HTTPRequestSender requestSender = new HTTPRequestSender(CENTRAL_SERVER_PORT);
 
     public Communicator(String houseAddress) {
         requestUserIDFromCentralServer(houseAddress);
@@ -43,13 +41,13 @@ public class Communicator {
 
     public void sendMessageToCentralServer(TargetResource targetResource) {
         String resourceURL = generateResourceURL(targetResource);
-        getRequestSender.sendRequest(resourceURL);
+        requestSender.sendPOSTRequest(resourceURL);
     }
 
     public String sendMessageToCentralServer(HashMap<String, String> attributes, TargetResource targetResource) {
         String messageToSend = messageEncoder.generateEncodedMessage(attributes);
         String resourceURL = generateResourceURL(targetResource);
-        String response = postRequestSender.sendRequest(resourceURL, messageToSend);
+        String response = requestSender.sendPOSTRequest(resourceURL, messageToSend);
         return response;
     }
 
@@ -59,10 +57,8 @@ public class Communicator {
     }
 
     // For test purposes only
-    protected Communicator(String houseAddress, POSTRequestSender postRequestSender, GETRequestSender getRequestSender,
-                           JSONMessageEncoder messageEncoder) {
-        this.postRequestSender = postRequestSender;
-        this.getRequestSender = getRequestSender;
+    protected Communicator(String houseAddress, HTTPRequestSender requestSender, JSONMessageEncoder messageEncoder) {
+        this.requestSender = requestSender;
         this.messageEncoder = messageEncoder;
         requestUserIDFromCentralServer(houseAddress);
     }
