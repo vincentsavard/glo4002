@@ -4,7 +4,7 @@ import ca.ulaval.glo4002.centralServer.user.UserDirectory;
 import ca.ulaval.glo4002.centralServer.user.UserDirectoryLocator;
 import ca.ulaval.glo4002.centralServer.user.UserNotFoundException;
 
-public class AlarmListTreatment {
+public class AlarmLogTreatment {
 
     protected UserDirectory userDirectory = UserDirectoryLocator.getInstance().getUserDirectory();
 

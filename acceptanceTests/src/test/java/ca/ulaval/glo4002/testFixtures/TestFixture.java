@@ -25,6 +25,11 @@ public class TestFixture {
     private static final int THIRTY_TWO_SECONDS_IN_MILLISECONDS = 32000;
     private static final int THIRTY_SECONDS_IN_MILLISECONDS = 30000;
     private static final String AN_ADDRESS = "123 rue ville";
+    private static final String EMPTY_LOG_NOTICE = "There is no alarms for this user.";
+    private static final String LOG_INTRUSION_NOTICE = "INTRUSION";
+    private static final String LOG_FIRE_NOTICE = "FIRE";
+    // FIXME
+    private static final String ALARM_LOG_RESOURCE = "http://localhost/alarm/";
 
     private CentralServer centralServer;
     private EmergencyServer emergencyServer;
@@ -136,8 +141,29 @@ public class TestFixture {
         assertFalse(EmergencyServer.called);
     }
 
+    public void verifyAlarmLogIsEmpty() {
+        String log = getAlarmLog();
+        assertTrue(log.contains(EMPTY_LOG_NOTICE));
+    }
+
+    public void verifyAlarmLogContainsIntrusionAlarm() {
+        String log = getAlarmLog();
+        assertTrue(log.contains(LOG_INTRUSION_NOTICE));
+    }
+
+    public void verifyAlarmLogContainsFireAlarm() {
+        String log = getAlarmLog();
+        assertTrue(log.contains(LOG_FIRE_NOTICE));
+    }
+
     public void setReceivedCallToFalse() {
         EmergencyServer.called = false;
+    }
+
+    private String getAlarmLog() {
+        String log = "";
+        // TODO
+        return log;
     }
 
     public static Callable<Boolean> emergencyServerWasCalled() {

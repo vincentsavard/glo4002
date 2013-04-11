@@ -5,14 +5,14 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 
-import ca.ulaval.glo4002.centralServer.treatment.AlarmListTreatment;
+import ca.ulaval.glo4002.centralServer.treatment.AlarmLogTreatment;
 
 @Path("/alarm/")
 public class AlarmListResource {
 
     private static final int RESPONSE_OK = 200;
 
-    private AlarmListTreatment alarmListTreatment = new AlarmListTreatment();
+    private AlarmLogTreatment alarmListTreatment = new AlarmLogTreatment();
 
     @POST
     @Path("{userID}")

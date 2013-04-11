@@ -24,7 +24,7 @@ public class AlarmListTreatmentTest {
     private UserDirectory userDirectory;
 
     @InjectMocks
-    private AlarmListTreatment alarmListTreatment;
+    private AlarmLogTreatment alarmListTreatment;
 
     @Before
     public void setUp() {
