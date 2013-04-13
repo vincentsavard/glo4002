@@ -19,10 +19,6 @@ public class UserDirectory {
         return answer;
     }
 
-    public void addUser(User user) {
-        userList.add(user);
-    }
-
     public User obtainUser(int userID) throws UserNotFoundException {
         User userToBeFound = null;
 
@@ -41,6 +37,20 @@ public class UserDirectory {
     public int generateNewID() {
         lastIdGenerated++;
         return lastIdGenerated;
+    }
+
+    public void registerUser(int newUserID, String userInformation) {
+        User newUser = createNewUser(newUserID, userInformation);
+        addUser(newUser);
+    }
+
+    private User createNewUser(int newUserID, String userInformation) {
+        User newUser = new User(newUserID, userInformation);
+        return newUser;
+    }
+    
+    private void addUser(User user) {
+        userList.add(user);
     }
 
 }

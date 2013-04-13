@@ -13,6 +13,7 @@ public class UserDirectoryTest {
 
     private static final int AN_ID = 1;
     private static final int UNASSIGNED_ID = 4000;
+    private static final String USER_INFORMATION = "some information";
 
     @Mock
     private User user;
@@ -31,16 +32,16 @@ public class UserDirectoryTest {
     }
 
     @Test
-    public void addedUserExistsInDirectory() {
-        userDirectory.addUser(user);
+    public void registeredUserExistsInDirectory() {
+        userDirectory.registerUser(AN_ID, USER_INFORMATION);
         assertTrue(userDirectory.userExists(AN_ID));
     }
-
+    
     @Test
-    public void existingUserCanBeReturned() throws UserNotFoundException {
-        userDirectory.addUser(user);
+    public void whenAUserIsRegisteredThenAUserIsAddedToTheUserDirectory() {
+        userDirectory.registerUser(AN_ID, USER_INFORMATION);
         User receivedUser = userDirectory.obtainUser(AN_ID);
-        assertEquals(user.getID(), receivedUser.getID());
+        assertEquals(AN_ID, receivedUser.getID());
     }
 
     @Test
@@ -55,5 +56,5 @@ public class UserDirectoryTest {
     public void tryingToObtainANotExistingUserThrowsAnException() throws UserNotFoundException {
         userDirectory.obtainUser(UNASSIGNED_ID);
     }
-
+    
 }
