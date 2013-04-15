@@ -10,6 +10,15 @@ public class POSTRequestSender extends HTTPRequestSender {
         super(port);
     }
 
+    public String sendRequest(String resource) {
+        WebResource webResource = prepareRequest(resource);
+
+        ClientResponse response = webResource.type(APPLICATION_TYPE).post(ClientResponse.class);
+
+        treatAnswerFromRequest(response);
+        return response.getEntity(String.class);
+    }
+
     public String sendRequest(String resource, String messageToSend) {
         WebResource webResource = prepareRequest(resource);
 
