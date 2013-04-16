@@ -10,8 +10,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import ca.ulaval.glo4002.common.requestSender.GETRequestSender;
-import ca.ulaval.glo4002.common.requestSender.POSTRequestSender;
+import ca.ulaval.glo4002.common.requestSender.HTTPRequestSender;
 import ca.ulaval.glo4002.communication.Communicator.TargetResource;
 import ca.ulaval.glo4002.utilities.JSONMessageEncoder;
 
@@ -19,12 +18,10 @@ public class CommunicatorTest {
 
     private static final String AN_ADDRESS = "123 rue ville";
     private static final TargetResource A_VALID_TARGET_RESOURCE = TargetResource.POLICE;
+    private static final String EXPECTED_USER_ID = "1";
 
     @Mock
-    private POSTRequestSender postRequestSender;
-
-    @Mock
-    private GETRequestSender getRequestSender;
+    private HTTPRequestSender requestSender;
 
     @Mock
     private JSONMessageEncoder messageEncoder;
@@ -34,8 +31,8 @@ public class CommunicatorTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        doReturn("1").when(postRequestSender).sendRequest(anyString(), anyString());
-        communicator = new Communicator(AN_ADDRESS, postRequestSender, getRequestSender, messageEncoder);
+        doReturn(EXPECTED_USER_ID).when(requestSender).sendPOSTRequest(anyString(), anyString());
+        communicator = new Communicator(AN_ADDRESS, requestSender, messageEncoder);
     }
 
     @Test
@@ -44,13 +41,13 @@ public class CommunicatorTest {
         String urlResource = communicator.generateResourceURL(A_VALID_TARGET_RESOURCE);
 
         communicator.sendMessageToCentralServer(any(HashMap.class), A_VALID_TARGET_RESOURCE);
-        verify(postRequestSender).sendRequest(eq(urlResource), anyString());
+        verify(requestSender).sendPOSTRequest(eq(urlResource), anyString());
     }
 
     @Test
     public void callsSendGetRequestWhenSending() {
         communicator.sendMessageToCentralServer(A_VALID_TARGET_RESOURCE);
-        verify(getRequestSender).sendRequest(anyString());
+        verify(requestSender).sendPOSTRequest(anyString());
     }
 
 }
