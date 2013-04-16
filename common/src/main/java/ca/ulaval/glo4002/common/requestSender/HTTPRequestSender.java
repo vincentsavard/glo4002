@@ -32,7 +32,7 @@ public abstract class HTTPRequestSender {
             throw new HTTPException("Failed: HTTP error code: " + response.getStatus());
         }
     }
-    
+
     // For test purposes only
     protected HTTPRequestSender(int port, Client client) {
         serverURL = String.format("%s:%s", serverURL, port);

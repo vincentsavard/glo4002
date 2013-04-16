@@ -1,12 +1,23 @@
 package ca.ulaval.glo4002.centralServer.user;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class User {
 
     private int userID;
     private String userAddress;
-    private ArrayList<Alarm> alarms = new ArrayList<Alarm>();
+
+    private List<Alarm> alarms = Collections.synchronizedList(new ArrayList<Alarm>());
+
+    protected User() {}
 
     public User(int userID, String address) {
         this.userID = userID;
@@ -21,26 +32,13 @@ public class User {
         return userAddress;
     }
 
-    public String createLogForAllAlarms() {
-        String log = userID + "\nAddresse: " + userAddress + "\nAlarms' list: \n";
-        if (alarms.isEmpty()) {
-            log += "There is no alarms for this user.";
-        } else {
-            log += formatAlarms();
-        }
-        return log;
-    }
-
-    private String formatAlarms() {
-        String formatedAlarms = "";
-        for (int i = 0; i < alarms.size(); i++) {
-            formatedAlarms += alarms.get(i).getInformationForLogPurpose();
-        }
-        return formatedAlarms;
+    public Alarm[] getAlarms() {
+        return alarms.toArray(new Alarm[alarms.size()]);
     }
 
     public void addAlarm(Alarm alarm) {
         alarms.add(alarm);
+        System.out.println("ajout d'Alarm à l'user " + userID);
     }
 
 }
