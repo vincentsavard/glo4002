@@ -9,16 +9,16 @@ import ca.ulaval.glo4002.centralServer.user.UserNotFoundException;
 
 public class PoliceTreatment extends EmergencyTreatment {
 
-    private AlarmType ALARM_TYPE = Alarm.AlarmType.INTRUSION;
+    private static final AlarmType ALARM_TYPE = Alarm.AlarmType.INTRUSION;
 
-    public PoliceTreatment() {
-        communicator = new Communicator(CommunicationType.POLICE);
+    public PoliceTreatment(Communicator communicator) {
+        this.communicator = communicator;
     }
 
     public void processRequest(String userIDPassedByGetRequest) throws UserNotFoundException {
         int userID = Integer.parseInt(userIDPassedByGetRequest);
         if (userDirectory.userExists(userID)) {
-            communicator.sendMessageToEmergencyServer(userDirectory.obtainUser(userID));
+            communicator.sendMessageToEmergencyServer(CommunicationType.POLICE, userDirectory.obtainUser(userID));
         } else {
             throw new UserNotFoundException("The ID " + userIDPassedByGetRequest
                                             + " was not found in the UsersDirectory.");

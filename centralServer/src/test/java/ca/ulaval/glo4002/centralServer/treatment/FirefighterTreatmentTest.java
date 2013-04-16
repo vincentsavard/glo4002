@@ -39,15 +39,14 @@ public class FirefighterTreatmentTest {
     }
 
     @Test
-    public void whenProcessingTheRequestWithAGoodUserIDThenCommunicatorSendsSomething() {
+    public void whenProcessingTheRequestWithAGoodUserIDThenCommunicatorSendsNotificationToEmergencyServer() {
         int aGoodID = Integer.parseInt(A_GOOD_URL_ID);
-        int aZone = Integer.parseInt(A_ZONE);
         doReturn(true).when(userDirectory).userExists(aGoodID);
         doReturn(user).when(userDirectory).obtainUser(aGoodID);
 
         firefighterTreatment.processRequest(A_GOOD_URL_ID, A_ZONE);
 
-        verify(communicator).sendMessageToEmergencyServer(COMMUNICATION_TYPE, user, aZone);
+        verify(communicator).sendMessageToEmergencyServer(COMMUNICATION_TYPE, user, A_ZONE);
     }
 
     @Test(expected = UserNotFoundException.class)

@@ -17,9 +17,9 @@ public class FirefighterTreatment extends EmergencyTreatment {
 
     public void processRequest(String userIDPassedByGetRequest, String zonePassedByGetRequest) {
         int userID = Integer.parseInt(userIDPassedByGetRequest);
-        int zone = Integer.parseInt(zonePassedByGetRequest);
         if (userDirectory.userExists(userID)) {
-            communicator.sendMessageToEmergencyServer(CommunicationType.FIRE, userDirectory.obtainUser(userID), zone);
+            communicator.sendMessageToEmergencyServer(CommunicationType.FIRE, userDirectory.obtainUser(userID),
+                                                      zonePassedByGetRequest);
         } else {
             throw new UserNotFoundException("The ID " + userIDPassedByGetRequest
                                             + " was not found in the UsersDirectory.");

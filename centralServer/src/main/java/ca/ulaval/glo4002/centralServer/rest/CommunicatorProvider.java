@@ -19,7 +19,7 @@ public class CommunicatorProvider extends PerRequestTypeInjectableProvider<Conte
     }
 
     @Override
-    public Injectable<Communicator> getInjectable(ComponentContext arg0, Context arg1) {
+    public Injectable<Communicator> getInjectable(ComponentContext injectableContexte, Context annotationInstance) {
         return new Injectable<Communicator>() {
 
             @Override
@@ -28,4 +28,5 @@ public class CommunicatorProvider extends PerRequestTypeInjectableProvider<Conte
             }
         };
     }
+
 }

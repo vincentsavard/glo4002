@@ -17,16 +17,16 @@ public abstract class EmergencyTreatment {
 
     }
 
-    // for test purpose only
-    protected EmergencyTreatment(Communicator communicator, UserDirectory userDirectory) {
-        this.communicator = communicator;
-        this.userDirectory = userDirectory;
-    }
-
     protected void addAlarmToUserList(int userID, AlarmType type) {
         Date currentDate = new Date();
         Alarm alarm = new Alarm(type, currentDate);
         userDirectory.obtainUser(userID).addAlarm(alarm);
+    }
+
+    // for test purpose only
+    protected EmergencyTreatment(Communicator communicator, UserDirectory userDirectory) {
+        this.communicator = communicator;
+        this.userDirectory = userDirectory;
     }
 
 }
