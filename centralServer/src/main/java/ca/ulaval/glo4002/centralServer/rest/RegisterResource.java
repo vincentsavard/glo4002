@@ -21,11 +21,6 @@ public class RegisterResource {
         String address = userInformation.getString("address");
         Integer newUserID = userRegistrar.generateUserID();
 
-        try {
-            if (newUserID == 2)
-                throw new JSONException("ok");
-        } catch (NullPointerException ex) {}
-
         userRegistrar.registerUser(newUserID, address);
         return Response.status(RESPONSE_OK).entity(newUserID.toString()).build();
     }

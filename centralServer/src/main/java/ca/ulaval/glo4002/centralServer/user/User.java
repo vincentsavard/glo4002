@@ -38,7 +38,6 @@ public class User {
 
     public void addAlarm(Alarm alarm) {
         alarms.add(alarm);
-        System.out.println("ajout d'Alarm à l'user " + userID);
     }
 
 }

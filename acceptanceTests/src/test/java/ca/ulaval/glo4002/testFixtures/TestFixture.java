@@ -2,10 +2,17 @@ package ca.ulaval.glo4002.testFixtures;
 
 import static org.junit.Assert.*;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
+import org.codehaus.jettison.json.JSONObject;
+
 import ca.ulaval.glo4002.centralServer.main.CentralServer;
+import ca.ulaval.glo4002.centralServer.user.UserDirectoryLocator;
 import ca.ulaval.glo4002.communication.Communicator;
 import ca.ulaval.glo4002.devices.AlarmSystem;
 import ca.ulaval.glo4002.devices.Detector;
@@ -26,11 +33,10 @@ public class TestFixture {
     private static final int THIRTY_TWO_SECONDS_IN_MILLISECONDS = 32000;
     private static final int THIRTY_SECONDS_IN_MILLISECONDS = 30000;
     private static final String AN_ADDRESS = "123 rue ville";
-    private static final String EMPTY_LOG_NOTICE = "There is no alarms for this user.";
-    private static final String LOG_INTRUSION_NOTICE = "INTRUSION";
-    private static final String LOG_FIRE_NOTICE = "FIRE";
-    // FIXME
-    private static final String ALARM_LOG_RESOURCE = "http://localhost/alarm/";
+
+    private static final String ALARM_LOG_RESOURCE = "http://localhost:9001/alarm/";
+    private static final String USER_ID = "1";
+    private static final String ALARM_KEY = "alarms";
 
     private CentralServer centralServer;
     private EmergencyServer emergencyServer;
@@ -54,6 +60,7 @@ public class TestFixture {
     public void stopServers() throws Exception {
         centralServer.stopServer();
         emergencyServer.stopServer();
+        UserDirectoryLocator.getInstance().deleteDirectory();
     }
 
     public void createAlarmSystem() {
@@ -142,29 +149,48 @@ public class TestFixture {
         assertFalse(EmergencyServer.called);
     }
 
-    public void verifyAlarmLogIsEmpty() {
-        String log = getAlarmLog();
-        assertTrue(log.contains(EMPTY_LOG_NOTICE));
+    public void verifyAlarmLogIsEmpty() throws Exception {
+        JSONObject log = getJSONAlarmLog();
+        assertTrue(log.isNull(ALARM_KEY));
     }
 
-    public void verifyAlarmLogContainsIntrusionAlarm() {
-        String log = getAlarmLog();
-        assertTrue(log.contains(LOG_INTRUSION_NOTICE));
+    public void verifyAlarmLogIsNotEmpty() throws Exception {
+        JSONObject log = getJSONAlarmLog();
+        assertFalse(log.isNull(ALARM_KEY));
     }
 
-    public void verifyAlarmLogContainsFireAlarm() {
-        String log = getAlarmLog();
-        assertTrue(log.contains(LOG_FIRE_NOTICE));
+    private JSONObject getJSONAlarmLog() throws Exception {
+        URL url = new URL(ALARM_LOG_RESOURCE + USER_ID);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+        connection.setRequestProperty("Accept", "application/json");
+
+        if (connection.getResponseCode() != 200) {
+            throw new RuntimeException("Failed : HTTP error code : " + connection.getResponseCode());
+        }
+
+        return getJSONResponseFromServer(connection);
+    }
+
+    private JSONObject getJSONResponseFromServer(HttpURLConnection connection) throws Exception {
+        StringBuilder builder = new StringBuilder();
+        String tempString = "";
+        BufferedReader serverAnswer = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+        while ((tempString = serverAnswer.readLine()) != null) {
+            builder.append(tempString);
+        }
+
+        connection.disconnect();
+
+        String userJSONFormat = builder.toString();
+        JSONObject user = new JSONObject(userJSONFormat);
+
+        return user;
     }
 
     public void setReceivedCallToFalse() {
         EmergencyServer.called = false;
-    }
-
-    private String getAlarmLog() {
-        String log = "";
-        // TODO
-        return log;
     }
 
     public static Callable<Boolean> emergencyServerWasCalled() {

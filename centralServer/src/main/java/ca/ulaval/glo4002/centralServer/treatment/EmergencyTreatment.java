@@ -24,7 +24,6 @@ public abstract class EmergencyTreatment {
     }
 
     protected void addAlarmToUserList(int userID, AlarmType type) {
-        System.out.println("godo addAlarmToUser...");
         Date currentDate = new Date();
         Alarm alarm = new Alarm(type, currentDate);
         userDirectory.obtainUser(userID).addAlarm(alarm);

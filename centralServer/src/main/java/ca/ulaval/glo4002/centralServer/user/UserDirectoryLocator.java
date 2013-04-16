@@ -7,6 +7,7 @@ public class UserDirectoryLocator {
 
     public static synchronized UserDirectoryLocator getInstance() {
         if (instance == null) {
+            System.out.println("crée le userDirectoryLocator");
             instance = new UserDirectoryLocator();
         }
         return instance;
@@ -14,5 +15,9 @@ public class UserDirectoryLocator {
 
     public UserDirectory getUserDirectory() {
         return userDirectory;
+    }
+
+    public void deleteDirectory() {
+        instance = null;
     }
 }
