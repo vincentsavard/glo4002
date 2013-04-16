@@ -18,21 +18,23 @@ public class HTTPRequestSenderTest {
     private static final int A_PORT = 8080;
 
     private Client client;
+    private WebResource resource;
+    private Builder builder;
+    private ClientResponse clientResponse;
 
     private HTTPRequestSender HTTPRequestSender;
 
     @Before
-    public void initPOSTRequestSender() {
+    public void initHTTPRequestSender() {
         client = mock(Client.class);
+        resource = mock(WebResource.class);
+        builder = mock(Builder.class);
+        clientResponse = mock(ClientResponse.class);
         HTTPRequestSender = new HTTPRequestSender(A_PORT, client);
     }
 
     @Test(expected = HTTPException.class)
     public void throwsHTTPExceptionWhenResponseFromPOSTRequestIsNotOk() {
-        WebResource resource = mock(WebResource.class);
-        Builder builder = mock(Builder.class);
-        ClientResponse clientResponse = mock(ClientResponse.class);
-
         doReturn(resource).when(client).resource(anyString());
         doReturn(builder).when(resource).type(anyString());
         doReturn(clientResponse).when(builder).post(ClientResponse.class, A_MESSAGE);
