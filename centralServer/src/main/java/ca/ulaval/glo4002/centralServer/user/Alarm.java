@@ -3,17 +3,15 @@ package ca.ulaval.glo4002.centralServer.user;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import ca.ulaval.glo4002.centralServer.communication.Communicator.CommunicationType;
+
 public class Alarm {
 
-    public enum AlarmType {
-        FIRE, INTRUSION
-    };
-
-    private AlarmType alarmType;
+    private CommunicationType communicationType;
     private Date date;
 
-    public Alarm(AlarmType type, Date date) {
-        this.alarmType = type;
+    public Alarm(CommunicationType type, Date date) {
+        this.communicationType = type;
         this.date = date;
     }
 
@@ -21,7 +19,7 @@ public class Alarm {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         String formatedDate = dateFormat.format(date);
 
-        String log = "Type=" + alarmType.toString() + ", date=" + formatedDate + "\n";
+        String log = "Type=" + communicationType.toString() + ", date=" + formatedDate + "\n";
 
         return log;
     }
