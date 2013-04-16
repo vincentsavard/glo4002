@@ -24,8 +24,8 @@ public class User {
         this.userAddress = address;
     }
 
-    public int getID() {
-        return userID;
+    public boolean isSameID(int ID) {
+        return userID == ID;
     }
 
     public String getAddress() {

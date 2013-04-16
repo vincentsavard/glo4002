@@ -11,7 +11,7 @@ public class UserDirectory {
 
     public boolean userExists(int userID) {
         for (User user : users) {
-            if (user.getID() == userID) {
+            if (user.isSameID(userID)) {
                 return true;
             }
         }
@@ -24,7 +24,7 @@ public class UserDirectory {
 
     public User obtainUser(int userID) throws UserNotFoundException {
         for (User user : users) {
-            if (user.getID() == userID) {
+            if (user.isSameID(userID)) {
                 return user;
             }
         }
