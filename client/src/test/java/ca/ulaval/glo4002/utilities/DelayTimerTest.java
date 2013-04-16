@@ -32,4 +32,21 @@ public class DelayTimerTest {
         assertFalse(delayManager.isRunning());
     }
 
+    @Test
+    public void canStartDelayWhenDelayIsAlreadyStarted() {
+        delayManager.startDelay(A_DELAY);
+        delayManager.startDelay(A_DELAY);
+
+        assertTrue(delayManager.isRunning());
+    }
+
+    @Test
+    public void canCancelDelayEvenIfDelayIsAlreadyCanceled() {
+        delayManager.startDelay(A_DELAY);
+        delayManager.cancelDelay();
+        delayManager.cancelDelay();
+
+        assertFalse(delayManager.isRunning());
+    }
+
 }
