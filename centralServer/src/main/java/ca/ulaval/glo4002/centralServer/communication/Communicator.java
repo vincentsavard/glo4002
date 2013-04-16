@@ -37,7 +37,7 @@ public class Communicator {
             messageToSend.put(ADDRESS_KEY, userAddress);
             messageToSend.put(MESSAGE_KEY, message);
         } catch (JSONException e) {
-            throw new JsonPutException(e.getMessage());
+            throw new JSONPutException(e.getMessage());
         }
         return messageToSend.toString();
     }

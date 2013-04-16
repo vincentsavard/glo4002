@@ -26,6 +26,7 @@ public class CommunicatorProvider extends PerRequestTypeInjectableProvider<Conte
             public Communicator getValue() {
                 return communicator;
             }
+
         };
     }
 
