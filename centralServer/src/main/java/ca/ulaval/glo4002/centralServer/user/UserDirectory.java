@@ -40,17 +40,8 @@ public class UserDirectory {
     }
 
     public void registerUser(int newUserID, String userInformation) {
-        User newUser = createNewUser(newUserID, userInformation);
-        addUser(newUser);
-    }
-
-    private User createNewUser(int newUserID, String userInformation) {
         User newUser = new User(newUserID, userInformation);
-        return newUser;
-    }
-    
-    private void addUser(User user) {
-        userList.add(user);
+        userList.add(newUser);
     }
 
 }
