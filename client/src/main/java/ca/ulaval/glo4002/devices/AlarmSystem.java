@@ -18,8 +18,6 @@ public class AlarmSystem implements DelayTimerDelegate {
     private boolean ready = true;
     private DelayTimer delayTimer = new DelayTimer(this);
 
-    public AlarmSystem() {}
-
     public boolean validatePIN(String typedPIN) {
         return (isValidPIN(typedPIN) || RAPID_PIN == typedPIN);
     }

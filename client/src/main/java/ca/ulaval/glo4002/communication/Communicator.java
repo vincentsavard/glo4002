@@ -1,6 +1,6 @@
 package ca.ulaval.glo4002.communication;
 
-import ca.ulaval.glo4002.common.requestSender.POSTRequestSender;
+import ca.ulaval.glo4002.common.requestSender.HTTPRequestSender;
 
 public class Communicator {
 
@@ -12,7 +12,8 @@ public class Communicator {
     };
 
     private int userID;
-    private POSTRequestSender postRequestSender = new POSTRequestSender(CENTRAL_SERVER_PORT);
+
+    private HTTPRequestSender requestSender = new HTTPRequestSender(CENTRAL_SERVER_PORT);
 
     public Communicator(String houseAddress) {
         requestUserIDFromCentralServer(houseAddress);
@@ -34,18 +35,20 @@ public class Communicator {
 
     public void sendMessageToCentralServer(TargetResource targetResource) {
         String resourceURL = generateResourceURL(targetResource);
-        postRequestSender.sendRequest(resourceURL);
+
+        requestSender.sendPOSTRequest(resourceURL);
     }
 
     public String sendMessageToCentralServer(TargetResource targetResource, String messageToSend) {
         String resourceURL = generateResourceURL(targetResource);
-        String response = postRequestSender.sendRequest(resourceURL, messageToSend);
+        String response = requestSender.sendPOSTRequest(resourceURL, messageToSend);
         return response;
     }
 
     // For test purposes only
-    protected Communicator(String houseAddress, POSTRequestSender postRequestSender) {
-        this.postRequestSender = postRequestSender;
+    protected Communicator(String houseAddress, HTTPRequestSender requestSender) {
+        this.requestSender = requestSender;
+
         requestUserIDFromCentralServer(houseAddress);
     }
 

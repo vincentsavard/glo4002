@@ -8,26 +8,29 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import ca.ulaval.glo4002.common.requestSender.POSTRequestSender;
+import ca.ulaval.glo4002.common.requestSender.HTTPRequestSender;
 import ca.ulaval.glo4002.communication.Communicator.TargetResource;
 
 public class CommunicatorTest {
 
     private static final String A_MESSAGE = "Message";
     private static final String AN_ADDRESS = "123 rue ville";
+
     private static final TargetResource A_POLICE_TARGET_RESOURCE = TargetResource.POLICE;
     private static final TargetResource A_REGISTRATION_TARGET_RESOURCE = TargetResource.REGISTRATION;
 
     @Mock
-    private POSTRequestSender postRequestSender;
+    private HTTPRequestSender requestSender;
+    private static final String EXPECTED_USER_ID = "1";
 
     private Communicator communicator;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        doReturn("1").when(postRequestSender).sendRequest(anyString(), anyString());
-        communicator = new Communicator(AN_ADDRESS, postRequestSender);
+
+        doReturn(EXPECTED_USER_ID).when(requestSender).sendPOSTRequest(anyString(), anyString());
+        communicator = new Communicator(AN_ADDRESS, requestSender);
     }
 
     @Test
@@ -35,19 +38,20 @@ public class CommunicatorTest {
         String urlResource = communicator.generateResourceURL(A_POLICE_TARGET_RESOURCE);
 
         communicator.sendMessageToCentralServer(A_POLICE_TARGET_RESOURCE, A_MESSAGE);
-        verify(postRequestSender).sendRequest(urlResource, A_MESSAGE);
+        verify(requestSender).sendPOSTRequest(urlResource, A_MESSAGE);
     }
 
     @Test
     public void registersHouseWhenCommunicatorIsCreated() {
         String urlResource = communicator.generateResourceURL(A_REGISTRATION_TARGET_RESOURCE);
-        verify(postRequestSender).sendRequest(urlResource, AN_ADDRESS);
+        verify(requestSender).sendPOSTRequest(urlResource, AN_ADDRESS);
     }
 
     @Test
-    public void callsSendPostRequestWhenSending() {
-        communicator.sendMessageToCentralServer(A_POLICE_TARGET_RESOURCE);
-        verify(postRequestSender).sendRequest(anyString());
+    public void callsSendPOSTRequestWhenSending() {
+        String urlResource = communicator.generateResourceURL(A_POLICE_TARGET_RESOURCE);
+        communicator.sendMessageToCentralServer(A_POLICE_TARGET_RESOURCE, A_MESSAGE);
+        verify(requestSender).sendPOSTRequest(urlResource, A_MESSAGE);
     }
 
 }
