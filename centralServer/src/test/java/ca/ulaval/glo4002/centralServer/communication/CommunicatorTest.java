@@ -11,7 +11,7 @@ import org.mockito.MockitoAnnotations;
 
 import ca.ulaval.glo4002.centralServer.communication.Communicator.CommunicationType;
 import ca.ulaval.glo4002.centralServer.user.User;
-import ca.ulaval.glo4002.common.requestSender.POSTRequestSender;
+import ca.ulaval.glo4002.common.requestSender.HTTPRequestSender;
 
 public class CommunicatorTest {
 
@@ -19,7 +19,7 @@ public class CommunicatorTest {
     private static final String AN_ADDRESS = "Address 1";
 
     @Mock
-    private POSTRequestSender postRequestSender;
+    private HTTPRequestSender requestSender;
 
     @InjectMocks
     private Communicator communicator = new Communicator(COMMUNICATION_TYPE);
@@ -36,7 +36,7 @@ public class CommunicatorTest {
 
         communicator.sendMessageToEmergencyServer(user);
 
-        verify(postRequestSender).sendRequest(anyString(), anyString());
+        verify(requestSender).sendPOSTRequest(anyString(), anyString());
     }
 
 }

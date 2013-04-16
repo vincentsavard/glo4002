@@ -23,7 +23,7 @@ public class UserDirectoryTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        doReturn(AN_ID).when(user).getID();
+        doReturn(true).when(user).isSameID(AN_ID);
     }
 
     @Test
@@ -41,7 +41,12 @@ public class UserDirectoryTest {
     public void whenAUserIsRegisteredThenAUserIsAddedToTheUserDirectory() {
         userDirectory.registerUser(AN_ID, USER_INFORMATION);
         User receivedUser = userDirectory.obtainUser(AN_ID);
+<<<<<<< HEAD
         assertEquals(AN_ID, receivedUser.getID());
+=======
+        assertTrue(user.isSameID(AN_ID));
+        assertTrue(receivedUser.isSameID(AN_ID));
+>>>>>>> d5a582e60bfdc29f41c5f2a3c4a5056bad0831ad
     }
 
     @Test

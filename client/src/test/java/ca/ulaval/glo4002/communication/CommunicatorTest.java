@@ -3,52 +3,55 @@ package ca.ulaval.glo4002.communication;
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 
-import java.util.HashMap;
-
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import ca.ulaval.glo4002.common.requestSender.GETRequestSender;
-import ca.ulaval.glo4002.common.requestSender.POSTRequestSender;
+import ca.ulaval.glo4002.common.requestSender.HTTPRequestSender;
 import ca.ulaval.glo4002.communication.Communicator.TargetResource;
-import ca.ulaval.glo4002.utilities.JSONMessageEncoder;
 
 public class CommunicatorTest {
 
-    private static final int USER_ID = 1;
-    private static final TargetResource A_VALID_TARGET_RESOURCE = TargetResource.POLICE;
+    private static final String A_MESSAGE = "Message";
+    private static final String AN_ADDRESS = "123 rue ville";
+
+    private static final TargetResource A_POLICE_TARGET_RESOURCE = TargetResource.POLICE;
+    private static final TargetResource A_REGISTRATION_TARGET_RESOURCE = TargetResource.REGISTRATION;
 
     @Mock
-    private POSTRequestSender postRequestSender;
+    private HTTPRequestSender requestSender;
+    private static final String EXPECTED_USER_ID = "1";
 
-    @Mock
-    private GETRequestSender getRequestSender;
-
-    @Mock
-    private JSONMessageEncoder messageEncoder;
-
-    @InjectMocks
-    private Communicator communicator = new Communicator(USER_ID);
+    private Communicator communicator;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+
+        doReturn(EXPECTED_USER_ID).when(requestSender).sendPOSTRequest(anyString(), anyString());
+        communicator = new Communicator(AN_ADDRESS, requestSender);
     }
 
     @Test
-    @SuppressWarnings("unchecked")
-    public void callsSendPostRequestWhenSendingWithAttributes() {
-        communicator.sendMessageToCentralServer(any(HashMap.class), A_VALID_TARGET_RESOURCE);
-        verify(postRequestSender).sendRequest(anyString(), anyString());
+    public void callsSendPostRequestWhenSendingWithMessage() {
+        String urlResource = communicator.generateResourceURL(A_POLICE_TARGET_RESOURCE);
+
+        communicator.sendMessageToCentralServer(A_POLICE_TARGET_RESOURCE, A_MESSAGE);
+        verify(requestSender).sendPOSTRequest(urlResource, A_MESSAGE);
     }
 
     @Test
-    public void callsSendGetRequestWhenSending() {
-        communicator.sendMessageToCentralServer(A_VALID_TARGET_RESOURCE);
-        verify(getRequestSender).sendRequest(anyString());
+    public void registersHouseWhenCommunicatorIsCreated() {
+        String urlResource = communicator.generateResourceURL(A_REGISTRATION_TARGET_RESOURCE);
+        verify(requestSender).sendPOSTRequest(urlResource, AN_ADDRESS);
+    }
+
+    @Test
+    public void callsSendPOSTRequestWhenSending() {
+        String urlResource = communicator.generateResourceURL(A_POLICE_TARGET_RESOURCE);
+        communicator.sendMessageToCentralServer(A_POLICE_TARGET_RESOURCE, A_MESSAGE);
+        verify(requestSender).sendPOSTRequest(urlResource, A_MESSAGE);
     }
 
 }

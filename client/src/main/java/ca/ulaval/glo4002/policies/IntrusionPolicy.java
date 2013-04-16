@@ -5,10 +5,9 @@ import ca.ulaval.glo4002.devices.AlarmSystem;
 
 public class IntrusionPolicy extends Policy {
 
-    public IntrusionPolicy(AlarmSystem alarmSystem) {
+    public IntrusionPolicy(AlarmSystem alarmSystem, Communicator communicator) {
         super(alarmSystem);
-        int userID = alarmSystem.getUserID();
-        communicator = new Communicator(userID);
+        this.communicator = communicator;
         targetResource = Communicator.TargetResource.POLICE;
     }
 

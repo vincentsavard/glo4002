@@ -23,7 +23,6 @@ public class AlarmSystemTest {
     private static final String INVALID_PIN = "54321";
     private static final String FORBIDDEN_PIN = "A345";
     private static final String NEW_PIN = "98765";
-    private static final int AN_ID = 123;
 
     @Mock
     private DelayTimer delayTimer;
@@ -33,7 +32,7 @@ public class AlarmSystemTest {
 
     @Before
     public void setUp() {
-        alarmSystem = new AlarmSystem(AN_ID);
+        alarmSystem = new AlarmSystem();
         MockitoAnnotations.initMocks(this);
         doAnswer(new Answer<Object>() {
 
@@ -47,13 +46,18 @@ public class AlarmSystemTest {
     }
 
     @Test
-    public void systemValidatesDefaultPINWhenCreated() {
+    public void whenSystemIsCreatedItValidatesDefaultPIN() {
         assertTrue(alarmSystem.validatePIN(DEFAULT_PIN));
     }
 
     @Test
-    public void systemValidatesRapidPIN() {
+    public void whenRapidPINIsGivenSystemValidatesRapidPIN() {
         assertTrue(alarmSystem.validatePIN(RAPID_PIN));
+    }
+
+    @Test
+    public void whenAWrongPINIsGivenThenSystemDoesntValidatePIN() {
+        assertFalse(alarmSystem.validatePIN(INVALID_PIN));
     }
 
     @Test(expected = InvalidPINException.class)
@@ -72,37 +76,37 @@ public class AlarmSystemTest {
     }
 
     @Test
-    public void newPINIsValidatedWhenAValidPINChangeIsMade() {
+    public void whenAValidPINChangeIsMadeNewPINisValidated() {
         alarmSystem.changePIN(VALID_PIN, NEW_PIN);
         assertTrue(alarmSystem.validatePIN(NEW_PIN));
     }
 
     @Test
-    public void systemIsDisarmedWhenCreated() {
+    public void whenSystemIsCreatedThenSystemIsDisarmed() {
         assertFalse(alarmSystem.isArmed());
     }
 
     @Test
-    public void unarmedSystemIsArmedWhenMethodArmIsCalled() {
+    public void whenMethodArmIsCalledThenUnarmedSystemIsArmed() {
         alarmSystem.armWithThirtySecondsDelay();
         assertTrue(alarmSystem.isArmed());
     }
 
     @Test
-    public void armedSystemIsDisarmedWhenMethodDisarmedIsCalled() {
+    public void whenMethodDisarmedIsCalledThenArmedSystemIsDisarmed() {
         alarmSystem.armWithThirtySecondsDelay();
         alarmSystem.disarm();
         assertFalse(alarmSystem.isArmed());
     }
 
     @Test(expected = BadStateException.class)
-    public void systemNotReadyThrowsExceptionWhenMethodArmIsCalled() {
+    public void whenMethodArmIsCalledSystemNotReadyThrowsException() {
         alarmSystem.setNotReady();
         alarmSystem.armWithThirtySecondsDelay();
     }
 
     @Test
-    public void systemSetNotReadyAndSetReadyCanBeArmed() {
+    public void whenSystemSetNotReadyAndSetReadyThenCanBeArmed() {
         alarmSystem.setNotReady();
         alarmSystem.setReady();
 
@@ -118,14 +122,14 @@ public class AlarmSystemTest {
     }
 
     @Test
-    public void theSystemIsArmedWhenDelayRunsOut() {
+    public void whenDelayRunsOutTheSystemIsArmed() {
         alarmSystem.armWithThirtySecondsDelay();
         assertTrue(alarmSystem.isArmed());
     }
 
     @Test
     public void whenArmingSystemIfSystemIsDisarmedBeforeDelayExpiredThenItIsStillDisarmedAfterDelay() {
-        AlarmSystem alarmSystemWithDelay = new AlarmSystem(AN_ID);
+        AlarmSystem alarmSystemWithDelay = new AlarmSystem();
 
         alarmSystemWithDelay.armWithThirtySecondsDelay();
         alarmSystemWithDelay.disarm();

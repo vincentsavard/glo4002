@@ -1,45 +1,55 @@
 package ca.ulaval.glo4002.communication;
 
-import java.util.HashMap;
-
-import ca.ulaval.glo4002.common.requestSender.GETRequestSender;
-import ca.ulaval.glo4002.common.requestSender.POSTRequestSender;
-import ca.ulaval.glo4002.utilities.JSONMessageEncoder;
+import ca.ulaval.glo4002.common.requestSender.HTTPRequestSender;
 
 public class Communicator {
 
     private static final int CENTRAL_SERVER_PORT = 9001;
+    private static final String REGISTER_URL = "register/";
 
     public static enum TargetResource {
         FIRE, POLICE, REGISTRATION
     };
 
-    protected int userID;
-    protected JSONMessageEncoder messageEncoder = new JSONMessageEncoder();
-    protected POSTRequestSender postRequestSender = new POSTRequestSender(CENTRAL_SERVER_PORT);
-    protected GETRequestSender getRequestSender = new GETRequestSender(CENTRAL_SERVER_PORT);;
+    private int userID;
 
-    public Communicator(int userID) {
-        this.userID = userID;
+    private HTTPRequestSender requestSender = new HTTPRequestSender(CENTRAL_SERVER_PORT);
+
+    public Communicator(String houseAddress) {
+        requestUserIDFromCentralServer(houseAddress);
     }
 
-    protected Communicator() {
-
+    private void requestUserIDFromCentralServer(String houseAddress) {
+        String response = sendMessageToCentralServer(TargetResource.REGISTRATION, houseAddress);
+        userID = Integer.parseInt(response);
     }
 
-    private String generateResourceURL(int userID, TargetResource targetResource) {
-        return String.format("client/%d/%s", userID, targetResource.toString().toLowerCase());
+    // This method is protected because it is used in the tests
+    protected String generateResourceURL(TargetResource targetResource) {
+        if (targetResource.equals(TargetResource.REGISTRATION)) {
+            return REGISTER_URL;
+        } else {
+            return String.format("client/%d/%s", userID, targetResource.toString().toLowerCase());
+        }
     }
 
     public void sendMessageToCentralServer(TargetResource targetResource) {
-        String resourceURL = generateResourceURL(userID, targetResource);
-        getRequestSender.sendRequest(resourceURL);
+        String resourceURL = generateResourceURL(targetResource);
+
+        requestSender.sendPOSTRequest(resourceURL);
     }
 
-    public void sendMessageToCentralServer(HashMap<String, String> attributes, TargetResource targetResource) {
-        String messageToSend = messageEncoder.generateEncodedMessage(attributes);
-        String resourceURL = generateResourceURL(userID, targetResource);
-        postRequestSender.sendRequest(resourceURL, messageToSend);
+    public String sendMessageToCentralServer(TargetResource targetResource, String messageToSend) {
+        String resourceURL = generateResourceURL(targetResource);
+        String response = requestSender.sendPOSTRequest(resourceURL, messageToSend);
+        return response;
+    }
+
+    // For test purposes only
+    protected Communicator(String houseAddress, HTTPRequestSender requestSender) {
+        this.requestSender = requestSender;
+
+        requestUserIDFromCentralServer(houseAddress);
     }
 
 }

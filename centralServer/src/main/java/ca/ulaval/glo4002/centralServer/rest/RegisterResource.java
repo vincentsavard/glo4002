@@ -16,8 +16,14 @@ public class RegisterResource {
 
     @POST
     public Response registerUser(String userInformation) {
+<<<<<<< HEAD
         Integer newUserID = userDirectory.generateNewID();
         userDirectory.registerUser(newUserID, userInformation);
+=======
+        Integer newUserID = userRegistrar.generateUserID();
+
+        userRegistrar.registerUser(newUserID, userInformation);
+>>>>>>> d5a582e60bfdc29f41c5f2a3c4a5056bad0831ad
         return Response.status(RESPONSE_OK).entity(newUserID.toString()).build();
     }
 

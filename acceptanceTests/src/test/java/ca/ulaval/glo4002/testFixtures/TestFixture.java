@@ -2,11 +2,18 @@ package ca.ulaval.glo4002.testFixtures;
 
 import static org.junit.Assert.*;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
+import org.codehaus.jettison.json.JSONObject;
+
 import ca.ulaval.glo4002.centralServer.main.CentralServer;
-import ca.ulaval.glo4002.communication.Registrar;
+import ca.ulaval.glo4002.centralServer.user.UserDirectoryLocator;
+import ca.ulaval.glo4002.communication.Communicator;
 import ca.ulaval.glo4002.devices.AlarmSystem;
 import ca.ulaval.glo4002.devices.Detector;
 import ca.ulaval.glo4002.devices.Keypad;
@@ -27,9 +34,14 @@ public class TestFixture {
     private static final int THIRTY_SECONDS_IN_MILLISECONDS = 30000;
     private static final String AN_ADDRESS = "123 rue ville";
 
+    private static final String ALARM_LOG_RESOURCE = "http://localhost:9001/alarm/";
+    private static final String USER_ID = "1";
+    private static final String ALARM_KEY = "alarms";
+
     private CentralServer centralServer;
     private EmergencyServer emergencyServer;
     private AlarmSystem alarmSystem;
+    private Communicator communicator;
     private Keypad keypad;
     private Detector mainDoorDetector;
     private Detector secondaryDoorDetector;
@@ -48,12 +60,12 @@ public class TestFixture {
     public void stopServers() throws Exception {
         centralServer.stopServer();
         emergencyServer.stopServer();
+        UserDirectoryLocator.getInstance().deleteDirectory();
     }
 
     public void createAlarmSystem() {
-        Registrar registrar = new Registrar();
-        int userID = registrar.requestUserIDFromCentralServer(AN_ADDRESS);
-        alarmSystem = new AlarmSystem(userID);
+        alarmSystem = new AlarmSystem();
+        communicator = new Communicator(AN_ADDRESS);
         keypad = new Keypad(alarmSystem);
         alarmSystem.setReady();
     }
@@ -64,13 +76,13 @@ public class TestFixture {
 
     public void openMainDoor() {
         startTime = System.currentTimeMillis();
-        mainDoorIntrusionPolicy = new MainDoorIntrusionPolicy(alarmSystem);
+        mainDoorIntrusionPolicy = new MainDoorIntrusionPolicy(alarmSystem, communicator);
         mainDoorDetector = new Detector(mainDoorIntrusionPolicy);
         mainDoorDetector.trigger();
     }
 
     public void openSecondaryDoor() {
-        intrusionPolicy = new IntrusionPolicy(alarmSystem);
+        intrusionPolicy = new IntrusionPolicy(alarmSystem, communicator);
         secondaryDoorDetector = new Detector(intrusionPolicy);
         secondaryDoorDetector.trigger();
     }
@@ -106,7 +118,7 @@ public class TestFixture {
     }
 
     public void triggerMovementDetector() {
-        intrusionPolicy = new IntrusionPolicy(alarmSystem);
+        intrusionPolicy = new IntrusionPolicy(alarmSystem, communicator);
         movementDetector = new Detector(intrusionPolicy);
         movementDetector.trigger();
     }
@@ -135,6 +147,46 @@ public class TestFixture {
 
     public void verifyPoliceWasNotCalled() {
         assertFalse(EmergencyServer.called);
+    }
+
+    public void verifyAlarmLogIsEmpty() throws Exception {
+        JSONObject log = getJSONAlarmLog();
+        assertTrue(log.isNull(ALARM_KEY));
+    }
+
+    public void verifyAlarmLogIsNotEmpty() throws Exception {
+        JSONObject log = getJSONAlarmLog();
+        assertFalse(log.isNull(ALARM_KEY));
+    }
+
+    private JSONObject getJSONAlarmLog() throws Exception {
+        URL url = new URL(ALARM_LOG_RESOURCE + USER_ID);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+        connection.setRequestProperty("Accept", "application/json");
+
+        if (connection.getResponseCode() != 200) {
+            throw new RuntimeException("Failed : HTTP error code : " + connection.getResponseCode());
+        }
+
+        return getJSONResponseFromServer(connection);
+    }
+
+    private JSONObject getJSONResponseFromServer(HttpURLConnection connection) throws Exception {
+        StringBuilder builder = new StringBuilder();
+        String tempString = "";
+        BufferedReader serverAnswer = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+        while ((tempString = serverAnswer.readLine()) != null) {
+            builder.append(tempString);
+        }
+
+        connection.disconnect();
+
+        String userJSONFormat = builder.toString();
+        JSONObject user = new JSONObject(userJSONFormat);
+
+        return user;
     }
 
     public void setReceivedCallToFalse() {

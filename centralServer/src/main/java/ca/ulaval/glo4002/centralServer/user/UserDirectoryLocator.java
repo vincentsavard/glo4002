@@ -7,6 +7,7 @@ public class UserDirectoryLocator {
 
     public static synchronized UserDirectoryLocator getInstance() {
         if (instance == null) {
+            System.out.println("crée le userDirectoryLocator");
             instance = new UserDirectoryLocator();
         }
         return instance;
@@ -15,4 +16,10 @@ public class UserDirectoryLocator {
     public UserDirectory getUserDirectory() {
         return userDirectory;
     }
+
+    // this is to restart the server when testing
+    public void deleteDirectory() {
+        instance = null;
+    }
+
 }

@@ -7,20 +7,28 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import ca.ulaval.glo4002.communication.Communicator;
 import ca.ulaval.glo4002.devices.AlarmSystem;
 import ca.ulaval.glo4002.policies.PolicyFactory.PolicyType;
 
 public class PolicyFactoryTest {
 
+    private PolicyType INVALID_POLICY;
     private PolicyFactory policyFactory;
 
     @Mock
     private AlarmSystem alarmSystem;
 
+    @Mock
+    private Communicator communicator;
+
+    @Mock
+    private Policy invalidPolicy;
+
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        policyFactory = new PolicyFactory(alarmSystem);
+        policyFactory = new PolicyFactory(alarmSystem, communicator);
     }
 
     @Test
@@ -39,6 +47,11 @@ public class PolicyFactoryTest {
     public void whenCreatingMainDoorPolicyAMainDoorPolicyIsReturned() {
         Policy mainDoorPolicy = policyFactory.createPolicy(PolicyType.MAIN_DOOR_INTRUSION_POLICY);
         assertTrue(mainDoorPolicy instanceof MainDoorIntrusionPolicy);
+    }
+
+    @Test(expected = InvalidPolicyException.class)
+    public void whenCreatingInvalidPolicyThenThrowAnException() {
+        invalidPolicy = policyFactory.createPolicy(INVALID_POLICY);
     }
 
 }
