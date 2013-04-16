@@ -24,4 +24,5 @@ public class RegisterResource {
         userRegistrar.registerUser(newUserID, address);
         return Response.status(RESPONSE_OK).entity(newUserID.toString()).build();
     }
+
 }
