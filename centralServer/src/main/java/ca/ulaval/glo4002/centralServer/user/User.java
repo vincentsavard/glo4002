@@ -1,12 +1,11 @@
 package ca.ulaval.glo4002.centralServer.user;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -16,9 +15,7 @@ public class User {
     private int userID;
     private String userAddress;
 
-    @XmlElementWrapper()
-    @XmlElements({ @XmlElement(name = "alarms") })
-    private ArrayList<Alarm> alarms = new ArrayList<Alarm>();
+    private List<Alarm> alarms = Collections.synchronizedList(new ArrayList<Alarm>());
 
     protected User() {}
 
@@ -35,12 +32,13 @@ public class User {
         return userAddress;
     }
 
-    public Alarm[] getGroups() {
+    public Alarm[] getAlarms() {
         return alarms.toArray(new Alarm[alarms.size()]);
     }
 
     public void addAlarm(Alarm alarm) {
         alarms.add(alarm);
+        System.out.println("ajout d'Alarm à l'user " + userID);
     }
 
 }
