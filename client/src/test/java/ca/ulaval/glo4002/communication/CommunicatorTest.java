@@ -18,6 +18,7 @@ public class CommunicatorTest {
 
     private static final String AN_ADDRESS = "123 rue ville";
     private static final TargetResource A_VALID_TARGET_RESOURCE = TargetResource.POLICE;
+    private static final String EXPECTED_USER_ID = "1";
 
     @Mock
     private HTTPRequestSender requestSender;
@@ -30,7 +31,7 @@ public class CommunicatorTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        doReturn("1").when(requestSender).sendPOSTRequest(anyString(), anyString());
+        doReturn(EXPECTED_USER_ID).when(requestSender).sendPOSTRequest(anyString(), anyString());
         communicator = new Communicator(AN_ADDRESS, requestSender, messageEncoder);
     }
 

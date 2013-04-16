@@ -46,6 +46,7 @@ public class HTTPRequestSenderTest {
     @Test(expected = HTTPException.class)
     public void throwsHTTPExceptionWhenResponseFromEmptyPOSTRequestIsNotOk() {
         WebResource resource = mock(WebResource.class);
+        clientResponse = mock(ClientResponse.class);
         Builder builder = mock(Builder.class);
         ClientResponse clientResponse = mock(ClientResponse.class);
 
