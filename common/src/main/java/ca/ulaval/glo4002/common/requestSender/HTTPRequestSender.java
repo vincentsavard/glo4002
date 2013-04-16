@@ -4,7 +4,7 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
-public abstract class HTTPRequestSender {
+public class HTTPRequestSender {
 
     protected static final String APPLICATION_TYPE = "application/json";
     protected static final int RESPONSE_OK = 200;
@@ -25,6 +25,33 @@ public abstract class HTTPRequestSender {
     protected WebResource prepareRequest(String resource) {
         WebResource webResource = changeWebResource(resource);
         return webResource;
+    }
+
+    public String sendPOSTRequest(String resource, String messageToSend) {
+        WebResource webResource = prepareRequest(resource);
+
+        ClientResponse response = webResource.type(APPLICATION_TYPE).post(ClientResponse.class, messageToSend);
+
+        treatAnswerFromRequest(response);
+        return response.getEntity(String.class);
+    }
+
+    public String sendPOSTRequest(String resource) {
+        WebResource webResource = prepareRequest(resource);
+
+        ClientResponse response = webResource.type(APPLICATION_TYPE).post(ClientResponse.class);
+
+        treatAnswerFromRequest(response);
+        return response.getEntity(String.class);
+    }
+
+    public String sendGETRequest(String resource) {
+        WebResource webResource = prepareRequest(resource);
+
+        ClientResponse response = webResource.type(APPLICATION_TYPE).get(ClientResponse.class);
+
+        treatAnswerFromRequest(response);
+        return response.getEntity(String.class);
     }
 
     protected void treatAnswerFromRequest(ClientResponse response) {
