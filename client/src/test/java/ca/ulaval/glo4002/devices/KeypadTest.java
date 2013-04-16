@@ -11,6 +11,7 @@ public class KeypadTest {
 
     private static final String NEW_PIN = "98765";
     private static final String VALID_PIN = "12345";
+    private static final String INVALID_PIN = "31584";
 
     private Keypad keypad;
 
@@ -41,6 +42,16 @@ public class KeypadTest {
     public void canSendRequestToChangePIN() {
         keypad.requestPINChange(VALID_PIN, NEW_PIN);
         verify(alarmSystem).changePIN(VALID_PIN, NEW_PIN);
+    }
+
+    @Test(expected = InvalidPINException.class)
+    public void whenArmSystemIfPINIsInvalidThenAnInvalidPINExceptionIsThrown() {
+        keypad.armSystem(INVALID_PIN);
+    }
+
+    @Test(expected = InvalidPINException.class)
+    public void whenDisarmSystemIfPINIsInvalidThenAnInvalidPINExceptionIsThrown() {
+        keypad.disarmSystem(INVALID_PIN);
     }
 
 }
