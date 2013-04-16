@@ -10,7 +10,7 @@ public class UserDirectory {
     private int lastIdGenerated = 0;
 
     public boolean userExists(int userID) {
-        for (User user : userList) {
+        for (User user : users) {
             if (user.isSameID(userID)) {
                 return true;
             }
@@ -23,7 +23,7 @@ public class UserDirectory {
     }
 
     public User obtainUser(int userID) throws UserNotFoundException {
-        for (User user : userList) {
+        for (User user : users) {
             if (user.isSameID(userID)) {
                 return user;
             }
