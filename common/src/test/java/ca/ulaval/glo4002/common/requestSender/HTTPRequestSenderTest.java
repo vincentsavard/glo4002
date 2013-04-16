@@ -25,7 +25,7 @@ public class HTTPRequestSenderTest {
     private HTTPRequestSender HTTPRequestSender;
 
     @Before
-    public void initHTTPRequestSender() {
+    public void setUp() {
         client = mock(Client.class);
         resource = mock(WebResource.class);
         builder = mock(Builder.class);
