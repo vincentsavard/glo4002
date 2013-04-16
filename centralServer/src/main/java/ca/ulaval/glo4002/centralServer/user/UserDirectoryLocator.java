@@ -17,6 +17,7 @@ public class UserDirectoryLocator {
         return userDirectory;
     }
 
+    // this is to restart the server when testing
     public void deleteDirectory() {
         instance = null;
     }
