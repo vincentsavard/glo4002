@@ -2,6 +2,7 @@ package ca.ulaval.glo4002.acceptanceTests;
 
 import static org.junit.Assert.*;
 
+import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -24,6 +25,11 @@ public class TestDisarmViaKeypad {
     public void setUp() throws Exception {
         fixture.createAlarmSystem();
         fixture.armSystem();
+    }
+    
+    @After
+    public void teardown() {
+        fixture.setReceivedCallToFalse();
     }
     
     @AfterClass
