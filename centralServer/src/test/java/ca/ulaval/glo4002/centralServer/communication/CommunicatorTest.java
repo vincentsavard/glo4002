@@ -13,7 +13,7 @@ import org.mockito.MockitoAnnotations;
 
 import ca.ulaval.glo4002.centralServer.communication.Communicator.CommunicationType;
 import ca.ulaval.glo4002.centralServer.user.User;
-import ca.ulaval.glo4002.common.requestSender.POSTRequestSender;
+import ca.ulaval.glo4002.common.requestSender.HTTPRequestSender;
 
 public class CommunicatorTest {
 
@@ -24,7 +24,7 @@ public class CommunicatorTest {
     private static final String A_MESSAGE = MESSAGE_KEY;
 
     @Mock
-    private POSTRequestSender postRequestSender;
+    private HTTPRequestSender requestSender;
 
     @InjectMocks
     private Communicator communicator = new Communicator();
@@ -41,7 +41,7 @@ public class CommunicatorTest {
 
         communicator.sendMessageToEmergencyServer(COMMUNICATION_TYPE, user);
 
-        verify(postRequestSender).sendRequest(anyString(), anyString());
+        verify(requestSender).sendPOSTRequest(anyString(), anyString());
     }
 
     @Test
@@ -52,7 +52,7 @@ public class CommunicatorTest {
 
         communicator.sendMessageToEmergencyServer(COMMUNICATION_TYPE, user, A_MESSAGE);
 
-        verify(postRequestSender).sendRequest(anyString(), eq(expectedMessage.toString()));
+        verify(requestSender).sendPOSTRequest(anyString(), eq(expectedMessage.toString()));
     }
 
     private String createExpectedMessage() throws JSONException {

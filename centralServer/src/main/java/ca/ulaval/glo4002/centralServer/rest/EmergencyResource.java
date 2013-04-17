@@ -15,7 +15,7 @@ import ca.ulaval.glo4002.centralServer.user.UserNotFoundException;
 public class EmergencyResource {
 
     private static final int RESPONSE_OK = 200;
-    private static final int HTTP_NOT_FOUND = 404;
+    private static final int RESPONSE_HTTP_NOT_FOUND = 404;
 
     @POST
     @Path("{userID}/police")
@@ -24,7 +24,7 @@ public class EmergencyResource {
             EmergencyTreatment policeTreatment = new EmergencyTreatment(CommunicationType.POLICE, communicator);
             policeTreatment.processRequest(userIDPassedByGetRequest);
         } catch (UserNotFoundException userNotFoundException) {
-            return Response.status(HTTP_NOT_FOUND).build();
+            return Response.status(RESPONSE_HTTP_NOT_FOUND).build();
         }
         return Response.status(RESPONSE_OK).build();
     }
@@ -36,7 +36,7 @@ public class EmergencyResource {
             EmergencyTreatment firefighterTreatment = new EmergencyTreatment(CommunicationType.FIRE, communicator);
             firefighterTreatment.processRequest(userIDPassedByGetRequest, zonePassedByGetRequest);
         } catch (UserNotFoundException userNotFoundException) {
-            return Response.status(HTTP_NOT_FOUND).build();
+            return Response.status(RESPONSE_HTTP_NOT_FOUND).build();
         }
         return Response.status(RESPONSE_OK).build();
     }

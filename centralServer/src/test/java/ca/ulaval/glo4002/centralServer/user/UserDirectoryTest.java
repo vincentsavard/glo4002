@@ -13,6 +13,7 @@ public class UserDirectoryTest {
 
     private static final int AN_ID = 1;
     private static final int UNASSIGNED_ID = 4000;
+    private static final String USER_INFORMATION = "some information";
 
     @Mock
     private User user;
@@ -22,7 +23,7 @@ public class UserDirectoryTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        doReturn(AN_ID).when(user).getID();
+        doReturn(true).when(user).isSameID(AN_ID);
     }
 
     @Test
@@ -31,16 +32,17 @@ public class UserDirectoryTest {
     }
 
     @Test
-    public void addedUserExistsInDirectory() {
-        userDirectory.addUser(user);
+    public void registeredUserExistsInDirectory() {
+        userDirectory.registerUser(AN_ID, USER_INFORMATION);
         assertTrue(userDirectory.userExists(AN_ID));
     }
 
     @Test
-    public void existingUserCanBeReturned() throws UserNotFoundException {
-        userDirectory.addUser(user);
+    public void whenAUserIsRegisteredThenAUserIsAddedToTheUserDirectory() {
+        userDirectory.registerUser(AN_ID, USER_INFORMATION);
         User receivedUser = userDirectory.obtainUser(AN_ID);
-        assertEquals(user.getID(), receivedUser.getID());
+        assertTrue(user.isSameID(AN_ID));
+        assertTrue(receivedUser.isSameID(AN_ID));
     }
 
     @Test

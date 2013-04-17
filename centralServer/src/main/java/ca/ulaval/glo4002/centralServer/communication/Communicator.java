@@ -4,7 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import ca.ulaval.glo4002.centralServer.user.User;
-import ca.ulaval.glo4002.common.requestSender.POSTRequestSender;
+import ca.ulaval.glo4002.common.requestSender.HTTPRequestSender;
 
 public class Communicator {
 
@@ -12,7 +12,7 @@ public class Communicator {
     private static final String ADDRESS_KEY = "address";
     private static final String MESSAGE_KEY = "message";
 
-    private POSTRequestSender postRequestSender = new POSTRequestSender(EMERGENCY_SERVER_PORT);
+    private HTTPRequestSender requestSender = new HTTPRequestSender(EMERGENCY_SERVER_PORT);
 
     public static enum CommunicationType {
         FIRE, POLICE
@@ -21,14 +21,14 @@ public class Communicator {
     public void sendMessageToEmergencyServer(CommunicationType communicationType, User obtainedUser) {
         String resource = generateResourceURL(communicationType);
         String messageToSend = obtainedUser.getAddress();
-        postRequestSender.sendRequest(resource, messageToSend);
+        requestSender.sendPOSTRequest(resource, messageToSend);
     }
 
     public void sendMessageToEmergencyServer(CommunicationType communicationType, User obtainedUser, String message) {
         String resource = generateResourceURL(communicationType);
         String userAddress = obtainedUser.getAddress();
         String messageToSend = createMessageToSend(userAddress, message);
-        postRequestSender.sendRequest(resource, messageToSend);
+        requestSender.sendPOSTRequest(resource, messageToSend);
     }
 
     private String createMessageToSend(String userAddress, String message) {
