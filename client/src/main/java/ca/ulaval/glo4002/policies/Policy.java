@@ -13,7 +13,7 @@ public abstract class Policy {
         this.alarmSystem = alarmSystem;
     }
 
-    public void executeProcedure() {
+    public void executeProcedure(int zone) {
         if (alarmSystem.isArmed()) {
             sendMessage(targetResource);
         }
