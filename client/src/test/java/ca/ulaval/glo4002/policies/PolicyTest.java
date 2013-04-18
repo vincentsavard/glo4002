@@ -13,6 +13,8 @@ import ca.ulaval.glo4002.devices.AlarmSystem;
 
 public class PolicyTest {
 
+    private static int A_ZONE = 10;
+
     private Policy policy;
 
     @Mock
@@ -30,14 +32,14 @@ public class PolicyTest {
     @Test
     public void whenSystemIsNotArmedThereIsNoMessageSent() {
         doReturn(false).when(alarmSystem).isArmed();
-        policy.executeProcedure();
+        policy.executeProcedure(A_ZONE);
         verify(communicator, never()).sendMessageToCentralServer(any(Communicator.TargetResource.class));
     }
 
     @Test
     public void whenSystemIsArmedThereIsAMessageSent() {
         doReturn(true).when(alarmSystem).isArmed();
-        policy.executeProcedure();
+        policy.executeProcedure(A_ZONE);
         verify(communicator).sendMessageToCentralServer(any(Communicator.TargetResource.class));
     }
 

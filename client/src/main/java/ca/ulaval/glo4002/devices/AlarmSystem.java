@@ -17,6 +17,7 @@ public class AlarmSystem implements DelayTimerDelegate {
     private StatusType status = StatusType.DISARMED;
     private boolean ready = true;
     private DelayTimer delayTimer = new DelayTimer(this);
+    private Siren siren = new Siren();
 
     public boolean validatePIN(String typedPIN) {
         return (isValidPIN(typedPIN) || RAPID_PIN == typedPIN);
@@ -60,6 +61,7 @@ public class AlarmSystem implements DelayTimerDelegate {
 
     public void disarm() {
         status = StatusType.DISARMED;
+        siren.deactivate();
     }
 
     public void setNotReady() {
@@ -79,6 +81,14 @@ public class AlarmSystem implements DelayTimerDelegate {
 
     private void startDelay() {
         delayTimer.startDelay(DELAY_IN_SECOND);
+    }
+
+    public void activateSiren() {
+        siren.activate();
+    }
+
+    public void desactivateSiren() {
+        siren.deactivate();
     }
 
     // For test purpose only
