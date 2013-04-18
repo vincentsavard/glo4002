@@ -36,12 +36,11 @@ public class UserDirectoryTest {
         userDirectory.registerUser(AN_ID, USER_INFORMATION);
         assertTrue(userDirectory.userExists(AN_ID));
     }
-    
+
     @Test
     public void whenAUserIsRegisteredThenAUserIsAddedToTheUserDirectory() {
         userDirectory.registerUser(AN_ID, USER_INFORMATION);
         User receivedUser = userDirectory.obtainUser(AN_ID);
-
         assertTrue(receivedUser.isSameID(AN_ID));
     }
 
@@ -57,5 +56,5 @@ public class UserDirectoryTest {
     public void tryingToObtainANotExistingUserThrowsAnException() throws UserNotFoundException {
         userDirectory.obtainUser(UNASSIGNED_ID);
     }
-    
+
 }
