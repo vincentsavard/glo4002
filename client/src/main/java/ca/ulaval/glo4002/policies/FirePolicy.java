@@ -15,6 +15,7 @@ public class FirePolicy extends Policy {
     public void executeProcedure(int zone) {
         if (alarmSystem.isArmed()) {
             communicator.sendMessageToCentralServer(targetResource, String.valueOf(zone));
+            alarmSystem.activateSiren();
         }
     }
 
