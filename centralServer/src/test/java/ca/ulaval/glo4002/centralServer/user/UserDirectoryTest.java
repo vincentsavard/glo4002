@@ -41,7 +41,6 @@ public class UserDirectoryTest {
     public void whenAUserIsRegisteredThenAUserIsAddedToTheUserDirectory() {
         userDirectory.registerUser(AN_ID, USER_INFORMATION);
         User receivedUser = userDirectory.obtainUser(AN_ID);
-        assertTrue(user.isSameID(AN_ID));
         assertTrue(receivedUser.isSameID(AN_ID));
     }
 
