@@ -15,7 +15,8 @@ public class EmergencyServer {
     private static final String PACKAGE_NAME = "ca.ulaval.glo4002.emergencyServer.rest";
     private static final String CONTEXT_PATH = "/";
     private static final String PATH_SPEC = "/*";
-    public static boolean called = false;
+    public static boolean policeWasCalled = false;
+    public static boolean fireFightersWereCalled = false;
     public static int calledZone = 0;
 
     private Server server;

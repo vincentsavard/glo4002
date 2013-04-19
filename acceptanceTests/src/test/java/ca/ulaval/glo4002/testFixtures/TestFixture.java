@@ -129,7 +129,7 @@ public class TestFixture {
 
     public void verifyPoliceWasCalledAfterThirtySeconds() throws InterruptedException {
         Awaitility.setDefaultTimeout(THIRTY_TWO_SECONDS_IN_MILLISECONDS, TimeUnit.MILLISECONDS);
-        Awaitility.await().until(emergencyServerWasCalled());
+        Awaitility.await().until(emergenciesWereCalled());
         long endTime = System.currentTimeMillis();
 
         assertTrue(endTime - startTime >= THIRTY_SECONDS_IN_MILLISECONDS);
@@ -146,11 +146,11 @@ public class TestFixture {
     }
 
     public void verifyPoliceWasCalled() {
-        assertTrue(EmergencyServer.called);
+        assertTrue(EmergencyServer.policeWasCalled);
     }
 
     public void verifyPoliceWasNotCalled() {
-        assertFalse(EmergencyServer.called);
+        assertFalse(EmergencyServer.policeWasCalled);
     }
 
     public void verifyAlarmLogIsEmpty() throws Exception {
@@ -194,14 +194,14 @@ public class TestFixture {
     }
 
     public void setReceivedCallToFalse() {
-        EmergencyServer.called = false;
+        EmergencyServer.policeWasCalled = false;
     }
 
-    public static Callable<Boolean> emergencyServerWasCalled() {
+    public static Callable<Boolean> emergenciesWereCalled() {
         return new Callable<Boolean>() {
 
             public Boolean call() throws Exception {
-                return EmergencyServer.called;
+                return EmergencyServer.policeWasCalled;
             }
 
         };
@@ -244,7 +244,11 @@ public class TestFixture {
     }
 
     public void verifyZoneWasTransmittedToCentral() {
-        // TODO
+        assertEquals(EmergencyServer.calledZone, A_ZONE);
+    }
+
+    public void firemenWereCalled() {
+        assertTrue(EmergencyServer.fireFightersWereCalled);
     }
 
 }

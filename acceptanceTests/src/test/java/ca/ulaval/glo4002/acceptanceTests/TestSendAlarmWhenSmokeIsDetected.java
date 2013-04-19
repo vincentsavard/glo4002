@@ -39,7 +39,7 @@ public class TestSendAlarmWhenSmokeIsDetected {
         fixture.detectSmoke();
 
         fixture.verifySirenIsOn();
-        fixture.emergencyServerWasCalled();
+        fixture.firemenWereCalled();
         fixture.verifyZoneWasTransmittedToCentral();
     }
 

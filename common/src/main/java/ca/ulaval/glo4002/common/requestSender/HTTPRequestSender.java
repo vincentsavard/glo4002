@@ -48,6 +48,8 @@ public class HTTPRequestSender {
     public String sendGETRequest(String resource) {
         WebResource webResource = prepareRequest(resource);
 
+        System.out.println(webResource);
+
         ClientResponse response = webResource.type(APPLICATION_TYPE).get(ClientResponse.class);
 
         treatAnswerFromRequest(response);
