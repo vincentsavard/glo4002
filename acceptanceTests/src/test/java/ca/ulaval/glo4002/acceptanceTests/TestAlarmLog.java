@@ -1,7 +1,6 @@
 package ca.ulaval.glo4002.acceptanceTests;
 
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -16,7 +15,7 @@ public class TestAlarmLog {
     public static void setUpClass() throws Exception {
         fixture = new TestFixture();
     }
-    
+
     @Before
     public void setUp() throws Exception {
         fixture.initServers();

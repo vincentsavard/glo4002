@@ -33,6 +33,7 @@ public class TestFixture {
     private static final int THIRTY_TWO_SECONDS_IN_MILLISECONDS = 32000;
     private static final int THIRTY_SECONDS_IN_MILLISECONDS = 30000;
     private static final String AN_ADDRESS = "123 rue ville";
+    private static final int A_ZONE = 10;
 
     private static final String ALARM_LOG_RESOURCE = "http://localhost:9001/alarm/";
     private static final String USER_ID = "1";
@@ -77,13 +78,13 @@ public class TestFixture {
     public void openMainDoor() {
         startTime = System.currentTimeMillis();
         mainDoorIntrusionPolicy = new MainDoorIntrusionPolicy(alarmSystem, communicator);
-        mainDoorDetector = new Detector(mainDoorIntrusionPolicy);
+        mainDoorDetector = new Detector(mainDoorIntrusionPolicy, A_ZONE);
         mainDoorDetector.trigger();
     }
 
     public void openSecondaryDoor() {
         intrusionPolicy = new IntrusionPolicy(alarmSystem, communicator);
-        secondaryDoorDetector = new Detector(intrusionPolicy);
+        secondaryDoorDetector = new Detector(intrusionPolicy, A_ZONE);
         secondaryDoorDetector.trigger();
     }
 
@@ -119,7 +120,7 @@ public class TestFixture {
 
     public void triggerMovementDetector() {
         intrusionPolicy = new IntrusionPolicy(alarmSystem, communicator);
-        movementDetector = new Detector(intrusionPolicy);
+        movementDetector = new Detector(intrusionPolicy, A_ZONE);
         movementDetector.trigger();
     }
 

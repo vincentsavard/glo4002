@@ -11,4 +11,12 @@ public class FirePolicy extends Policy {
         targetResource = Communicator.TargetResource.FIRE;
     }
 
+    @Override
+    public void executeProcedure(int zone) {
+        if (alarmSystem.isArmed()) {
+            communicator.sendMessageToCentralServer(targetResource, String.valueOf(zone));
+            alarmSystem.activateSiren();
+        }
+    }
+
 }
