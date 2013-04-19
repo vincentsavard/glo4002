@@ -195,6 +195,7 @@ public class TestFixture {
 
     public void setReceivedCallToFalse() {
         EmergencyServer.policeWasCalled = false;
+        EmergencyServer.fireFightersWereCalled = false;
     }
 
     public static Callable<Boolean> emergenciesWereCalled() {
@@ -249,6 +250,15 @@ public class TestFixture {
 
     public void firemenWereCalled() {
         assertTrue(EmergencyServer.fireFightersWereCalled);
+    }
+
+    public void requestPINChangeWithCurrentPIN() {
+        alarmSystem.changePIN(DEFAULT_PIN, DEFAULT_PIN);
+    }
+
+    public void requestPINChangeWithPreviousPIN() {
+        alarmSystem.changePIN(DEFAULT_PIN, NEW_PIN);
+        alarmSystem.changePIN(NEW_PIN, DEFAULT_PIN);
     }
 
 }

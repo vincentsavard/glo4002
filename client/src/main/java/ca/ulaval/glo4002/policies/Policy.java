@@ -29,4 +29,9 @@ public abstract class Policy {
         this.communicator = communicator;
     }
 
+    public void executeProcedure() {
+        // TODO Auto-generated method stub
+
+    }
+
 }
