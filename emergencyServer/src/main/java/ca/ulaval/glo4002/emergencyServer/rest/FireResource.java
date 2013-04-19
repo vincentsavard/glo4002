@@ -23,4 +23,5 @@ public class FireResource {
 
         return Response.status(RESPONSE_OK).build();
     }
+
 }

@@ -36,7 +36,7 @@ public class MainDoorIntrusionPolicyTest {
     @Test
     public void whenSystemIsNotArmedDelayTimerDoesNotStart() {
         doReturn(false).when(alarmSystem).isArmed();
-        policy.executeProcedure();
+        policy.executeProcedure(A_ZONE);
         verify(delayTimer, never()).startDelay(anyInt());
     }
 

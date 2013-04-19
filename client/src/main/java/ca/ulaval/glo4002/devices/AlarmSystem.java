@@ -5,6 +5,8 @@ import ca.ulaval.glo4002.utilities.DelayTimerDelegate;
 
 public class AlarmSystem implements DelayTimerDelegate {
 
+    private static final String PIN_FORMAT = "^[0-9]{4,6}$";
+
     private enum StatusType {
         ARMED, SUSPENDED, DISARMED
     };
@@ -39,7 +41,7 @@ public class AlarmSystem implements DelayTimerDelegate {
     }
 
     private void checkPINFormat(String PIN) {
-        if (!PIN.matches("^[0-9]{4,6}$")) {
+        if (!PIN.matches(PIN_FORMAT)) {
             throw new PINFormatForbiddenException("The format of the PIN is incorrect.");
         }
     }

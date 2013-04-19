@@ -12,7 +12,6 @@ public class PoliceResource {
 
     @POST
     public String treatRequest(String helpRequesterInformations) {
-        System.out.println("police called!");
         EmergencyServer.policeWasCalled = true;
         return RESPONSE_TO_POST_REQUEST;
     }

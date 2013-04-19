@@ -37,7 +37,6 @@ public class TestSendAlarmSignalWhenIntrusion {
     // This test takes at least 30 seconds. Don't run it if you're in a hurry
     @Test
     public void emergenciesCalledThirtySecondsAfterMainDoorIntrusion() throws InterruptedException {
-
         fixture.openMainDoor();
 
         fixture.verifyPoliceWasNotCalled();

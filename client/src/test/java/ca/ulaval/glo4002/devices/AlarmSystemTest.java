@@ -22,7 +22,7 @@ public class AlarmSystemTest {
     private static final String RAPID_PIN = "#0";
     private static final String INVALID_PIN = "54321";
     private static final String TOO_SHORT_PIN = "123";
-    private static final String TOO_LONG_PIN = "123467";
+    private static final String TOO_LONG_PIN = "1235467";
     private static final String FORBIDDEN_PIN = "A345";
     private static final String LONG_NEW_PIN = "987654";
     private static final String SHORT_NEW_PIN = "1234";
@@ -74,19 +74,19 @@ public class AlarmSystemTest {
         alarmSystem.changePIN(SHORT_NEW_PIN, VALID_PIN);
     }
 
-    @Test(expected = InvalidPINException.class)
+    @Test(expected = PINFormatForbiddenException.class)
     public void whenChangingPINIfPINIsNotValidThrowAnException() {
-        alarmSystem.changePIN(INVALID_PIN, LONG_NEW_PIN);
+        alarmSystem.changePIN(VALID_PIN, TOO_LONG_PIN);
     }
 
-    @Test(expected = InvalidPINException.class)
+    @Test(expected = PINFormatForbiddenException.class)
     public void whenChangingPINIfPINIsTooShortThrowAnException() {
-        alarmSystem.changePIN(INVALID_PIN, TOO_SHORT_PIN);
+        alarmSystem.changePIN(VALID_PIN, TOO_SHORT_PIN);
     }
 
-    @Test(expected = InvalidPINException.class)
+    @Test(expected = PINFormatForbiddenException.class)
     public void whenChangingPINIfPINIsTooLongThrowAnException() {
-        alarmSystem.changePIN(INVALID_PIN, TOO_LONG_PIN);
+        alarmSystem.changePIN(VALID_PIN, TOO_LONG_PIN);
     }
 
     @Test(expected = InvalidPINException.class)
