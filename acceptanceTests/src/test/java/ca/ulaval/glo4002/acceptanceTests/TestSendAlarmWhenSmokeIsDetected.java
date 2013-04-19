@@ -25,7 +25,7 @@ public class TestSendAlarmWhenSmokeIsDetected {
     }
 
     @After
-    public void teardown() {
+    public void tearDown() {
         fixture.setReceivedCallToFalse();
     }
 
