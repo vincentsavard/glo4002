@@ -30,7 +30,7 @@ public class EmergencyResource {
     }
 
     @POST
-    @Path("{userID}/firefighter")
+    @Path("{userID}/fire")
     public Response askForFireFighterAssistance(@Context Communicator communicator, @PathParam("userID") String userIDPassedByGetRequest, String zonePassedByGetRequest) {
         try {
             EmergencyTreatment firefighterTreatment = new EmergencyTreatment(CommunicationType.FIRE, communicator);
