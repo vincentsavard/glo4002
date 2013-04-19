@@ -18,6 +18,7 @@ import ca.ulaval.glo4002.devices.AlarmSystem;
 import ca.ulaval.glo4002.devices.Detector;
 import ca.ulaval.glo4002.devices.Keypad;
 import ca.ulaval.glo4002.emergencyServer.main.EmergencyServer;
+import ca.ulaval.glo4002.policies.FirePolicy;
 import ca.ulaval.glo4002.policies.IntrusionPolicy;
 import ca.ulaval.glo4002.policies.MainDoorIntrusionPolicy;
 import ca.ulaval.glo4002.policies.Policy;
@@ -48,7 +49,9 @@ public class TestFixture {
     private Detector secondaryDoorDetector;
     private Policy mainDoorIntrusionPolicy;
     private Policy intrusionPolicy;
+    private Policy firePolicy;
     private Detector movementDetector;
+    private Detector smokeDetector;
     private long startTime;
 
     public void initServers() throws Exception {
@@ -228,6 +231,20 @@ public class TestFixture {
 
     public void verifyDefaultPINIsStillTheValidPIN() {
         assertTrue(alarmSystem.validatePIN(DEFAULT_PIN));
+    }
+
+    public void detectSmoke() {
+        firePolicy = new FirePolicy(alarmSystem, communicator);
+        smokeDetector = new Detector(firePolicy, A_ZONE);
+        smokeDetector.trigger();
+    }
+
+    public void verifySirenIsOn() {
+        assertTrue(alarmSystem.isSirenRinging());
+    }
+
+    public void verifyZoneWasTransmittedToCentral() {
+        // TODO
     }
 
 }

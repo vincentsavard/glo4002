@@ -40,6 +40,7 @@ public class Communicator {
     }
 
     public String sendMessageToCentralServer(TargetResource targetResource, String messageToSend) {
+        System.out.println(messageToSend);
         String resourceURL = generateResourceURL(targetResource);
         String response = requestSender.sendPOSTRequest(resourceURL, messageToSend);
         return response;

@@ -100,4 +100,8 @@ public class AlarmSystem implements DelayTimerDelegate {
         }
     }
 
+    public boolean isSirenRinging() {
+        return siren.isRinging();
+    }
+
 }
