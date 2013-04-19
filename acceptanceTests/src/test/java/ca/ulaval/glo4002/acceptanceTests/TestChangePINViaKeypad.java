@@ -26,7 +26,7 @@ public class TestChangePINViaKeypad {
     }
 
     @After
-    public void teardown() {
+    public void tearDown() {
         fixture.setReceivedCallToFalse();
     }
 
