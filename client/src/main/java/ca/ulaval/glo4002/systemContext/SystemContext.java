@@ -13,10 +13,6 @@ import ca.ulaval.glo4002.policies.Policy;
 
 public class SystemContext {
 
-    private static int ZONE_ONE = 1;
-    private static int ZONE_TWO = 2;
-    private static int ZONE_THREE = 3;
-
     private Communicator communicator;
     private AlarmSystem alarmSystem = new AlarmSystem();
 
@@ -26,21 +22,21 @@ public class SystemContext {
         communicator = new Communicator(houseAddress);
     }
 
-    public void createMainDoorDetector() {
+    public void createMainDoorDetector(int zone) {
         Policy mainDoorIntrusionPolicy = new MainDoorIntrusionPolicy(alarmSystem, communicator);
-        Detector mainDoorDetector = new Detector(mainDoorIntrusionPolicy, ZONE_ONE);
+        Detector mainDoorDetector = new Detector(mainDoorIntrusionPolicy, zone);
         detectors.add(mainDoorDetector);
     }
 
-    public void createIntrusionDetector() {
+    public void createIntrusionDetector(int zone) {
         Policy intrusionPolicy = new IntrusionPolicy(alarmSystem, communicator);
-        Detector intrusionDetector = new Detector(intrusionPolicy, ZONE_TWO);
+        Detector intrusionDetector = new Detector(intrusionPolicy, zone);
         detectors.add(intrusionDetector);
     }
 
-    public void createFireDetector() {
+    public void createFireDetector(int zone) {
         Policy firePolicy = new FirePolicy(alarmSystem, communicator);
-        Detector fireDetector = new Detector(firePolicy, ZONE_THREE);
+        Detector fireDetector = new Detector(firePolicy, zone);
         detectors.add(fireDetector);
     }
 
