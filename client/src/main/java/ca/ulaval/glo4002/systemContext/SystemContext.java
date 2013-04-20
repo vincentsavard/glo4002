@@ -15,40 +15,40 @@ public class SystemContext {
 
     private Communicator communicator;
     private AlarmSystem alarmSystem = new AlarmSystem();
-    
+
     private List<Detector> detectors = new ArrayList<Detector>();
-    
+
     public SystemContext(String houseAddress) {
         communicator = new Communicator(houseAddress);
     }
-    
-    public void createMainDoorDetector() {
+
+    public void createMainDoorDetector(int zone) {
         Policy mainDoorIntrusionPolicy = new MainDoorIntrusionPolicy(alarmSystem, communicator);
-        Detector mainDoorDetector = new Detector(mainDoorIntrusionPolicy);
+        Detector mainDoorDetector = new Detector(mainDoorIntrusionPolicy, zone);
         detectors.add(mainDoorDetector);
     }
-    
-    public void createIntrusionDetector() {
+
+    public void createIntrusionDetector(int zone) {
         Policy intrusionPolicy = new IntrusionPolicy(alarmSystem, communicator);
-        Detector intrusionDetector = new Detector(intrusionPolicy);
+        Detector intrusionDetector = new Detector(intrusionPolicy, zone);
         detectors.add(intrusionDetector);
     }
-    
-    public void createFireDetector() {
+
+    public void createFireDetector(int zone) {
         Policy firePolicy = new FirePolicy(alarmSystem, communicator);
-        Detector fireDetector = new Detector(firePolicy);
+        Detector fireDetector = new Detector(firePolicy, zone);
         detectors.add(fireDetector);
     }
-    
-    //For test purpose only
+
+    // For test purpose only
     protected int getNumberOfDetectors() {
         return detectors.size();
     }
 
-    //For test purpose only
+    // For test purpose only
     protected SystemContext(AlarmSystem alarmSystem, Communicator communicator) {
         this.alarmSystem = alarmSystem;
         this.communicator = communicator;
     }
-    
+
 }
