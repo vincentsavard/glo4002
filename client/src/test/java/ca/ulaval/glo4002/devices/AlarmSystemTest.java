@@ -21,8 +21,11 @@ public class AlarmSystemTest {
     private static final String VALID_PIN = "12345";
     private static final String RAPID_PIN = "#0";
     private static final String INVALID_PIN = "54321";
+    private static final String TOO_SHORT_PIN = "123";
+    private static final String TOO_LONG_PIN = "1235467";
     private static final String FORBIDDEN_PIN = "A345";
-    private static final String NEW_PIN = "98765";
+    private static final String LONG_NEW_PIN = "987654";
+    private static final String SHORT_NEW_PIN = "1234";
 
     @Mock
     private DelayTimer delayTimer;
@@ -60,14 +63,35 @@ public class AlarmSystemTest {
         assertFalse(alarmSystem.validatePIN(INVALID_PIN));
     }
 
-    @Test(expected = InvalidPINException.class)
+    @Test(expected = RecentlyUsedPINException.class)
+    public void whenChangingPINIfPINISCurrentPINThrowAnException() {
+        alarmSystem.changePIN(VALID_PIN, VALID_PIN);
+    }
+
+    @Test(expected = RecentlyUsedPINException.class)
+    public void whenChangingPINIfPINISRecentlyUsedPINThrowAnException() {
+        alarmSystem.changePIN(VALID_PIN, SHORT_NEW_PIN);
+        alarmSystem.changePIN(SHORT_NEW_PIN, VALID_PIN);
+    }
+
+    @Test(expected = PINFormatForbiddenException.class)
     public void whenChangingPINIfPINIsNotValidThrowAnException() {
-        alarmSystem.changePIN(INVALID_PIN, NEW_PIN);
+        alarmSystem.changePIN(VALID_PIN, TOO_LONG_PIN);
+    }
+
+    @Test(expected = PINFormatForbiddenException.class)
+    public void whenChangingPINIfPINIsTooShortThrowAnException() {
+        alarmSystem.changePIN(VALID_PIN, TOO_SHORT_PIN);
+    }
+
+    @Test(expected = PINFormatForbiddenException.class)
+    public void whenChangingPINIfPINIsTooLongThrowAnException() {
+        alarmSystem.changePIN(VALID_PIN, TOO_LONG_PIN);
     }
 
     @Test(expected = InvalidPINException.class)
     public void whenChangingPINIfPINIsRapidPINThrowAnException() {
-        alarmSystem.changePIN(RAPID_PIN, NEW_PIN);
+        alarmSystem.changePIN(RAPID_PIN, LONG_NEW_PIN);
     }
 
     @Test(expected = PINFormatForbiddenException.class)
@@ -76,9 +100,15 @@ public class AlarmSystemTest {
     }
 
     @Test
-    public void whenAValidPINChangeIsMadeNewPINisValidated() {
-        alarmSystem.changePIN(VALID_PIN, NEW_PIN);
-        assertTrue(alarmSystem.validatePIN(NEW_PIN));
+    public void whenAPINOfSixNumbersChangeIsMadeNewPINisValidated() {
+        alarmSystem.changePIN(VALID_PIN, LONG_NEW_PIN);
+        assertTrue(alarmSystem.validatePIN(LONG_NEW_PIN));
+    }
+
+    @Test
+    public void whenAPINOfFourNumbersChangeIsMadeNewPINisValidated() {
+        alarmSystem.changePIN(VALID_PIN, SHORT_NEW_PIN);
+        assertTrue(alarmSystem.validatePIN(SHORT_NEW_PIN));
     }
 
     @Test

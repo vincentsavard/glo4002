@@ -40,6 +40,7 @@ public class TestSendAlarmSignalWhenIntrusion {
         fixture.openMainDoor();
 
         fixture.verifyPoliceWasNotCalled();
+
         fixture.verifyPoliceWasCalledAfterThirtySeconds();
         fixture.verifyPoliceWasCalled();
     }

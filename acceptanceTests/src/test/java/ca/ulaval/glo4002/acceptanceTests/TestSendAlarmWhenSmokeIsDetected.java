@@ -1,17 +1,14 @@
 package ca.ulaval.glo4002.acceptanceTests;
 
-import static org.junit.Assert.*;
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import ca.ulaval.glo4002.devices.InvalidPINException;
 import ca.ulaval.glo4002.testFixtures.TestFixture;
 
-public class TestDisarmViaKeypad {
+public class TestSendAlarmWhenSmokeIsDetected {
 
     private static TestFixture fixture;
 
@@ -22,13 +19,13 @@ public class TestDisarmViaKeypad {
     }
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         fixture.createAlarmSystem();
         fixture.armSystem();
     }
 
     @After
-    public void teardown() {
+    public void tearDown() {
         fixture.setReceivedCallToFalse();
     }
 
@@ -38,19 +35,12 @@ public class TestDisarmViaKeypad {
     }
 
     @Test
-    public void systemIsDisarmedWhenDisarmedWithGoodNIP() {
-        fixture.disarmSystemWithGoodNIP();
-        fixture.verifyAlarmSystemIsNotArmed();
-    }
+    public void emergenciesCalledWhenSmokeDetected() {
+        fixture.detectSmoke();
 
-    @Test
-    public void systemIsArmedWhenDisarmedWithWrongNIP() {
-        try {
-            fixture.disarmSystemWithWrongPIN();
-            fail("InvalidPINException expected.");
-        } catch (InvalidPINException e) {
-            fixture.verifyAlarmSystemIsArmed();
-        }
+        fixture.verifySirenIsOn();
+        fixture.firemenWereCalled();
+        fixture.verifyZoneWasTransmittedToCentral();
     }
 
 }
