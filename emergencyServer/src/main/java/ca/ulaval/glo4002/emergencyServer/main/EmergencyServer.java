@@ -12,7 +12,7 @@ public class EmergencyServer {
     private static final String PARAM_RESSOURCE_CONFIG_CLASS = "com.sun.jersey.config.property.resourceConfigClass";
     private static final String PARAM_PACKAGE = "com.sun.jersey.config.property.packages";
     private static final String PACKAGE_RESSOURCE_CONFIG = "com.sun.jersey.api.core.PackagesResourceConfig";
-    private static final String PACKAGE_NAME = "ca.ulaval.glo4002.emergencyServer.rest";
+    private static final String PACKAGE_NAME = "ca.ulaval.glo4002.emergencyServer.core.rest";
     private static final String CONTEXT_PATH = "/";
     private static final String PATH_SPEC = "/*";
     public static boolean policeWasCalled = false;

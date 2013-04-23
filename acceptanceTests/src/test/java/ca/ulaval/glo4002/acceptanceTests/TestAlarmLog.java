@@ -24,7 +24,7 @@ public class TestAlarmLog {
     }
 
     @After
-    public void teardown() throws Exception {
+    public void tearDown() throws Exception {
         fixture.setReceivedCallToFalse();
         fixture.stopServers();
     }

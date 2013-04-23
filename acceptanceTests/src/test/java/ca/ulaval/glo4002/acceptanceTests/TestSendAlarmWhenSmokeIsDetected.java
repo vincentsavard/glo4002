@@ -35,7 +35,7 @@ public class TestSendAlarmWhenSmokeIsDetected {
     }
 
     @Test
-    public void emergenciesCalledWhenSmokeDetected() {
+    public void emergenciesAreCalledWhenSmokeIsDetected() {
         fixture.detectSmoke();
 
         fixture.verifySirenIsOn();
