@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import ca.ulaval.glo4002.devices.InvalidPINException;
+import ca.ulaval.glo4002.domain.devices.InvalidPINException;
 import ca.ulaval.glo4002.testFixtures.TestFixture;
 
 public class TestDisarmViaKeypad {
@@ -28,7 +28,7 @@ public class TestDisarmViaKeypad {
     }
 
     @After
-    public void teardown() {
+    public void tearDown() {
         fixture.setReceivedCallToFalse();
     }
 
@@ -38,13 +38,13 @@ public class TestDisarmViaKeypad {
     }
 
     @Test
-    public void systemIsDisarmedWhenDisarmedWithGoodNIP() {
-        fixture.disarmSystemWithGoodNIP();
+    public void systemIsDisarmedWhenDisarmedWithGoodPIN() {
+        fixture.disarmSystemWithGoodPIN();
         fixture.verifyAlarmSystemIsNotArmed();
     }
 
     @Test
-    public void systemIsArmedWhenDisarmedWithWrongNIP() {
+    public void systemIsArmedWhenDisarmedWithWrongPIN() {
         try {
             fixture.disarmSystemWithWrongPIN();
             fail("InvalidPINException expected.");
