@@ -18,6 +18,7 @@ import ca.ulaval.glo4002.devices.AlarmSystem;
 import ca.ulaval.glo4002.devices.Detector;
 import ca.ulaval.glo4002.devices.Keypad;
 import ca.ulaval.glo4002.emergencyServer.main.EmergencyServer;
+import ca.ulaval.glo4002.policies.FirePolicy;
 import ca.ulaval.glo4002.policies.IntrusionPolicy;
 import ca.ulaval.glo4002.policies.MainDoorIntrusionPolicy;
 import ca.ulaval.glo4002.policies.Policy;
@@ -48,7 +49,9 @@ public class TestFixture {
     private Detector secondaryDoorDetector;
     private Policy mainDoorIntrusionPolicy;
     private Policy intrusionPolicy;
+    private Policy firePolicy;
     private Detector movementDetector;
+    private Detector smokeDetector;
     private long startTime;
 
     public void initServers() throws Exception {
@@ -126,7 +129,7 @@ public class TestFixture {
 
     public void verifyPoliceWasCalledAfterThirtySeconds() throws InterruptedException {
         Awaitility.setDefaultTimeout(THIRTY_TWO_SECONDS_IN_MILLISECONDS, TimeUnit.MILLISECONDS);
-        Awaitility.await().until(emergencyServerWasCalled());
+        Awaitility.await().until(emergenciesWereCalled());
         long endTime = System.currentTimeMillis();
 
         assertTrue(endTime - startTime >= THIRTY_SECONDS_IN_MILLISECONDS);
@@ -143,11 +146,11 @@ public class TestFixture {
     }
 
     public void verifyPoliceWasCalled() {
-        assertTrue(EmergencyServer.called);
+        assertTrue(EmergencyServer.policeWasCalled);
     }
 
     public void verifyPoliceWasNotCalled() {
-        assertFalse(EmergencyServer.called);
+        assertFalse(EmergencyServer.policeWasCalled);
     }
 
     public void verifyAlarmLogIsEmpty() throws Exception {
@@ -191,14 +194,15 @@ public class TestFixture {
     }
 
     public void setReceivedCallToFalse() {
-        EmergencyServer.called = false;
+        EmergencyServer.policeWasCalled = false;
+        EmergencyServer.fireFightersWereCalled = false;
     }
 
-    public static Callable<Boolean> emergencyServerWasCalled() {
+    public static Callable<Boolean> emergenciesWereCalled() {
         return new Callable<Boolean>() {
 
             public Boolean call() throws Exception {
-                return EmergencyServer.called;
+                return EmergencyServer.policeWasCalled;
             }
 
         };
@@ -228,6 +232,33 @@ public class TestFixture {
 
     public void verifyDefaultPINIsStillTheValidPIN() {
         assertTrue(alarmSystem.validatePIN(DEFAULT_PIN));
+    }
+
+    public void detectSmoke() {
+        firePolicy = new FirePolicy(alarmSystem, communicator);
+        smokeDetector = new Detector(firePolicy, A_ZONE);
+        smokeDetector.trigger();
+    }
+
+    public void verifySirenIsOn() {
+        assertTrue(alarmSystem.isSirenRinging());
+    }
+
+    public void verifyZoneWasTransmittedToCentral() {
+        assertEquals(EmergencyServer.calledZone, A_ZONE);
+    }
+
+    public void firemenWereCalled() {
+        assertTrue(EmergencyServer.fireFightersWereCalled);
+    }
+
+    public void requestPINChangeWithCurrentPIN() {
+        alarmSystem.changePIN(DEFAULT_PIN, DEFAULT_PIN);
+    }
+
+    public void requestPINChangeWithPreviousPIN() {
+        alarmSystem.changePIN(DEFAULT_PIN, NEW_PIN);
+        alarmSystem.changePIN(NEW_PIN, DEFAULT_PIN);
     }
 
 }

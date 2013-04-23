@@ -5,6 +5,8 @@ import ca.ulaval.glo4002.utilities.DelayTimerDelegate;
 
 public class AlarmSystem implements DelayTimerDelegate {
 
+    private static final String PIN_FORMAT = "^[0-9]{4,6}$";
+
     private enum StatusType {
         ARMED, SUSPENDED, DISARMED
     };
@@ -14,6 +16,7 @@ public class AlarmSystem implements DelayTimerDelegate {
     private static final String RAPID_PIN = "#0";
 
     private String validPIN = DEFAULT_PIN;
+    private String previousPIN = DEFAULT_PIN;
     private StatusType status = StatusType.DISARMED;
     private boolean ready = true;
     private DelayTimer delayTimer = new DelayTimer(this);
@@ -25,15 +28,20 @@ public class AlarmSystem implements DelayTimerDelegate {
 
     public void changePIN(String PIN, String newPIN) {
         if (isValidPIN(PIN)) {
-            checkPINFormat(newPIN);
-            validPIN = newPIN;
+            if (!newPIN.equals(validPIN) && !newPIN.equals(previousPIN)) {
+                checkPINFormat(newPIN);
+                previousPIN = validPIN;
+                validPIN = newPIN;
+            } else {
+                throw new RecentlyUsedPINException("The new PIN is the same as a recently used PIN.");
+            }
         } else {
             throw new InvalidPINException("The PIN is invalid.");
         }
     }
 
     private void checkPINFormat(String PIN) {
-        if (!PIN.matches("^[0-9]{5}$")) {
+        if (!PIN.matches(PIN_FORMAT)) {
             throw new PINFormatForbiddenException("The format of the PIN is incorrect.");
         }
     }
@@ -98,6 +106,10 @@ public class AlarmSystem implements DelayTimerDelegate {
         } else {
             throw new BadStateException("System is not ready yet. Alarm system can't be armed.");
         }
+    }
+
+    public boolean isSirenRinging() {
+        return siren.isRinging();
     }
 
 }

@@ -18,7 +18,8 @@ public class MainDoorIntrusionPolicy extends Policy implements DelayTimerDelegat
         targetResource = Communicator.TargetResource.POLICE;
     }
 
-    public void executeProcedure() {
+    @Override
+    public void executeProcedure(int zone) {
         if (alarmSystem.isArmed()) {
             delayTimer.startDelay(INTRUSION_DELAY_IN_SECONDS);
         }
