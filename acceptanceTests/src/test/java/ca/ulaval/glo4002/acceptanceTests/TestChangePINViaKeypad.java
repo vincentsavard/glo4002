@@ -6,8 +6,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import ca.ulaval.glo4002.devices.InvalidPINException;
-import ca.ulaval.glo4002.devices.RecentlyUsedPINException;
+import ca.ulaval.glo4002.domain.devices.InvalidPINException;
+import ca.ulaval.glo4002.domain.devices.RecentlyUsedPINException;
 import ca.ulaval.glo4002.testFixtures.TestFixture;
 
 public class TestChangePINViaKeypad {
@@ -42,6 +42,12 @@ public class TestChangePINViaKeypad {
     }
 
     @Test(expected = InvalidPINException.class)
+    public void PINIsNotChangedWhenInvalidPINIsGiven() {
+        fixture.requestPINChangeWithWrongPIN();
+        fixture.verifyDefaultPINIsStillTheValidPIN();
+    }
+
+    @Test(expected = InvalidPINException.class)
     public void ExceptionIsThrownWhenChangeRequestIsMadeWithInvalidPIN() {
         fixture.requestPINChangeWithWrongPIN();
     }
@@ -54,12 +60,6 @@ public class TestChangePINViaKeypad {
     @Test(expected = RecentlyUsedPINException.class)
     public void ExceptionIsThrownWhenNewPINIsEqualToRecentlyUsedPIN() {
         fixture.requestPINChangeWithPreviousPIN();
-    }
-
-    @Test(expected = InvalidPINException.class)
-    public void PINIsNotChangedWhenInvalidPINIsGiven() {
-        fixture.requestPINChangeWithWrongPIN();
-        fixture.verifyDefaultPINIsStillTheValidPIN();
     }
 
 }

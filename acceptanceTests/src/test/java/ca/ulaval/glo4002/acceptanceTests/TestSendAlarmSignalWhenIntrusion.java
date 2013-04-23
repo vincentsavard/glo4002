@@ -25,7 +25,7 @@ public class TestSendAlarmSignalWhenIntrusion {
     }
 
     @After
-    public void teardown() {
+    public void tearDown() {
         fixture.setReceivedCallToFalse();
     }
 
@@ -36,7 +36,7 @@ public class TestSendAlarmSignalWhenIntrusion {
 
     // This test takes at least 30 seconds. Don't run it if you're in a hurry
     @Test
-    public void emergenciesCalledThirtySecondsAfterMainDoorIntrusion() throws InterruptedException {
+    public void emergenciesAreCalledThirtySecondsAfterMainDoorIntrusion() throws InterruptedException {
         fixture.openMainDoor();
 
         fixture.verifyPoliceWasNotCalled();
@@ -46,13 +46,13 @@ public class TestSendAlarmSignalWhenIntrusion {
     }
 
     @Test
-    public void emergenciesCalledWhenSecondaryDoorIntrusion() {
+    public void emergenciesAreCalledWhenSecondaryDoorIntrusion() {
         fixture.openSecondaryDoor();
         fixture.verifyPoliceWasCalled();
     }
 
     @Test
-    public void emergenciesCalledWhenMovementDetected() {
+    public void emergenciesAreCalledWhenMovementIsDetected() {
         fixture.triggerMovementDetector();
         fixture.verifyPoliceWasCalled();
     }

@@ -11,17 +11,17 @@ import java.util.concurrent.TimeUnit;
 
 import org.codehaus.jettison.json.JSONObject;
 
+import ca.ulaval.glo4002.centralServer.domain.user.UserDirectoryLocator;
 import ca.ulaval.glo4002.centralServer.main.CentralServer;
-import ca.ulaval.glo4002.centralServer.user.UserDirectoryLocator;
-import ca.ulaval.glo4002.communication.Communicator;
-import ca.ulaval.glo4002.devices.AlarmSystem;
-import ca.ulaval.glo4002.devices.Detector;
-import ca.ulaval.glo4002.devices.Keypad;
+import ca.ulaval.glo4002.core.communication.Communicator;
+import ca.ulaval.glo4002.domain.alarmSystem.AlarmSystem;
+import ca.ulaval.glo4002.domain.devices.Detector;
+import ca.ulaval.glo4002.domain.devices.Keypad;
+import ca.ulaval.glo4002.domain.policies.FirePolicy;
+import ca.ulaval.glo4002.domain.policies.IntrusionPolicy;
+import ca.ulaval.glo4002.domain.policies.MainDoorIntrusionPolicy;
+import ca.ulaval.glo4002.domain.policies.Policy;
 import ca.ulaval.glo4002.emergencyServer.main.EmergencyServer;
-import ca.ulaval.glo4002.policies.FirePolicy;
-import ca.ulaval.glo4002.policies.IntrusionPolicy;
-import ca.ulaval.glo4002.policies.MainDoorIntrusionPolicy;
-import ca.ulaval.glo4002.policies.Policy;
 
 import com.jayway.awaitility.Awaitility;
 
@@ -113,7 +113,7 @@ public class TestFixture {
         assertFalse(alarmSystem.isArmed());
     }
 
-    public void disarmSystemWithGoodNIP() {
+    public void disarmSystemWithGoodPIN() {
         keypad.disarmSystem(DEFAULT_PIN);
     }
 
@@ -178,11 +178,11 @@ public class TestFixture {
 
     private JSONObject getJSONResponseFromServer(HttpURLConnection connection) throws Exception {
         StringBuilder builder = new StringBuilder();
-        String tempString = "";
+        String currentLine = "";
         BufferedReader serverAnswer = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
-        while ((tempString = serverAnswer.readLine()) != null) {
-            builder.append(tempString);
+        while ((currentLine = serverAnswer.readLine()) != null) {
+            builder.append(currentLine);
         }
 
         connection.disconnect();
