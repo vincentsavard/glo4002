@@ -26,29 +26,29 @@ public class EmergencyTreatment {
         userDirectory.obtainUser(userID).addAlarm(alarm);
     }
 
-    public void processRequest(String userIDPassedByPOSTRequest) {
-        int userID = Integer.parseInt(userIDPassedByPOSTRequest);
-        if (userDirectory.userExists(userID)) {
-            communicator.sendMessageToEmergencyServer(communicationType, userDirectory.obtainUser(userID));
+    public void processRequest(int userIDPassedByPOSTRequest) {
+        if (userDirectory.userExists(userIDPassedByPOSTRequest)) {
+            communicator.sendMessageToEmergencyServer(communicationType,
+                                                      userDirectory.obtainUser(userIDPassedByPOSTRequest));
         } else {
             throw new UserNotFoundException("The ID " + userIDPassedByPOSTRequest
                                             + " was not found in the UsersDirectory.");
         }
 
-        addAlarmToUserList(userID);
+        addAlarmToUserList(userIDPassedByPOSTRequest);
     }
 
-    public void processRequest(String userIDPassedByPOSTRequest, String zonePassedByPOSTRequest) {
-        int userID = Integer.parseInt(userIDPassedByPOSTRequest);
-        if (userDirectory.userExists(userID)) {
-            communicator.sendMessageToEmergencyServer(communicationType, userDirectory.obtainUser(userID),
+    public void processRequest(int userIDPassedByPOSTRequest, String zonePassedByPOSTRequest) {
+        if (userDirectory.userExists(userIDPassedByPOSTRequest)) {
+            communicator.sendMessageToEmergencyServer(communicationType,
+                                                      userDirectory.obtainUser(userIDPassedByPOSTRequest),
                                                       zonePassedByPOSTRequest);
         } else {
             throw new UserNotFoundException("The ID " + userIDPassedByPOSTRequest
                                             + " was not found in the UsersDirectory.");
         }
 
-        addAlarmToUserList(userID);
+        addAlarmToUserList(userIDPassedByPOSTRequest);
     }
 
     // For test purposes only
