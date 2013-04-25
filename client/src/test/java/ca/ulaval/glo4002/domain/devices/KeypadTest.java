@@ -8,8 +8,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import ca.ulaval.glo4002.domain.alarmSystem.AlarmSystem;
-import ca.ulaval.glo4002.domain.devices.InvalidPINException;
-import ca.ulaval.glo4002.domain.devices.Keypad;
+import ca.ulaval.glo4002.domain.alarmSystem.InvalidPINException;
+import ca.ulaval.glo4002.domain.alarmSystem.PINValidator;
 
 public class KeypadTest {
 
@@ -22,12 +22,15 @@ public class KeypadTest {
     @Mock
     private AlarmSystem alarmSystem;
 
+    @Mock
+    private PINValidator validator;
+
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        keypad = new Keypad(alarmSystem);
+        keypad = new Keypad(alarmSystem, validator);
 
-        doReturn(true).when(alarmSystem).validatePIN(VALID_PIN);
+        doReturn(true).when(validator).validatePIN(VALID_PIN);
     }
 
     @Test
@@ -45,7 +48,7 @@ public class KeypadTest {
     @Test
     public void canSendRequestToChangePIN() {
         keypad.requestPINChange(VALID_PIN, NEW_PIN);
-        verify(alarmSystem).changePIN(VALID_PIN, NEW_PIN);
+        verify(validator).changePIN(VALID_PIN, NEW_PIN);
     }
 
     @Test(expected = InvalidPINException.class)
