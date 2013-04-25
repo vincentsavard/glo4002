@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import ca.ulaval.glo4002.domain.devices.InvalidPINException;
+import ca.ulaval.glo4002.domain.alarmSystem.InvalidPINException;
 import ca.ulaval.glo4002.testFixtures.TestFixture;
 
 public class TestArmViaKeypad {
