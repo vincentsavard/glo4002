@@ -10,7 +10,6 @@ import org.mockito.MockitoAnnotations;
 
 import ca.ulaval.glo4002.centralServer.core.communication.Communicator;
 import ca.ulaval.glo4002.centralServer.core.communication.Communicator.CommunicationType;
-import ca.ulaval.glo4002.centralServer.domain.treatment.EmergencyTreatment;
 import ca.ulaval.glo4002.centralServer.domain.user.Alarm;
 import ca.ulaval.glo4002.centralServer.domain.user.User;
 import ca.ulaval.glo4002.centralServer.domain.user.UserDirectory;
@@ -18,8 +17,8 @@ import ca.ulaval.glo4002.centralServer.domain.user.UserNotFoundException;
 
 public class EmergencyTreatmentTest {
 
-    private static final String A_GOOD_URL_ID = "20";
-    private static final String A_WRONG_URL_ID = "10";
+    private static final int A_GOOD_URL_ID = 20;
+    private static final int A_WRONG_URL_ID = 10;
     private static final String A_MESSAGE = "message";
     private static final CommunicationType A_COMMUNICATION_TYPE = CommunicationType.POLICE;
 
@@ -42,10 +41,9 @@ public class EmergencyTreatmentTest {
 
     @Test
     public void whenLoggingAlarmThenAlarmIsAddedToTheRightUserList() {
-        int aGoodID = Integer.parseInt(A_GOOD_URL_ID);
-        doReturn(user).when(userDirectory).obtainUser(aGoodID);
+        doReturn(user).when(userDirectory).obtainUser(A_GOOD_URL_ID);
 
-        emergencyTreatment.addAlarmToUserList(aGoodID);
+        emergencyTreatment.addAlarmToUserList(A_GOOD_URL_ID);
 
         verify(user).addAlarm(any(Alarm.class));
     }
@@ -64,10 +62,9 @@ public class EmergencyTreatmentTest {
         verify(communicator).sendMessageToEmergencyServer(A_COMMUNICATION_TYPE, user, A_MESSAGE);
     }
 
-    private void setGoodIDInUserDirectory(String goodID) {
-        int aGoodID = Integer.parseInt(goodID);
-        doReturn(true).when(userDirectory).userExists(aGoodID);
-        doReturn(user).when(userDirectory).obtainUser(aGoodID);
+    private void setGoodIDInUserDirectory(int goodID) {
+        doReturn(true).when(userDirectory).userExists(goodID);
+        doReturn(user).when(userDirectory).obtainUser(goodID);
     }
 
     @Test(expected = UserNotFoundException.class)
@@ -82,9 +79,8 @@ public class EmergencyTreatmentTest {
         emergencyTreatment.processRequest(A_WRONG_URL_ID, A_MESSAGE);
     }
 
-    private void setWrongIDInUserDirectory(String wrongID) {
-        int aWrongID = Integer.parseInt(wrongID);
-        doReturn(false).when(userDirectory).userExists(aWrongID);
+    private void setWrongIDInUserDirectory(int wrongID) {
+        doReturn(false).when(userDirectory).userExists(wrongID);
     }
 
 }
