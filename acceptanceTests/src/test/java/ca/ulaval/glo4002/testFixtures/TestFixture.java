@@ -15,6 +15,7 @@ import ca.ulaval.glo4002.centralServer.domain.user.UserDirectoryLocator;
 import ca.ulaval.glo4002.centralServer.main.CentralServer;
 import ca.ulaval.glo4002.core.communication.Communicator;
 import ca.ulaval.glo4002.domain.alarmSystem.AlarmSystem;
+import ca.ulaval.glo4002.domain.alarmSystem.PINValidator;
 import ca.ulaval.glo4002.domain.devices.Detector;
 import ca.ulaval.glo4002.domain.devices.Keypad;
 import ca.ulaval.glo4002.domain.policies.FirePolicy;
@@ -52,6 +53,7 @@ public class TestFixture {
     private Policy firePolicy;
     private Detector movementDetector;
     private Detector smokeDetector;
+    private PINValidator validator;
     private long startTime;
 
     public void initServers() throws Exception {
@@ -70,7 +72,8 @@ public class TestFixture {
     public void createAlarmSystem() {
         alarmSystem = new AlarmSystem();
         communicator = new Communicator(AN_ADDRESS);
-        keypad = new Keypad(alarmSystem);
+        validator = new PINValidator();
+        keypad = new Keypad(alarmSystem, validator);
         alarmSystem.setReady();
     }
 
@@ -223,7 +226,7 @@ public class TestFixture {
     }
 
     public void verifyDefaultPINHasBeenChangedForNewPIN() {
-        assertTrue(alarmSystem.validatePIN(NEW_PIN));
+        assertTrue(validator.validatePIN(NEW_PIN));
     }
 
     public void requestPINChangeWithWrongPIN() {
@@ -231,7 +234,7 @@ public class TestFixture {
     }
 
     public void verifyDefaultPINIsStillTheValidPIN() {
-        assertTrue(alarmSystem.validatePIN(DEFAULT_PIN));
+        assertTrue(validator.validatePIN(DEFAULT_PIN));
     }
 
     public void detectSmoke() {
@@ -253,12 +256,12 @@ public class TestFixture {
     }
 
     public void requestPINChangeWithCurrentPIN() {
-        alarmSystem.changePIN(DEFAULT_PIN, DEFAULT_PIN);
+        validator.changePIN(DEFAULT_PIN, DEFAULT_PIN);
     }
 
     public void requestPINChangeWithPreviousPIN() {
-        alarmSystem.changePIN(DEFAULT_PIN, NEW_PIN);
-        alarmSystem.changePIN(NEW_PIN, DEFAULT_PIN);
+        validator.changePIN(DEFAULT_PIN, NEW_PIN);
+        validator.changePIN(NEW_PIN, DEFAULT_PIN);
     }
 
 }
