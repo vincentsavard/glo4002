@@ -22,7 +22,7 @@ public class EmergencyResource {
     public Response askForPoliceAssistance(@Context Communicator communicator, @PathParam("userID") String userIDPassedByPOSTRequest) {
         try {
             EmergencyTreatment policeTreatment = new EmergencyTreatment(CommunicationType.POLICE, communicator);
-            policeTreatment.processRequest(userIDPassedByPOSTRequest);
+            policeTreatment.processRequest(Integer.parseInt(userIDPassedByPOSTRequest));
         } catch (UserNotFoundException e) {
             return Response.status(RESPONSE_HTTP_NOT_FOUND).build();
         }
@@ -31,10 +31,10 @@ public class EmergencyResource {
 
     @POST
     @Path("{userID}/fire")
-    public Response askForFireFighterAssistance(@Context Communicator communicator, @PathParam("userID") String userIDPassedByGetRequest, String zonePassedByPOSTRequest) {
+    public Response askForFireFighterAssistance(@Context Communicator communicator, @PathParam("userID") String userIDPassedByPOSTRequest, String zonePassedByPOSTRequest) {
         try {
             EmergencyTreatment firefighterTreatment = new EmergencyTreatment(CommunicationType.FIRE, communicator);
-            firefighterTreatment.processRequest(userIDPassedByGetRequest, zonePassedByPOSTRequest);
+            firefighterTreatment.processRequest(Integer.parseInt(userIDPassedByPOSTRequest), zonePassedByPOSTRequest);
         } catch (UserNotFoundException e) {
             return Response.status(RESPONSE_HTTP_NOT_FOUND).build();
         }
